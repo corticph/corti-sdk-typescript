@@ -11,7 +11,7 @@ import * as errors from "../../../../errors/index.js";
 
 export declare namespace Interactions {
     export interface Options {
-        environment?: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
@@ -97,8 +97,7 @@ export class Interactions {
                 const _response = await core.fetcher({
                     url: urlJoin(
                         (await core.Supplier.get(this._options.baseUrl)) ??
-                            (await core.Supplier.get(this._options.environment)) ??
-                            environments.CortiEnvironment.Default,
+                            (await core.Supplier.get(this._options.environment)),
                         "interactions/",
                     ),
                     method: "GET",
@@ -107,7 +106,8 @@ export class Interactions {
                         "Tenant-Name": await core.Supplier.get(this._options.tenantName),
                         "X-Fern-Language": "JavaScript",
                         "X-Fern-SDK-Name": "@markitosha/core",
-                        "X-Fern-SDK-Version": "0.0.179",
+                        "X-Fern-SDK-Version": "0.0.0-alpha.7",
+                        "User-Agent": "@markitosha/core/0.0.0-alpha.7",
                         "X-Fern-Runtime": core.RUNTIME.type,
                         "X-Fern-Runtime-Version": core.RUNTIME.version,
                         ...requestOptions?.headers,
@@ -229,8 +229,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.CortiEnvironment.Default,
+                    (await core.Supplier.get(this._options.environment)),
                 "interactions/",
             ),
             method: "POST",
@@ -239,7 +238,8 @@ export class Interactions {
                 "Tenant-Name": await core.Supplier.get(this._options.tenantName),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.179",
+                "X-Fern-SDK-Version": "0.0.0-alpha.7",
+                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -347,8 +347,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.CortiEnvironment.Default,
+                    (await core.Supplier.get(this._options.environment)),
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "GET",
@@ -357,7 +356,8 @@ export class Interactions {
                 "Tenant-Name": await core.Supplier.get(this._options.tenantName),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.179",
+                "X-Fern-SDK-Version": "0.0.0-alpha.7",
+                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -454,8 +454,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.CortiEnvironment.Default,
+                    (await core.Supplier.get(this._options.environment)),
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "DELETE",
@@ -464,7 +463,8 @@ export class Interactions {
                 "Tenant-Name": await core.Supplier.get(this._options.tenantName),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.179",
+                "X-Fern-SDK-Version": "0.0.0-alpha.7",
+                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -558,8 +558,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.CortiEnvironment.Default,
+                    (await core.Supplier.get(this._options.environment)),
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "PATCH",
@@ -568,7 +567,8 @@ export class Interactions {
                 "Tenant-Name": await core.Supplier.get(this._options.tenantName),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.179",
+                "X-Fern-SDK-Version": "0.0.0-alpha.7",
+                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

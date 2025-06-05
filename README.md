@@ -20,9 +20,13 @@ A full reference for this library is available [here](https://github.com/corticp
 Instantiate and use the client with the following:
 
 ```typescript
-import { CortiClient } from "@markitosha/core";
+import { CortiEnvironment, CortiClient } from "@markitosha/core";
 
-const client = new CortiClient({ token: "YOUR_TOKEN", tenantName: "YOUR_TENANT_NAME" });
+const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
+    token: "YOUR_TOKEN",
+    tenantName: "YOUR_TENANT_NAME",
+});
 await client.interactions.create({
     encounter: {
         identifier: "identifier",
@@ -70,9 +74,13 @@ try {
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { CortiClient } from "@markitosha/core";
+import { CortiEnvironment, CortiClient } from "@markitosha/core";
 
-const client = new CortiClient({ token: "YOUR_TOKEN", tenantName: "YOUR_TENANT_NAME" });
+const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
+    token: "YOUR_TOKEN",
+    tenantName: "YOUR_TENANT_NAME",
+});
 const response = await client.interactions.list();
 for await (const item of response) {
     console.log(item);

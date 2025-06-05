@@ -1,6 +1,6 @@
 {
     "name": "@markitosha/core",
-    "version": "0.0.179",
+    "version": "0.0.0-alpha.7",
     "private": false,
     "repository": "https://github.com/corticph/corti-sdk-typescript",
     "license": "MIT",

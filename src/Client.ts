@@ -8,7 +8,7 @@ import { Interactions } from "./api/resources/interactions/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
-        environment?: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
