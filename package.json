@@ -1,8 +1,9 @@
 {
-    "name": "@markitosha/package-core-test",
-    "version": "0.0.0-alpha.5",
+    "name": "@markitosha/core",
+    "version": "0.0.178",
     "private": false,
     "repository": "https://github.com/corticph/corti-sdk-typescript",
+    "license": "MIT",
     "type": "commonjs",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.mjs",
