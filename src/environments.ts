@@ -3,7 +3,9 @@
  */
 
 export const CortiEnvironment = {
-    Default: "https://api.beta-eu.corti.app/v2",
+    BetaEu: "https://api.beta-eu.corti.app/v2",
+    Us: "https://api.us.corti.com/v2",
+    Eu: "https://api.eu.corti.app/v2",
 } as const;
 
-export type CortiEnvironment = typeof CortiEnvironment.Default;
+export type CortiEnvironment = typeof CortiEnvironment.BetaEu | typeof CortiEnvironment.Us | typeof CortiEnvironment.Eu;
