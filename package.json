@@ -1,6 +1,6 @@
 {
-    "name": "package-core-test",
-    "version": "0.0.0-alpha.3",
+    "name": "@markitosha/package-core-test",
+    "version": "0.0.0-alpha.4",
     "private": false,
     "repository": "https://github.com/corticph/corti-sdk-typescript",
     "type": "commonjs",

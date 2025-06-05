@@ -1,14 +1,14 @@
 # Corti TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcorticph%2Fcorti-sdk-typescript)
-[![npm shield](https://img.shields.io/npm/v/package-core-test)](https://www.npmjs.com/package/package-core-test)
+[![npm shield](https://img.shields.io/npm/v/@markitosha/package-core-test)](https://www.npmjs.com/package/@markitosha/package-core-test)
 
 The Corti TypeScript library provides convenient access to the Corti API from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s package-core-test
+npm i -s @markitosha/package-core-test
 ```
 
 ## Reference
@@ -20,7 +20,7 @@ A full reference for this library is available [here](https://github.com/corticp
 Instantiate and use the client with the following:
 
 ```typescript
-import { CortiClient } from "package-core-test";
+import { CortiClient } from "@markitosha/package-core-test";
 
 const client = new CortiClient({ token: "YOUR_TOKEN", tenantName: "YOUR_TENANT_NAME" });
 await client.interactions.create({
@@ -38,7 +38,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Corti } from "package-core-test";
+import { Corti } from "@markitosha/package-core-test";
 
 const request: Corti.InteractionsListRequest = {
     ...
@@ -51,7 +51,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { CortiError } from "package-core-test";
+import { CortiError } from "@markitosha/package-core-test";
 
 try {
     await client.interactions.create(...);
@@ -70,7 +70,7 @@ try {
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { CortiClient } from "package-core-test";
+import { CortiClient } from "@markitosha/package-core-test";
 
 const client = new CortiClient({ token: "YOUR_TOKEN", tenantName: "YOUR_TENANT_NAME" });
 const response = await client.interactions.list();
@@ -171,7 +171,7 @@ The SDK provides a way for you to customize the underlying HTTP client / Fetch f
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { CortiClient } from "package-core-test";
+import { CortiClient } from "@markitosha/package-core-test";
 
 const client = new CortiClient({
     ...
