@@ -54,6 +54,13 @@ async function updateFileContents(file) {
         newContent = newContent.replace(regex, `$1$2$3${newExt}$5`);
     }
 
+    // Add .mts to dynamic imports of local files without extension
+    // Matches: import("./foo") or import('../bar')
+    newContent = newContent.replace(
+        /import\((['"])(\.{1,2}\/[^'".]+)\1\)/g,
+        'import($1$2.mjs$1)'
+    );
+
     if (content !== newContent) {
         await fs.writeFile(file, newContent, "utf8");
         return true;
