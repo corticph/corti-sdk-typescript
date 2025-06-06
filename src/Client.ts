@@ -4,6 +4,7 @@
 
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
+import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
 
 export declare namespace CortiClient {
@@ -14,6 +15,8 @@ export declare namespace CortiClient {
         token: core.Supplier<core.BearerToken>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
     export interface RequestOptions {
@@ -26,14 +29,31 @@ export declare namespace CortiClient {
         /** Override the Tenant-Name header */
         tenantName?: string;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class CortiClient {
+    protected readonly _options: CortiClient.Options;
     protected _interactions: Interactions | undefined;
 
-    constructor(protected readonly _options: CortiClient.Options) {}
+    constructor(_options: CortiClient.Options) {
+        this._options = {
+            ..._options,
+            headers: mergeHeaders(
+                {
+                    "Tenant-Name": _options?.tenantName,
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-SDK-Name": "@markitosha/core",
+                    "X-Fern-SDK-Version": "0.0.180",
+                    "User-Agent": "@markitosha/core/0.0.180",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                _options?.headers,
+            ),
+        };
+    }
 
     public get interactions(): Interactions {
         return (this._interactions ??= new Interactions(this._options));
