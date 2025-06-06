@@ -6,6 +6,7 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import * as serializers from "../../../../serialization/index.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
@@ -17,6 +18,8 @@ export declare namespace Interactions {
         token: core.Supplier<core.BearerToken>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
     export interface RequestOptions {
@@ -29,12 +32,16 @@ export declare namespace Interactions {
         /** Override the Tenant-Name header */
         tenantName?: string;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class Interactions {
-    constructor(protected readonly _options: Interactions.Options) {}
+    protected readonly _options: Interactions.Options;
+
+    constructor(_options: Interactions.Options) {
+        this._options = _options;
+    }
 
     /**
      *  Lists all existing interactions. Results can be filtered by encounter status and patient identifier.
@@ -101,20 +108,15 @@ export class Interactions {
                         "interactions/",
                     ),
                     method: "GET",
-                    headers: {
-                        Authorization: await this._getAuthorizationHeader(),
-                        "Tenant-Name": await core.Supplier.get(this._options.tenantName),
-                        "X-Fern-Language": "JavaScript",
-                        "X-Fern-SDK-Name": "@markitosha/core",
-                        "X-Fern-SDK-Version": "0.0.0-alpha.7",
-                        "User-Agent": "@markitosha/core/0.0.0-alpha.7",
-                        "X-Fern-Runtime": core.RUNTIME.type,
-                        "X-Fern-Runtime-Version": core.RUNTIME.version,
-                        ...requestOptions?.headers,
-                    },
-                    contentType: "application/json",
+                    headers: mergeHeaders(
+                        this._options?.headers,
+                        mergeOnlyDefinedHeaders({
+                            Authorization: await this._getAuthorizationHeader(),
+                            "Tenant-Name": requestOptions?.tenantName,
+                        }),
+                        requestOptions?.headers,
+                    ),
                     queryParameters: _queryParams,
-                    requestType: "json",
                     timeoutMs:
                         requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                     maxRetries: requestOptions?.maxRetries,
@@ -233,17 +235,14 @@ export class Interactions {
                 "interactions/",
             ),
             method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "Tenant-Name": await core.Supplier.get(this._options.tenantName),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.0-alpha.7",
-                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
             contentType: "application/json",
             requestType: "json",
             body: serializers.RequestInteractionCreate.jsonOrThrow(request, {
@@ -351,19 +350,14 @@ export class Interactions {
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "Tenant-Name": await core.Supplier.get(this._options.tenantName),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.0-alpha.7",
-                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -458,19 +452,14 @@ export class Interactions {
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "DELETE",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "Tenant-Name": await core.Supplier.get(this._options.tenantName),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.0-alpha.7",
-                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -562,17 +551,14 @@ export class Interactions {
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "PATCH",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "Tenant-Name": await core.Supplier.get(this._options.tenantName),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@markitosha/core",
-                "X-Fern-SDK-Version": "0.0.0-alpha.7",
-                "User-Agent": "@markitosha/core/0.0.0-alpha.7",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
             contentType: "application/json",
             requestType: "json",
             body: serializers.RequestInteractionUpdate.jsonOrThrow(request, {
