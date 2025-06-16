@@ -1,4 +1,4 @@
-import { CortiClient as FernClient } from "./Client";
+import { CortiClient as FernClient } from "./Client.js";
 
 type Options = Omit<FernClient.Options, 'environment'> & {
     environment: 'beta-eu' | 'us' | 'eu' | string;
