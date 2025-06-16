@@ -478,7 +478,7 @@ await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b
 
 ## Auth
 
-<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">getToken</a>(tenantName, { ...params }) -> Corti.GetTokenResponse</code></summary>
+<details><summary><code>client.auth.<a href="/src/api/resources/auth/client/Client.ts">getToken</a>({ ...params }) -> Corti.GetTokenResponse</code></summary>
 <dl>
 <dd>
 
@@ -506,7 +506,7 @@ Obtain an OAuth2 access token using client credentials
 <dd>
 
 ```typescript
-await client.auth.getToken("tenantName", {
+await client.auth.getToken({
     clientId: "client_id",
     clientSecret: "client_secret",
 });
@@ -521,14 +521,6 @@ await client.auth.getToken("tenantName", {
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**tenantName:** `string`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
