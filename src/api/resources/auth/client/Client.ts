@@ -46,26 +46,23 @@ export class Auth {
     /**
      * Obtain an OAuth2 access token using client credentials
      *
-     * @param {string} tenantName
      * @param {Corti.AuthGetTokenRequest} request
      * @param {Auth.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
-     *     await client.auth.getToken("tenantName", {
+     *     await client.auth.getToken({
      *         clientId: "client_id",
      *         clientSecret: "client_secret"
      *     })
      */
     public getToken(
-        tenantName: string,
         request: Corti.AuthGetTokenRequest,
         requestOptions?: Auth.RequestOptions,
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getToken(tenantName, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getToken(request, requestOptions));
     }
 
     private async __getToken(
-        tenantName: string,
         request: Corti.AuthGetTokenRequest,
         requestOptions?: Auth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
@@ -73,7 +70,7 @@ export class Auth {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)),
-                `realms/${encodeURIComponent(tenantName)}/protocol/openid-connect/token`,
+                "protocol/openid-connect/token",
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -128,7 +125,7 @@ export class Auth {
                 });
             case "timeout":
                 throw new errors.CortiTimeoutError(
-                    "Timeout exceeded when calling POST /realms/{tenantName}/protocol/openid-connect/token.",
+                    "Timeout exceeded when calling POST /protocol/openid-connect/token.",
                 );
             case "unknown":
                 throw new errors.CortiError({
