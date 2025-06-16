@@ -1,5 +1,81 @@
 # Reference
 
+<details><summary><code>client.<a href="/src/Client.ts">getToken</a>(tenantName, { ...params }) -> Corti.GetTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Obtain an OAuth2 access token using client credentials
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.getToken("tenantName", {
+    clientId: "client_id",
+    clientSecret: "client_secret",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantName:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Corti.GetTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CortiClient.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+##
+
 ## interactions
 
 <details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.ResponseInteraction></code></summary>

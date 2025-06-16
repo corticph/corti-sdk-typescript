@@ -1,3 +1,4 @@
+export * from "./GetTokenResponse.js";
 export * from "./Encounter.js";
 export * from "./EncounterPeriod.js";
 export * from "./ErrorResponse.js";

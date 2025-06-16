@@ -4,7 +4,12 @@
 
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
-import { mergeHeaders } from "./core/headers.js";
+import { CortiClient } from "./Client.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "./core/headers.js";
+import * as Corti from "./api/index.js";
+import * as serializers from "./serialization/index.js";
+import urlJoin from "url-join";
+import * as errors from "./errors/index.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
 
 export declare namespace CortiClient {
@@ -12,9 +17,10 @@ export declare namespace CortiClient {
         environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        clientId: core.Supplier<string>;
+        clientSecret: core.Supplier<string>;
         /** Override the Tenant-Name header */
-        tenantName: core.Supplier<string>;
+        tenantName?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -27,7 +33,7 @@ export declare namespace CortiClient {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string;
+        tenantName?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,6 +41,7 @@ export declare namespace CortiClient {
 
 export class CortiClient {
     protected readonly _options: CortiClient.Options;
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
     protected _interactions: Interactions | undefined;
 
     constructor(_options: CortiClient.Options) {
@@ -53,9 +60,124 @@ export class CortiClient {
                 _options?.headers,
             ),
         };
+
+        this._oauthTokenProvider = new core.OAuthTokenProvider({
+            clientId: this._options.clientId,
+            clientSecret: this._options.clientSecret,
+            authClient: new CortiClient({
+                environment: this._options.environment,
+            }),
+        });
     }
 
     public get interactions(): Interactions {
-        return (this._interactions ??= new Interactions(this._options));
+        return (this._interactions ??= new Interactions({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    /**
+     * Obtain an OAuth2 access token using client credentials
+     *
+     * @param {string} tenantName
+     * @param {Corti.GetTokenRequest} request
+     * @param {CortiClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.getToken("tenantName", {
+     *         clientId: "client_id",
+     *         clientSecret: "client_secret"
+     *     })
+     */
+    public getToken(
+        tenantName: string,
+        request: Corti.GetTokenRequest,
+        requestOptions?: CortiClient.RequestOptions,
+    ): core.HttpResponsePromise<Corti.GetTokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken(tenantName, request, requestOptions));
+    }
+
+    private async __getToken(
+        tenantName: string,
+        request: Corti.GetTokenRequest,
+        requestOptions?: CortiClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)),
+                `realms/${encodeURIComponent(tenantName)}/protocol/openid-connect/token`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: {
+                ...serializers.GetTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                audience: "https://api.givechariot.com",
+                grant_type: "client_credentials",
+            },
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.GetTokenResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.CortiError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.CortiError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.CortiTimeoutError(
+                    "Timeout exceeded when calling POST /realms/{tenantName}/protocol/openid-connect/token.",
+                );
+            case "unknown":
+                throw new errors.CortiError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }
