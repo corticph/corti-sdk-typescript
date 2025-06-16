@@ -6,6 +6,7 @@ import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
+import { Recordings } from "./api/resources/recordings/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
@@ -36,6 +37,7 @@ export declare namespace CortiClient {
 export class CortiClient {
     protected readonly _options: CortiClient.Options;
     protected _interactions: Interactions | undefined;
+    protected _recordings: Recordings | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -57,5 +59,9 @@ export class CortiClient {
 
     public get interactions(): Interactions {
         return (this._interactions ??= new Interactions(this._options));
+    }
+
+    public get recordings(): Recordings {
+        return (this._recordings ??= new Recordings(this._options));
     }
 }
