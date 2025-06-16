@@ -1,8 +1,6 @@
 import { CortiClient as FernClient } from "./Client.js";
 
-type Options = Omit<FernClient.Options, 'environment'> & {
-    environment: 'beta-eu' | 'us' | 'eu' | string;
-};
+type Options = FernClient.Options;
 
 export class CortiClient extends FernClient {
     constructor(options: Options) {

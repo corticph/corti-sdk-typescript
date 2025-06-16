@@ -2,3 +2,4 @@
 
 src/ExtendedClient.ts
 src/index.ts
+src/environments.ts
