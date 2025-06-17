@@ -148,7 +148,7 @@ export class Auth extends FernAuth {
     }
 
     public getCodeFlowToken(
-        request: Corti.AuthGetTokenRequest,
+        request: Corti.AuthGetCodeFlowTokenRequest,
         requestOptions?: FernAuth.RequestOptions,
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getToken_extended({
