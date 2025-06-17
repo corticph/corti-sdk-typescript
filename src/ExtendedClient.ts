@@ -4,6 +4,7 @@ import * as core from "./core/index.js";
 import { Auth } from "./api/resources/auth/client/ExtendedClient.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
+import { Recordings } from "./api/resources/recordings/client/Client";
 
 export declare namespace CortiClient {
     interface ClientCredentials {
@@ -59,6 +60,7 @@ export class CortiClient {
     private readonly _oauthTokenProvider: core.OAuthTokenProvider | core.BearerProvider;
     protected _interactions: Interactions | undefined;
     protected _auth: Auth | undefined;
+    protected _recordings: Recordings | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -96,6 +98,13 @@ export class CortiClient {
 
     public get interactions(): Interactions {
         return (this._interactions ??= new Interactions({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get recordings(): Recordings {
+        return (this._recordings ??= new Recordings({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));

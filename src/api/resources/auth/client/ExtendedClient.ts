@@ -1,5 +1,4 @@
 import { Auth as FernAuth } from "./Client.js";
-import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
