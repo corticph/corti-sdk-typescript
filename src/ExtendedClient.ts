@@ -1,5 +1,6 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
+// Patch (!)
 import { Auth } from "./api/resources/auth/client/ExtendedClient.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
@@ -40,6 +41,7 @@ export class CortiClient {
     constructor(_options: Omit<CortiClient.Options, 'baseUrl'>) {
         this._options = {
             ..._options,
+            // Patch (!)
             baseUrl: `https://api.${_options.environment}.corti.app/v2`,
             headers: mergeHeaders(
                 {
@@ -58,6 +60,7 @@ export class CortiClient {
         this._oauthTokenProvider = new core.OAuthTokenProvider({
             clientId: this._options.clientId,
             clientSecret: this._options.clientSecret,
+            // Patch (!)
             authClient: new Auth(this._options),
         });
     }
