@@ -8,6 +8,12 @@ src/api/resources/auth/client/ExtendedClient.ts
 src/core/auth/BearerProvider.ts
 src/core/auth/index.ts
 
+src/serialization/resources/auth/client/requests/AuthGetCodeFlowTokenRequest.ts
+src/serialization/resources/auth/client/requests/index.ts
+
+src/api/resources/auth/client/requests/AuthGetCodeFlowTokenRequest.ts
+src/api/resources/auth/client/requests/index.ts
+
 tsconfig.base.json
 tsconfig.cjs.json
 tsconfig.esm.json
