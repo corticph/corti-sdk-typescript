@@ -1,5 +1,5 @@
 import { CortiClient as FernClient } from "./Client.js";
-import { Auth } from "./api/resources/auth/client/Client.js";
+import { Auth } from "./api/resources/auth/client/ExtendedClient.js";
 
 type Options = FernClient.Options;
 
@@ -12,11 +12,6 @@ export class CortiClient extends FernClient {
     }
 
     public get auth(): Auth {
-        const authOptions = {
-            ...this._options,
-            baseUrl: `https://auth.${this._options.environment}.corti.app/realms/${this._options.tenantName}`,
-        };
-
-        return (this._auth ??= new Auth(authOptions));
+        return (this._auth ??= new Auth(this._options));
     }
 }

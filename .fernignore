@@ -3,3 +3,4 @@
 src/ExtendedClient.ts
 src/index.ts
 src/environments.ts
+src/api/resources/auth/client/ExtendedClient.ts
