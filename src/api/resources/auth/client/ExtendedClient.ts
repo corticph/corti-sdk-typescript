@@ -1,4 +1,5 @@
 import { Auth as FernAuth } from "./Client.js";
+import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
@@ -6,11 +7,25 @@ import * as serializers from "../../../../serialization/index.js";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
+interface AuthorizationCodeClient {
+    clientId: string;
+    redirectUri: string;
+    environment: environments.CortiEnvironment | string;
+    tenantName: string;
+}
+
+interface AuthorizationCodeServer {
+    clientId: core.Supplier<string>;
+    clientSecret: core.Supplier<string>;
+    code: core.Supplier<string>;
+    redirectUri: core.Supplier<string>;
+}
+
 export class Auth extends FernAuth {
     constructor(options: FernAuth.Options) {
         super({
             ...options,
-            baseUrl: `https://auth.${options.environment}.corti.app/realms/${options.tenantName}`,
+            baseUrl: `https://auth.${options.environment}.corti.app/realms/${options.tenantName}`
         });
     }
 
@@ -103,5 +118,34 @@ export class Auth extends FernAuth {
                     rawResponse: _response.rawResponse,
                 });
         }
+    }
+
+    /**
+     * @param clientId The OAuth client ID
+     * @param redirectUri The redirect URI
+     * @param environment The environment to use (e.g., "eu", "us")
+     * @param tenantName The tenant name
+     * @returns the URL to authorize a user
+     */
+    static authorizeURL({
+        clientId,
+        redirectUri,
+        environment,
+        tenantName,
+    }: AuthorizationCodeClient): string {
+        const authUrl = new URL(`https://auth.${environment}.corti.app/realms/${tenantName}/protocol/openid-connect/auth`);
+
+        authUrl.searchParams.set('response_type', 'code');
+        authUrl.searchParams.set('scope', 'openid profile');
+
+        if (clientId !== undefined) {
+            authUrl.searchParams.set('client_id', clientId);
+        }
+
+        if (redirectUri !== undefined) {
+            authUrl.searchParams.set('redirect_uri', redirectUri);
+        }
+
+        return authUrl.toString();
     }
 }
