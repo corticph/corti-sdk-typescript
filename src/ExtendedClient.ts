@@ -7,12 +7,33 @@ import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
 
 export declare namespace CortiClient {
+    interface ClientCredentials {
+        clientId: core.Supplier<string>;
+        clientSecret: core.Supplier<string>;
+    }
+
+    interface Bearer {
+        accessToken: core.Supplier<string>;
+    }
+
     export interface Options {
+        environment: core.Supplier<environments.CortiEnvironment | string>;
+        /** Override the Tenant-Name header */
+        tenantName: core.Supplier<string>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+
+        auth: ClientCredentials | Bearer;
+    }
+
+    // Patch (!) : renamed Options
+    interface InternalOptions {
         environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        clientId: core.Supplier<string>;
-        clientSecret: core.Supplier<string>;
+        clientId?: core.Supplier<string>;
+        clientSecret?: core.Supplier<string>;
+        token?: core.Supplier<string>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -34,17 +55,21 @@ export declare namespace CortiClient {
 }
 
 export class CortiClient {
-    protected readonly _options: CortiClient.Options;
-    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
+    protected readonly _options: CortiClient.InternalOptions;
+    // Patch (!)
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider | core.BearerProvider;
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     protected _auth: Auth | undefined;
 
-    constructor(_options: Omit<CortiClient.Options, 'baseUrl'>) {
+    constructor(_options: CortiClient.Options) {
         this._options = {
             ..._options,
             // Patch (!)
             baseUrl: `https://api.${_options.environment}.corti.app/v2`,
+            clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
+            clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
+            token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
             headers: mergeHeaders(
                 {
                     "Tenant-Name": _options?.tenantName,
@@ -59,12 +84,16 @@ export class CortiClient {
             ),
         };
 
-        this._oauthTokenProvider = new core.OAuthTokenProvider({
-            clientId: this._options.clientId,
-            clientSecret: this._options.clientSecret,
-            // Patch (!)
-            authClient: new Auth(this._options),
-        });
+        // Patch (!)
+        this._oauthTokenProvider = "accessToken" in _options.auth ?
+            new core.BearerProvider({
+                accessToken: _options.auth.accessToken,
+            }) :
+            new core.OAuthTokenProvider({
+                clientId: this._options.clientId!,
+                clientSecret: this._options.clientSecret!,
+                authClient: new Auth(this._options),
+            });
     }
 
     public get interactions(): Interactions {

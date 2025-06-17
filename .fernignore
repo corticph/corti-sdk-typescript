@@ -5,6 +5,8 @@ src/index.ts
 src/environments.ts
 src/api/resources/auth/client/ExtendedClient.ts
 
+src/core/auth/BearerProvider.ts
+src/core/auth/index.ts
 
 tsconfig.base.json
 tsconfig.cjs.json
