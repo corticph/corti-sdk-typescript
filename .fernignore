@@ -7,5 +7,5 @@ src/api/resources/auth/client/ExtendedClient.ts
 
 
 tsconfig.base.json
-tsconfig.cjm.json
+tsconfig.cjs.json
 tsconfig.esm.json
