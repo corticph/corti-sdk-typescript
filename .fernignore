@@ -1,5 +1,6 @@
 # Specify files that shouldn't be modified by Fern
 
-src/Client.ts
+src/ExtendedClient.ts
+src/index.ts
 src/environments.ts
 src/api/resources/auth/client/ExtendedClient.ts
