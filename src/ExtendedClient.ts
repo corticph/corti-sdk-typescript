@@ -4,6 +4,8 @@ import { Auth } from "./api/resources/auth/client/ExtendedClient.js";
 type Options = FernClient.Options;
 
 export class CortiClient extends FernClient {
+    protected _auth: Auth | undefined;
+
     constructor(options: Options) {
         super({
             ...options,
