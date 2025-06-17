@@ -10,15 +10,6 @@ import * as errors from "../../../../errors/index.js";
 interface AuthorizationCodeClient {
     clientId: string;
     redirectUri: string;
-    environment: environments.CortiEnvironment | string;
-    tenantName: string;
-}
-
-interface AuthorizationCodeServer {
-    clientId: core.Supplier<string>;
-    clientSecret: core.Supplier<string>;
-    code: core.Supplier<string>;
-    redirectUri: core.Supplier<string>;
 }
 
 export class Auth extends FernAuth {
@@ -45,11 +36,22 @@ export class Auth extends FernAuth {
         request: Corti.AuthGetTokenRequest,
         requestOptions?: FernAuth.RequestOptions,
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getToken_extended(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getToken_extended({
+            body: new URLSearchParams({
+                ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                scope: "openid",
+                grant_type: "client_credentials",
+            })
+        }, requestOptions));
     }
 
     private async __getToken_extended(
-        request: Corti.AuthGetTokenRequest,
+        { body }: {
+            body: URLSearchParams
+        },
         requestOptions?: FernAuth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
         const _response = await core.fetcher({
@@ -68,14 +70,7 @@ export class Auth extends FernAuth {
                 requestOptions?.headers,
             ),
             contentType: "application/x-www-form-urlencoded",
-            body: new URLSearchParams({
-                ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
-                    unrecognizedObjectKeys: "strip",
-                    omitUndefined: true,
-                }),
-                scope: "openid",
-                grant_type: "client_credentials",
-            }),
+            body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -123,17 +118,13 @@ export class Auth extends FernAuth {
     /**
      * @param clientId The OAuth client ID
      * @param redirectUri The redirect URI
-     * @param environment The environment to use (e.g., "eu", "us")
-     * @param tenantName The tenant name
      * @returns the URL to authorize a user
      */
-    static authorizeURL({
+    public authorizeURL({
         clientId,
         redirectUri,
-        environment,
-        tenantName,
     }: AuthorizationCodeClient): string {
-        const authUrl = new URL(`https://auth.${environment}.corti.app/realms/${tenantName}/protocol/openid-connect/auth`);
+        const authUrl = new URL(`${this._options.baseUrl}/protocol/openid-connect/auth`);
 
         authUrl.searchParams.set('response_type', 'code');
         authUrl.searchParams.set('scope', 'openid profile');
@@ -146,6 +137,29 @@ export class Auth extends FernAuth {
             authUrl.searchParams.set('redirect_uri', redirectUri);
         }
 
-        return authUrl.toString();
+        const authUrlString = authUrl.toString();
+
+        if (typeof window !== "undefined") {
+            window.location.href = authUrlString;
+            return authUrlString;
+        }
+
+        return authUrlString;
+    }
+
+    public getCodeFlowToken(
+        request: Corti.AuthGetTokenRequest,
+        requestOptions?: FernAuth.RequestOptions,
+    ): core.HttpResponsePromise<Corti.GetTokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken_extended({
+            body: new URLSearchParams({
+                ...serializers.AuthGetCodeFlowTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                scope: "openid profile",
+                grant_type: "authorization_code",
+            })
+        }, requestOptions));
     }
 }
