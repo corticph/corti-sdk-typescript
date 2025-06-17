@@ -157,7 +157,7 @@ export class Auth extends FernAuth {
                     unrecognizedObjectKeys: "strip",
                     omitUndefined: true,
                 }),
-                scope: "openid profile",
+                scope: "openid",
                 grant_type: "authorization_code",
             })
         }, requestOptions));
