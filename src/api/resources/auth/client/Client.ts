@@ -17,7 +17,7 @@ export declare namespace Auth {
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Tenant-Name header */
-        tenantName?: core.Supplier<string | undefined>;
+        tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -30,7 +30,7 @@ export declare namespace Auth {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string | undefined;
+        tenantName?: string;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -81,14 +81,14 @@ export class Auth {
                 }),
                 requestOptions?.headers,
             ),
-            contentType: "application/json",
+            contentType: "application/x-www-form-urlencoded",
             requestType: "json",
             body: {
                 ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
                     unrecognizedObjectKeys: "strip",
                     omitUndefined: true,
                 }),
-                audience: "https://api.givechariot.com",
+                scope: "openid",
                 grant_type: "client_credentials",
             },
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
