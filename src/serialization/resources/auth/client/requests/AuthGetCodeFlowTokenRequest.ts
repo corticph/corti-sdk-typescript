@@ -13,7 +13,7 @@ export const AuthGetCodeFlowTokenRequest: core.serialization.Schema<
     clientId: core.serialization.property("client_id", core.serialization.string()),
     clientSecret: core.serialization.property("client_secret", core.serialization.string()),
     code: core.serialization.property("code", core.serialization.string()),
-    redirect_uri: core.serialization.property("redirect_uri", core.serialization.string()),
+    redirectUri: core.serialization.property("redirect_uri", core.serialization.string()),
 });
 
 export declare namespace AuthGetCodeFlowTokenRequest {

@@ -19,5 +19,5 @@ export interface AuthGetCodeFlowTokenRequest {
     /** Client code received from Corti login page */
     code: string;
     /** The redirect URI of the application -- matches the one that was used to get client code */
-    redirect_uri: string;
+    redirectUri: string;
 }
