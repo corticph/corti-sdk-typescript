@@ -9,3 +9,8 @@ export { CortiClient } from "./custom/CortiClient.js";
 export { CortiEnvironment } from "./custom/environments.js";
 export { CortiError, CortiTimeoutError } from "./errors/index.js";
 export * as serialization from "./serialization/index.js";
+
+/**
+ * Patch: added new export to provide Authorization code flow support.
+ */
+export { Auth as CortiAuth } from "./custom/CortiAuth.js";

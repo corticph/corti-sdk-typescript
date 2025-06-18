@@ -1,0 +1,202 @@
+/**
+ * This file is implementation of the Auth client that can be used in 2 scenarios:
+ * 1. Under the hood by the package when Client credentials are used
+ * 2. Directly imported by the user to implement Authorization code flow
+ *
+ * Locally based on the auto-generated Auth client (src/api/resources/auth/client/Client.ts), but with some changes:
+ * 1. Token request sends proper `application/x-www-form-urlencoded` content type instead of `application/json`
+ * 2. Token request accepts additional parameters to support Authorization code flow
+ * 3. Additional methods to support Authorization code flow
+ *
+ * All methods are re-implemented, but class still extends the auto-generated one to make sure that we keep the same interface
+ *  and to maybe remove some of the re-implementations in the future when `x-www-form-urlencoded` is supported
+ */
+
+import { Auth as FernAuth } from "../api/resources/auth/client/Client.js";
+import * as core from "../core/index.js";
+import * as Corti from "../api/index.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
+import * as serializers from "../serialization/index.js";
+import urlJoin from "url-join";
+import * as errors from "../errors/index.js";
+
+interface AuthorizationCodeClient {
+    clientId: string;
+    redirectUri: string;
+}
+
+interface AuthorizationCodeServer {
+    clientId: string;
+    clientSecret: string;
+    redirectUri: string;
+    code: string;
+}
+
+interface Options {
+    skipRedirect?: boolean;
+}
+
+export class Auth extends FernAuth {
+    constructor(options: FernAuth.Options) {
+        super({
+            ...options,
+            /**
+             * Patch: changed `baseUrl` to use `auth` subdomain and `tenantName` in the path
+             */
+            baseUrl: `https://auth.${options.environment}.corti.app/realms/${options.tenantName}`
+        });
+    }
+
+    /**
+     * Patch: called custom implementation this.__getToken_custom instead of this.__getToken
+     */
+    public getToken(
+        request: Corti.AuthGetTokenRequest,
+        requestOptions?: FernAuth.RequestOptions,
+    ): core.HttpResponsePromise<Corti.GetTokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken_custom(request, requestOptions));
+    }
+
+    /**
+     * Patch: added method to get Authorization URL for Authorization code flow
+     */
+    public authorizeURL({
+        clientId,
+        redirectUri,
+    }: AuthorizationCodeClient, options: Options): string {
+        const authUrl = new URL(`${this._options.baseUrl}/protocol/openid-connect/auth`);
+
+        authUrl.searchParams.set('response_type', 'code');
+        authUrl.searchParams.set('scope', 'openid profile');
+
+        if (clientId !== undefined) {
+            authUrl.searchParams.set('client_id', clientId);
+        }
+
+        if (redirectUri !== undefined) {
+            authUrl.searchParams.set('redirect_uri', redirectUri);
+        }
+
+        const authUrlString = authUrl.toString();
+
+        if (typeof window !== "undefined" && !options.skipRedirect) {
+            window.location.href = authUrlString;
+            return authUrlString;
+        }
+
+        return authUrlString;
+    }
+
+    /**
+     * Patch: called custom implementation this.__getToken_custom instead of this.__getToken
+     */
+    public getCodeFlowToken(
+        request: AuthorizationCodeServer,
+        requestOptions?: FernAuth.RequestOptions,
+    ): core.HttpResponsePromise<Corti.GetTokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken_custom({
+            ...request,
+            grantType: "authorization_code",
+        }, requestOptions));
+    }
+
+    /**
+     * Patch: copy of this.__getToken with patches
+     */
+    private async __getToken_custom(
+        /**
+         * Patch: added additional fields to request to support Authorization code flow
+         */
+        request: Corti.AuthGetTokenRequest & Partial<{
+            grantType: "client_credentials" | "authorization_code";
+            code: string;
+            redirectUri: string;
+        }>,
+        requestOptions?: FernAuth.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                (await core.Supplier.get(this._options.environment)),
+                "protocol/openid-connect/token",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    /**
+                     * Patch: Removed `Authorization` header, as it is not needed for getting the token
+                     */
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/x-www-form-urlencoded",
+            /**
+             * Patch: removed `requestType: "json"`, made body a URLSearchParams object
+             */
+            body: new URLSearchParams({
+                ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                scope: "openid",
+                /**
+                 * Patch: `grant_type` uses values from request or defaults to "client_credentials"
+                 */
+                grant_type: request.grantType || "client_credentials",
+                /**
+                 * Patch: added `code` and `redirect_uri` fields for Authorization code flow
+                 */
+                ...(request.grantType === "authorization_code"
+                    ? {
+                        code: request.code,
+                        redirect_uri: request.redirectUri
+                    }
+                    : {}
+                ),
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.GetTokenResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.CortiError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.CortiError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.CortiTimeoutError(
+                    "Timeout exceeded when calling POST /protocol/openid-connect/token.",
+                );
+            case "unknown":
+                throw new errors.CortiError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+}

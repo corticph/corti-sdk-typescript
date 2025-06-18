@@ -17,7 +17,10 @@
 
 import * as environments from "./environments.js";
 import * as core from "../core/index.js";
-import { Auth } from "../api/resources/auth/client/Client.js";
+/**
+ * Patch: changed import to custom Auth implementation
+ */
+import { Auth } from "./CortiAuth.js";
 import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
