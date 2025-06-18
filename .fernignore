@@ -1,1 +1,7 @@
-# Specify files that shouldn't be modified by Fern
+# Extended with ignore of CortiClient, because it produces TypeScript error
+tsconfig.base.json
+tsconfig.cjs.json
+tsconfig.esm.json
+
+# All custom code
+src/custom
