@@ -22,13 +22,52 @@ import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 
+/**
+ * Patch: added custom BearerProvider
+ */
+import { BearerProvider } from "./BearerProvider.js";
+/**
+ * Patch: added SDK_VERSION import
+ */
+import { SDK_VERSION } from '../version.js';
+
 export declare namespace CortiClient {
+    /**
+     * Patch: added new public interface for `Options` (+ `ClientCredentials` and `Bearer` auth interfaces)
+     */
+
+    interface ClientCredentials {
+        clientId: core.Supplier<string>;
+        clientSecret: core.Supplier<string>;
+    }
+
+    interface Bearer {
+        accessToken: core.Supplier<string>;
+    }
+
     export interface Options {
+        environment: core.Supplier<environments.CortiEnvironment | string>;
+        /** Override the Tenant-Name header */
+        tenantName: core.Supplier<string>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+
+        auth: ClientCredentials | Bearer;
+    }
+
+    /**
+     * Patch:
+     *  - renamed `Options` to `InternalOptions`
+     *  - added `token` field to support BearerProvider
+     *  - made clientId and clientSecret optional
+     */
+    interface InternalOptions {
         environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        clientId: core.Supplier<string>;
-        clientSecret: core.Supplier<string>;
+        clientId?: core.Supplier<string>;
+        clientSecret?: core.Supplier<string>;
+        token?: core.Supplier<string>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -50,8 +89,14 @@ export declare namespace CortiClient {
 }
 
 export class CortiClient {
-    protected readonly _options: CortiClient.Options;
-    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
+    /**
+     * Patch: this._options is now of type `CortiClient.InternalOptions` (which matches generated implementation)
+     */
+    protected readonly _options: CortiClient.InternalOptions;
+    /**
+     * Patch: extended `_oauthTokenProvider` to support both `BearerProvider` and `OAuthTokenProvider` options
+     */
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider | BearerProvider;
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     /**
@@ -69,23 +114,41 @@ export class CortiClient {
                     "Tenant-Name": _options?.tenantName,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "@corti/core",
-                    "X-Fern-SDK-Version": "0.0.0-alpha.2",
-                    "User-Agent": "@corti/core/0.0.0-alpha.2",
+                    /**
+                     * Patch: replaced hardcoded SDK version with imported one
+                     */
+                    "X-Fern-SDK-Version": SDK_VERSION,
+                    "User-Agent": `@corti/core/${SDK_VERSION}`,
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 _options?.headers,
             ),
+            /**
+             * Patch: generated `baseUrl` from environment, added authentication fields
+             *  Using plain fields instead of `auth` field, because this is the format other Client-s would expect
+             */
+            baseUrl: `https://api.${_options.environment}.corti.app/v2`,
+            clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
+            clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
+            token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
         };
 
-        this._oauthTokenProvider = new core.OAuthTokenProvider({
-            clientId: this._options.clientId,
-            clientSecret: this._options.clientSecret,
-            /**
-             * Patch: provide whole `option` object to the Auth client, since it depends on both tenantName and environment
-             */
-            authClient: new Auth(this._options),
-        });
+        /**
+         * Patch: if `accessToken` is provided, use BearerProvider, otherwise use OAuthTokenProvider
+         */
+        this._oauthTokenProvider = "accessToken" in _options.auth ?
+            new BearerProvider({
+                accessToken: _options.auth.accessToken,
+            }) :
+            new core.OAuthTokenProvider({
+                clientId: _options.auth.clientId,
+                clientSecret: _options.auth.clientSecret,
+                /**
+                 * Patch: provide whole `options` object to the Auth client, since it depends on both tenantName and environment
+                 */
+                authClient: new Auth(this._options),
+            });
     }
 
     public get interactions(): Interactions {
