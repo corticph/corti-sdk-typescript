@@ -63,7 +63,7 @@ export class Auth extends FernAuth {
     public authorizeURL({
         clientId,
         redirectUri,
-    }: AuthorizationCodeClient, options: Options): string {
+    }: AuthorizationCodeClient, options?: Options): string {
         const authUrl = new URL(`${this._options.baseUrl}/protocol/openid-connect/auth`);
 
         authUrl.searchParams.set('response_type', 'code');
@@ -79,7 +79,7 @@ export class Auth extends FernAuth {
 
         const authUrlString = authUrl.toString();
 
-        if (typeof window !== "undefined" && !options.skipRedirect) {
+        if (typeof window !== "undefined" && !options?.skipRedirect) {
             window.location.href = authUrlString;
             return authUrlString;
         }
