@@ -1,5 +1,11 @@
 export * as Corti from "./api/index.js";
-export { CortiClient } from "./Client.js";
-export { CortiEnvironment } from "./environments.js";
+/**
+ * Patch: use custom CortiClient instead of the generated one.
+ */
+export { CortiClient } from "./custom/CortiClient.js";
+/**
+ * Patch: use custom environments instead of the generated ones.
+ */
+export { CortiEnvironment } from "./custom/environments.js";
 export { CortiError, CortiTimeoutError } from "./errors/index.js";
 export * as serialization from "./serialization/index.js";
