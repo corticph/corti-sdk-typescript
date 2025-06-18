@@ -1,6 +1,5 @@
 export * as interactions from "./interactions/index.js";
 export * from "./interactions/types/index.js";
-export * as recordings from "./recordings/index.js";
 export * as auth from "./auth/index.js";
 export * from "./auth/types/index.js";
 export * as recordings from "./recordings/index.js";
