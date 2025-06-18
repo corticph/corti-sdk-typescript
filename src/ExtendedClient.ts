@@ -4,7 +4,7 @@ import * as core from "./core/index.js";
 import { Auth } from "./api/resources/auth/client/ExtendedClient.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
-import { Recordings } from "./api/resources/recordings/client/Client";
+import { Recordings } from "./api/resources/recordings/client/Client.js";
 
 export declare namespace CortiClient {
     interface ClientCredentials {
