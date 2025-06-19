@@ -9,6 +9,7 @@ export * from "./ResponseInteractionCreate.js";
 export * from "./ResponseInteractions.js";
 export * from "./ResponseRecordingCreate.js";
 export * from "./ResponseRecordingList.js";
+export * from "./SortingDirectionEnum.js";
 export * from "./Uuid.js";
 export * from "./EncounterStatus.js";
 export * from "./EncounterType.js";
