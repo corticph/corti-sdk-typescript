@@ -16,7 +16,7 @@ export interface InteractionsListRequest {
     /**
      * Sorting order. Allowed values: [asc, desc]. Default is desc.
      */
-    direction?: Corti.InteractionsListRequestDirection | null;
+    direction?: Corti.SortingDirectionEnum | null;
     /**
      * Number of interactions to return per page. Must be greater than 0. Default is 10.
      */
