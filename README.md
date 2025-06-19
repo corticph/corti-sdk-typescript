@@ -24,7 +24,8 @@ import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    token: "YOUR_TOKEN",
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
 });
 await client.interactions.create({
@@ -78,7 +79,8 @@ import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    token: "YOUR_TOKEN",
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
 });
 const response = await client.interactions.list();
