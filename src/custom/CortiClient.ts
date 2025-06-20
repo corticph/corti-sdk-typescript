@@ -26,9 +26,9 @@ import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 
 /**
- * Patch: added custom BearerProvider
+ * Patch: added custom RefreshBearerProvider
  */
-import { BearerProvider } from "./BearerProvider.js";
+import { BearerOptions, RefreshBearerProvider } from "./RefreshBearerProvider.js";
 /**
  * Patch: added SDK_VERSION import
  */
@@ -36,16 +36,12 @@ import { SDK_VERSION } from '../version.js';
 
 export declare namespace CortiClient {
     /**
-     * Patch: added new public interface for `Options` (+ `ClientCredentials` and `Bearer` auth interfaces)
+     * Patch: added new public interface for `Options` (+ `ClientCredentials` interface)
      */
 
     interface ClientCredentials {
         clientId: core.Supplier<string>;
         clientSecret: core.Supplier<string>;
-    }
-
-    interface Bearer {
-        accessToken: core.Supplier<string>;
     }
 
     export interface Options {
@@ -55,7 +51,7 @@ export declare namespace CortiClient {
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
 
-        auth: ClientCredentials | Bearer;
+        auth: ClientCredentials | BearerOptions;
     }
 
     /**
@@ -97,9 +93,9 @@ export class CortiClient {
      */
     protected readonly _options: CortiClient.InternalOptions;
     /**
-     * Patch: extended `_oauthTokenProvider` to support both `BearerProvider` and `OAuthTokenProvider` options
+     * Patch: extended `_oauthTokenProvider` to support both `RefreshBearerProvider` and `OAuthTokenProvider` options
      */
-    private readonly _oauthTokenProvider: core.OAuthTokenProvider | BearerProvider;
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider | RefreshBearerProvider;
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     /**
@@ -141,9 +137,7 @@ export class CortiClient {
          * Patch: if `accessToken` is provided, use BearerProvider, otherwise use OAuthTokenProvider
          */
         this._oauthTokenProvider = "accessToken" in _options.auth ?
-            new BearerProvider({
-                accessToken: _options.auth.accessToken,
-            }) :
+            new RefreshBearerProvider(_options.auth) :
             new core.OAuthTokenProvider({
                 clientId: _options.auth.clientId,
                 clientSecret: _options.auth.clientSecret,
