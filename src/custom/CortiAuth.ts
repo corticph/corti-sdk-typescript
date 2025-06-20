@@ -32,6 +32,12 @@ interface AuthorizationCodeServer {
     code: string;
 }
 
+interface AuthorizationRefreshServer {
+    clientId: string;
+    clientSecret: string;
+    refreshToken: string;
+}
+
 interface Options {
     skipRedirect?: boolean;
 }
@@ -88,7 +94,7 @@ export class Auth extends FernAuth {
     }
 
     /**
-     * Patch: called custom implementation this.__getToken_custom instead of this.__getToken
+     * Patch: calls __getToken_custom with additional fields to support Authorization code flow
      */
     public getCodeFlowToken(
         request: AuthorizationCodeServer,
@@ -108,9 +114,10 @@ export class Auth extends FernAuth {
          * Patch: added additional fields to request to support Authorization code flow
          */
         request: Corti.AuthGetTokenRequest & Partial<{
-            grantType: "client_credentials" | "authorization_code";
+            grantType: "client_credentials" | "authorization_code" | "refresh_token";
             code: string;
             redirectUri: string;
+            refreshToken: string;
         }>,
         requestOptions?: FernAuth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
@@ -147,11 +154,17 @@ export class Auth extends FernAuth {
                 grant_type: request.grantType || "client_credentials",
                 /**
                  * Patch: added `code` and `redirect_uri` fields for Authorization code flow
+                 * Patch: added `refresh_token` field for Refresh token flow
                  */
                 ...(request.grantType === "authorization_code"
                     ? {
                         code: request.code,
                         redirect_uri: request.redirectUri
+                    }
+                    : {}),
+                ...(request.grantType === "refresh_token"
+                    ? {
+                        refresh_token: request.refreshToken,
                     }
                     : {}
                 ),
@@ -198,5 +211,18 @@ export class Auth extends FernAuth {
                     rawResponse: _response.rawResponse,
                 });
         }
+    }
+
+    /**
+     * Patch: calls __getToken_custom with additional fields to support Refresh token flow
+     */
+    public getRefreshToken(
+        request: AuthorizationRefreshServer,
+        requestOptions?: FernAuth.RequestOptions,
+    ): core.HttpResponsePromise<Corti.GetTokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken_custom({
+            ...request,
+            grantType: "refresh_token",
+        }, requestOptions));
     }
 }
