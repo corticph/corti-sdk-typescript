@@ -48,7 +48,7 @@ export class RefreshBearerProvider {
     }
 
     private async refresh(): Promise<string> {
-        if (!this._refreshAccessToken || !this._refreshToken || this._refreshExpiresAt > new Date()) {
+        if (!this._refreshAccessToken || !this._refreshToken || this._refreshExpiresAt < new Date()) {
             return core.Supplier.get(this._accessToken);
         }
 
