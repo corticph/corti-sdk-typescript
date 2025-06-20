@@ -6,6 +6,4 @@ export interface GetTokenResponse {
     accessToken: string;
     tokenType: string;
     expiresIn: number;
-    refreshToken?: string;
-    refreshExpiresIn?: number;
 }

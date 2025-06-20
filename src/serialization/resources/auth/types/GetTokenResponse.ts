@@ -13,8 +13,6 @@ export const GetTokenResponse: core.serialization.ObjectSchema<
     accessToken: core.serialization.property("access_token", core.serialization.string()),
     tokenType: core.serialization.property("token_type", core.serialization.string()),
     expiresIn: core.serialization.property("expires_in", core.serialization.number()),
-    refreshToken: core.serialization.property("refresh_token", core.serialization.string().optional()),
-    refreshExpiresIn: core.serialization.property("refresh_expires_in", core.serialization.number().optional()),
 });
 
 export declare namespace GetTokenResponse {
@@ -22,7 +20,5 @@ export declare namespace GetTokenResponse {
         access_token: string;
         token_type: string;
         expires_in: number;
-        refresh_token?: string | null;
-        refresh_expires_in?: number | null;
     }
 }
