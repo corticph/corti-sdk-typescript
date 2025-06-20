@@ -216,7 +216,7 @@ export class Auth extends FernAuth {
     /**
      * Patch: calls __getToken_custom with additional fields to support Refresh token flow
      */
-    public getRefreshToken(
+    public refreshToken(
         request: AuthorizationRefreshServer,
         requestOptions?: FernAuth.RequestOptions,
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
