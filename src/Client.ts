@@ -4,6 +4,7 @@
 
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
+import { Auth } from "./api/resources/auth/client/Client.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
@@ -14,7 +15,8 @@ export declare namespace CortiClient {
         environment: core.Supplier<environments.CortiEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        clientId: core.Supplier<string>;
+        clientSecret: core.Supplier<string>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -37,9 +39,11 @@ export declare namespace CortiClient {
 
 export class CortiClient {
     protected readonly _options: CortiClient.Options;
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
+    protected _auth: Auth | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -57,17 +61,41 @@ export class CortiClient {
                 _options?.headers,
             ),
         };
+
+        this._oauthTokenProvider = new core.OAuthTokenProvider({
+            clientId: this._options.clientId,
+            clientSecret: this._options.clientSecret,
+            authClient: new Auth({
+                environment: this._options.environment,
+            }),
+        });
     }
 
     public get interactions(): Interactions {
-        return (this._interactions ??= new Interactions(this._options));
+        return (this._interactions ??= new Interactions({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get recordings(): Recordings {
-        return (this._recordings ??= new Recordings(this._options));
+        return (this._recordings ??= new Recordings({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get transcripts(): Transcripts {
-        return (this._transcripts ??= new Transcripts(this._options));
+        return (this._transcripts ??= new Transcripts({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get auth(): Auth {
+        return (this._auth ??= new Auth({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 }
