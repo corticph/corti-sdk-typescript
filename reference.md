@@ -777,6 +777,46 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 
 ## facts
 
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factgroupsList</a>() -> Corti.ResponseFactGroupsFiltered</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.facts.factgroupsList();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Facts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.ResponseFactsList</code></summary>
 <dl>
 <dd>

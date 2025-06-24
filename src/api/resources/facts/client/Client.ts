@@ -6,8 +6,8 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import * as serializers from "../../../../serialization/index.js";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Facts {
@@ -41,6 +41,85 @@ export class Facts {
 
     constructor(_options: Facts.Options) {
         this._options = _options;
+    }
+
+    /**
+     * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Corti.InternalServerError}
+     *
+     * @example
+     *     await client.facts.factgroupsList()
+     */
+    public factgroupsList(
+        requestOptions?: Facts.RequestOptions,
+    ): core.HttpResponsePromise<Corti.ResponseFactGroupsFiltered> {
+        return core.HttpResponsePromise.fromPromise(this.__factgroupsList(requestOptions));
+    }
+
+    private async __factgroupsList(
+        requestOptions?: Facts.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.ResponseFactGroupsFiltered>> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)),
+                "factgroups/",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.ResponseFactGroupsFiltered.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                default:
+                    throw new errors.CortiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.CortiError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.CortiTimeoutError("Timeout exceeded when calling GET /factgroups/.");
+            case "unknown":
+                throw new errors.CortiError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
     }
 
     /**
