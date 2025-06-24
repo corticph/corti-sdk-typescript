@@ -25,6 +25,8 @@ import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 import { Transcripts } from "../api/resources/transcripts/client/Client.js";
+import { Facts  } from "api/resources/facts/client/Client.js";
+
 
 /**
  * Patch: added custom RefreshBearerProvider
@@ -100,6 +102,7 @@ export class CortiClient {
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
+    protected _facts: Facts | undefined;
     /**
      * Patch: removed `auth` field
      * `_oauthTokenProvider` uses Auth module directly to get the token,
@@ -166,6 +169,13 @@ export class CortiClient {
 
     public get transcripts(): Transcripts {
         return (this._transcripts ??= new Transcripts({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get facts(): Facts {
+        return (this._facts ??= new Facts({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
