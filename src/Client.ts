@@ -7,6 +7,7 @@ import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
+import { Transcripts } from "./api/resources/transcripts/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
@@ -38,6 +39,7 @@ export class CortiClient {
     protected readonly _options: CortiClient.Options;
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
+    protected _transcripts: Transcripts | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -47,8 +49,8 @@ export class CortiClient {
                     "Tenant-Name": _options?.tenantName,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "@corti/core",
-                    "X-Fern-SDK-Version": "0.0.0-alpha.2",
-                    "User-Agent": "@corti/core/0.0.0-alpha.2",
+                    "X-Fern-SDK-Version": "v0.0.0-alpha.3",
+                    "User-Agent": "@corti/core/v0.0.0-alpha.3",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -63,5 +65,9 @@ export class CortiClient {
 
     public get recordings(): Recordings {
         return (this._recordings ??= new Recordings(this._options));
+    }
+
+    public get transcripts(): Transcripts {
+        return (this._transcripts ??= new Transcripts(this._options));
     }
 }
