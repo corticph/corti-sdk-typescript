@@ -70,26 +70,26 @@ export class Transcripts {
             ): Promise<core.WithRawResponse<Corti.ResponseTranscriptListAll>> => {
                 const { sort, direction, pageSize, index, full } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (sort !== undefined) {
+                if (sort != null) {
                     _queryParams["sort"] = serializers.TranscriptsListRequestSort.jsonOrThrow(sort, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (direction !== undefined) {
+                if (direction != null) {
                     _queryParams["direction"] = serializers.TranscriptsListRequestDirection.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (pageSize !== undefined) {
-                    _queryParams["pageSize"] = pageSize?.toString() ?? null;
+                if (pageSize != null) {
+                    _queryParams["pageSize"] = pageSize.toString();
                 }
-                if (index !== undefined) {
-                    _queryParams["index"] = index?.toString() ?? null;
+                if (index != null) {
+                    _queryParams["index"] = index.toString();
                 }
-                if (full !== undefined) {
-                    _queryParams["full"] = full?.toString() ?? null;
+                if (full != null) {
+                    _queryParams["full"] = full.toString();
                 }
                 const _response = await core.fetcher({
                     url: urlJoin(

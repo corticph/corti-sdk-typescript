@@ -65,23 +65,23 @@ export class Interactions {
             ): Promise<core.WithRawResponse<Corti.ResponseInteractions>> => {
                 const { sort, direction, pageSize, index, encounterStatus, patient } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (sort !== undefined) {
+                if (sort != null) {
                     _queryParams["sort"] = serializers.InteractionsListRequestSort.jsonOrThrow(sort, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (direction !== undefined) {
+                if (direction != null) {
                     _queryParams["direction"] = serializers.InteractionsListRequestDirection.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (pageSize !== undefined) {
-                    _queryParams["pageSize"] = pageSize?.toString() ?? null;
+                if (pageSize != null) {
+                    _queryParams["pageSize"] = pageSize.toString();
                 }
-                if (index !== undefined) {
-                    _queryParams["index"] = index?.toString() ?? null;
+                if (index != null) {
+                    _queryParams["index"] = index.toString();
                 }
                 if (encounterStatus != null) {
                     if (Array.isArray(encounterStatus)) {
@@ -98,7 +98,7 @@ export class Interactions {
                         });
                     }
                 }
-                if (patient !== undefined) {
+                if (patient != null) {
                     _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({
