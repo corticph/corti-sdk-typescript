@@ -25,7 +25,10 @@ import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 import { Transcripts } from "../api/resources/transcripts/client/Client.js";
-import { Stream } from "../api/resources/stream/client/Client.js";
+/**
+ * Patch: changed import to custom Stream implementation
+ */
+import { Stream } from "./CustomStream.js";
 
 /**
  * Patch: added custom RefreshBearerProvider
