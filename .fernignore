@@ -10,4 +10,4 @@ src/custom
 src/index.ts
 
 # Has direct imports from generated code, stop generating since it's being replaces with custom code
-src/environments.ts
+# src/environments.ts
