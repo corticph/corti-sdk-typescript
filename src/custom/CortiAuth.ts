@@ -123,6 +123,10 @@ export class Auth extends FernAuth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                 ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
                     .login,
+                /**
+                 * Patch: use tenantName as path parameter
+                 *  (consider to be generated from the spec in the future)
+                 */
                 await core.Supplier.get(this._options.tenantName),
                 "protocol/openid-connect/token",
             ),
