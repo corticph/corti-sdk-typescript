@@ -2,10 +2,9 @@
  * Patch: use custom Stream implementation to support passing _options parameters to connection function
  */
 import { Stream as FernStream } from "../api/resources/stream/client/Client.js";
-import { Supplier } from "../core/index.js";
-import { StreamSocket } from "../api/resources/stream/client/Socket";
-import * as core from "../core";
-import * as environments from "../environments";
+import * as core from "../core/index.js";
+import { StreamSocket } from "../api/resources/stream/client/Socket.js";
+import * as environments from "../environments.js";
 import * as qs from "qs";
 
 export class Stream extends FernStream {
@@ -13,7 +12,7 @@ export class Stream extends FernStream {
         return this.__connect_patch({
             ...args,
             token: await this._getAuthorizationHeader(),
-            tenantName: await Supplier.get(this._options.tenantName),
+            tenantName: await core.Supplier.get(this._options.tenantName),
         });
     }
 
