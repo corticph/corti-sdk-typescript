@@ -57,11 +57,16 @@ export class Auth extends FernAuth {
     /**
      * Patch: added method to get Authorization URL for Authorization code flow
      */
-    public authorizeURL({
+    public async authorizeURL({
         clientId,
         redirectUri,
-    }: AuthorizationCodeClient, options?: Options): string {
-        const authUrl = new URL(`${this._options.baseUrl}/protocol/openid-connect/auth`);
+    }: AuthorizationCodeClient, options?: Options): Promise<string> {
+        const authUrl = new URL(urlJoin(
+            (await core.Supplier.get(this._options.baseUrl)) ??
+            ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
+                .login,
+            "protocol/openid-connect/auth",
+        ));
 
         authUrl.searchParams.set('response_type', 'code');
         authUrl.searchParams.set('scope', 'openid profile');
