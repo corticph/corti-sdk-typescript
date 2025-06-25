@@ -9,10 +9,11 @@ import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
 import { Transcripts } from "./api/resources/transcripts/client/Client.js";
+import { Stream } from "./api/resources/stream/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment?: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         clientId: core.Supplier<string>;
@@ -44,6 +45,7 @@ export class CortiClient {
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
     protected _auth: Auth | undefined;
+    protected _stream: Stream | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -94,6 +96,13 @@ export class CortiClient {
 
     public get auth(): Auth {
         return (this._auth ??= new Auth({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get stream(): Stream {
+        return (this._stream ??= new Stream({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));

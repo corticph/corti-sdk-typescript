@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index.js";
 
 export declare namespace Auth {
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment?: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -69,7 +69,8 @@ export class Auth {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
+                        .login,
                 "protocol/openid-connect/token",
             ),
             method: "POST",

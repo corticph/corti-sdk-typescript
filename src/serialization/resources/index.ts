@@ -1,3 +1,5 @@
+export * as stream from "./stream/index.js";
+export * from "./stream/client/socket/index.js";
 export * as interactions from "./interactions/index.js";
 export * from "./interactions/types/index.js";
 export * as transcripts from "./transcripts/index.js";
