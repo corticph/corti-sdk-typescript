@@ -9,7 +9,7 @@ import { StreamSocket } from "./Socket.js";
 
 export declare namespace Stream {
     export interface Options {
-        environment?: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -21,8 +21,9 @@ export declare namespace Stream {
 
     export interface ConnectArgs {
         id: string;
+        tenantName: string;
         token?: string;
-        tenantName?: string;
+        "tenant-name"?: string;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, unknown>;
         /** Enable debug mode on the websocket. Defaults to false. */
@@ -45,8 +46,8 @@ export class Stream {
             queryParams["token"] = args["token"];
         }
 
-        if (args["tenantName"] != null) {
-            queryParams["tenantName"] = args["tenantName"];
+        if (args["tenant-name"] != null) {
+            queryParams["tenant-name"] = args["tenant-name"];
         }
 
         let websocketHeaders: Record<string, unknown> = {};
@@ -55,7 +56,7 @@ export class Stream {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? ((await core.Supplier.get(this._options["environment"])) ?? environments.CortiEnvironment.BetaEu).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,

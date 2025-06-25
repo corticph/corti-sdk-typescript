@@ -13,7 +13,7 @@ import { Stream } from "./api/resources/stream/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
-        environment?: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         clientId: core.Supplier<string>;

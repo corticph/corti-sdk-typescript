@@ -20,9 +20,10 @@ A full reference for this library is available [here](https://github.com/corticp
 Instantiate and use the client with the following:
 
 ```typescript
-import { CortiClient } from "@corti/core";
+import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
     clientId: "YOUR_CLIENT_ID",
     clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
@@ -74,9 +75,10 @@ try {
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { CortiClient } from "@corti/core";
+import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
     clientId: "YOUR_CLIENT_ID",
     clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",

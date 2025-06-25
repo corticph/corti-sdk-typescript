@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index.js";
 
 export declare namespace Transcripts {
     export interface Options {
-        environment?: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -94,10 +94,7 @@ export class Transcripts {
                 const _response = await core.fetcher({
                     url: urlJoin(
                         (await core.Supplier.get(this._options.baseUrl)) ??
-                            (
-                                (await core.Supplier.get(this._options.environment)) ??
-                                environments.CortiEnvironment.BetaEu
-                            ).base,
+                            (await core.Supplier.get(this._options.environment)).base,
                         `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/`,
                     ),
                     method: "GET",
@@ -234,7 +231,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
+                    (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/`,
             ),
             method: "POST",
@@ -359,7 +356,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
+                    (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/${encodeURIComponent(serializers.Uuid.jsonOrThrow(transcriptId, { omitUndefined: true }))}`,
             ),
             method: "GET",
@@ -478,7 +475,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
+                    (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/${encodeURIComponent(serializers.Uuid.jsonOrThrow(transcriptId, { omitUndefined: true }))}`,
             ),
             method: "DELETE",
