@@ -9,5 +9,3 @@ src/custom
 # Custom imports from custom code that replaces generated one
 src/index.ts
 
-# Has direct imports from generated code, stop generating since it's being replaces with custom code
-# src/environments.ts
