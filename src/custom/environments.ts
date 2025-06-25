@@ -9,3 +9,4 @@ export const CortiEnvironment = {
 } as const;
 
 export type CortiEnvironment = typeof CortiEnvironment.BetaEu | typeof CortiEnvironment.Us | typeof CortiEnvironment.Eu;
+export type CortiEnvironmentUrls = CortiEnvironment;
