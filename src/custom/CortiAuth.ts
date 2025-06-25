@@ -65,6 +65,7 @@ export class Auth extends FernAuth {
             (await core.Supplier.get(this._options.baseUrl)) ??
             ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
                 .login,
+            await core.Supplier.get(this._options.tenantName),
             "protocol/openid-connect/auth",
         ));
 
@@ -122,6 +123,7 @@ export class Auth extends FernAuth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                 ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
                     .login,
+                await core.Supplier.get(this._options.tenantName),
                 "protocol/openid-connect/token",
             ),
             method: "POST",
