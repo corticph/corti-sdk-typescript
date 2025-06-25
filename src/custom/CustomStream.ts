@@ -20,7 +20,7 @@ export class Stream extends FernStream {
     /**
      * Patch: temporary fix of WS URL generation, while it doesn't work from Ferns side
      */
-    public async __connect_patch(args: FernStream.ConnectArgs): Promise<StreamSocket> {
+    private async __connect_patch(args: FernStream.ConnectArgs): Promise<StreamSocket> {
         const queryParams: Record<string, unknown> = {};
         if (args["token"] != null) {
             queryParams["token"] = args["token"];
