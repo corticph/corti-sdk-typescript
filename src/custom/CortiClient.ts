@@ -15,7 +15,7 @@
  * All the patches marked with `// Patch: ...` comments.
  */
 
-import * as environments from "./environments.js";
+import * as environments from "../environments.js";
 import * as core from "../core/index.js";
 /**
  * Patch: changed import to custom Auth implementation
@@ -25,6 +25,7 @@ import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 import { Transcripts } from "../api/resources/transcripts/client/Client.js";
+import { Stream } from "../api/resources/stream/client/Client.js";
 
 /**
  * Patch: added custom RefreshBearerProvider
@@ -46,7 +47,7 @@ export declare namespace CortiClient {
     }
 
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -62,7 +63,7 @@ export declare namespace CortiClient {
      *  - made clientId and clientSecret optional
      */
     interface InternalOptions {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         clientId?: core.Supplier<string>;
@@ -106,6 +107,7 @@ export class CortiClient {
      *   and our client also don't need to use it within the main client.
      *   For other cases they can use `CortiAuth` module directly.
      */
+    protected _stream: Stream | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -125,11 +127,6 @@ export class CortiClient {
                 },
                 _options?.headers,
             ),
-            /**
-             * Patch: generated `baseUrl` from environment, added authentication fields
-             *  Using plain fields instead of `auth` field, because this is the format other Client-s would expect
-             */
-            baseUrl: `https://api.${_options.environment}.corti.app/v2`,
             clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
             clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
             token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
@@ -166,6 +163,13 @@ export class CortiClient {
 
     public get transcripts(): Transcripts {
         return (this._transcripts ??= new Transcripts({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get stream(): Stream {
+        return (this._stream ??= new Stream({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
