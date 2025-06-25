@@ -10,6 +10,7 @@ import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
 import { Transcripts } from "./api/resources/transcripts/client/Client.js";
 import { Facts } from "./api/resources/facts/client/Client.js";
+import { Templates } from "./api/resources/templates/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
@@ -45,6 +46,7 @@ export class CortiClient {
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
     protected _facts: Facts | undefined;
+    protected _templates: Templates | undefined;
     protected _auth: Auth | undefined;
 
     constructor(_options: CortiClient.Options) {
@@ -96,6 +98,13 @@ export class CortiClient {
 
     public get facts(): Facts {
         return (this._facts ??= new Facts({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get templates(): Templates {
+        return (this._templates ??= new Templates({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
