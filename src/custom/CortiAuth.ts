@@ -19,7 +19,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
 import * as serializers from "../serialization/index.js";
 import urlJoin from "url-join";
 import * as errors from "../errors/index.js";
-import * as environments from "../environments";
+import * as environments from "../environments.js";
 
 interface AuthorizationCodeClient {
     clientId: string;
