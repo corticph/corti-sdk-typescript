@@ -77,7 +77,7 @@ export class Transcripts {
                     });
                 }
                 if (direction !== undefined) {
-                    _queryParams["direction"] = serializers.TranscriptsListRequestDirection.jsonOrThrow(direction, {
+                    _queryParams["direction"] = serializers.SortingDirectionEnum.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });

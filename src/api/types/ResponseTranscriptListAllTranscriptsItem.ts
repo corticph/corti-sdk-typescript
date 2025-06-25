@@ -8,4 +8,5 @@ export interface ResponseTranscriptListAllTranscriptsItem {
     /** The unique identifier of the transcript. */
     id?: Corti.Uuid;
     transcriptSample?: string;
+    transcript?: Corti.ResponseTranscriptListFull;
 }

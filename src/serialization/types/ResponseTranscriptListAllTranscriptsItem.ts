@@ -6,6 +6,7 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
+import { ResponseTranscriptListFull } from "./ResponseTranscriptListFull.js";
 
 export const ResponseTranscriptListAllTranscriptsItem: core.serialization.ObjectSchema<
     serializers.ResponseTranscriptListAllTranscriptsItem.Raw,
@@ -13,11 +14,13 @@ export const ResponseTranscriptListAllTranscriptsItem: core.serialization.Object
 > = core.serialization.object({
     id: Uuid.optional(),
     transcriptSample: core.serialization.string().optional(),
+    transcript: ResponseTranscriptListFull.optional(),
 });
 
 export declare namespace ResponseTranscriptListAllTranscriptsItem {
     export interface Raw {
         id?: Uuid.Raw | null;
         transcriptSample?: string | null;
+        transcript?: ResponseTranscriptListFull.Raw | null;
     }
 }

@@ -4,12 +4,9 @@
 
 import * as Corti from "../index.js";
 
-export interface ResponseTranscriptCreate {
-    /** The unique identifier of the transcript. */
-    id: Corti.Uuid;
+export interface ResponseTranscriptListFull {
     /** Additional information about the participants involved in the transcript. */
-    metadata: Corti.ResponseMetadataCreate;
+    metadata?: Corti.ResponseMetadataCreate;
     /** An array of transcripts. */
-    transcripts: Corti.Transcript[];
-    usageInfo: Corti.UsageInfo;
+    transcripts?: Corti.ResponseTranscriptListFullTranscriptsItem[];
 }
