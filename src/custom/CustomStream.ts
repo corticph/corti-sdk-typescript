@@ -25,8 +25,8 @@ export class Stream extends FernStream {
             queryParams["token"] = args["token"];
         }
 
-        if (args["tenantName"] != null) {
-            queryParams["tenantName"] = args["tenantName"];
+        if (args["tenant-name"] != null) {
+            queryParams["tenant-name"] = args["tenant-name"];
         }
 
         let websocketHeaders: Record<string, unknown> = {};
@@ -35,7 +35,7 @@ export class Stream extends FernStream {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? ((await core.Supplier.get(this._options["environment"])) ?? environments.CortiEnvironment.BetaEu).wss}/audio-bridge/v2/interactions/${encodeURIComponent(args["id"])}/streams?${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/${encodeURIComponent(args["id"])}/streams?${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,
