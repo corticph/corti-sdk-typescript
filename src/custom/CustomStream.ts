@@ -8,10 +8,11 @@ import * as environments from "../environments.js";
 import * as qs from "qs";
 
 export class Stream extends FernStream {
-    public async connect(args: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'>) {
+    public async connect(args: Omit<FernStream.ConnectArgs, 'token' | 'tenant-name' | 'tenantName'>): Promise<StreamSocket> {
         return this.__connect_patch({
             ...args,
             token: await this._getAuthorizationHeader(),
+            "tenant-name": await core.Supplier.get(this._options.tenantName),
             tenantName: await core.Supplier.get(this._options.tenantName),
         });
     }
