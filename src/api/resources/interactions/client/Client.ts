@@ -106,8 +106,8 @@ export class Interactions {
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             (
                                 (await core.Supplier.get(this._options.environment)) ??
-                                environments.CortiEnvironment.Production
-                            ).betaEu,
+                                environments.CortiEnvironment.BetaEu
+                            ).base,
                         "interactions/",
                     ),
                     method: "GET",
@@ -234,8 +234,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 "interactions/",
             ),
             method: "POST",
@@ -350,8 +349,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "GET",
@@ -453,8 +451,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "DELETE",
@@ -553,8 +550,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
             ),
             method: "PATCH",

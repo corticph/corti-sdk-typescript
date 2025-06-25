@@ -69,7 +69,7 @@ export class Auth {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
                         .login,
                 "protocol/openid-connect/token",
             ),

@@ -96,8 +96,8 @@ export class Transcripts {
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             (
                                 (await core.Supplier.get(this._options.environment)) ??
-                                environments.CortiEnvironment.Production
-                            ).betaEu,
+                                environments.CortiEnvironment.BetaEu
+                            ).base,
                         `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/`,
                     ),
                     method: "GET",
@@ -234,8 +234,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/`,
             ),
             method: "POST",
@@ -360,8 +359,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/${encodeURIComponent(serializers.Uuid.jsonOrThrow(transcriptId, { omitUndefined: true }))}`,
             ),
             method: "GET",
@@ -480,8 +478,7 @@ export class Transcripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/transcripts/${encodeURIComponent(serializers.Uuid.jsonOrThrow(transcriptId, { omitUndefined: true }))}`,
             ),
             method: "DELETE",

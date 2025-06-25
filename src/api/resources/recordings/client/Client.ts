@@ -74,8 +74,7 @@ export class Recordings {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
             ),
             method: "GET",
@@ -186,8 +185,7 @@ export class Recordings {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
             ),
             method: "POST",
@@ -300,8 +298,7 @@ export class Recordings {
         const _response = await core.fetcher<stream.Readable>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
             ),
             method: "GET",
@@ -420,8 +417,7 @@ export class Recordings {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.Production)
-                        .betaEu,
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu).base,
                 `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
             ),
             method: "DELETE",

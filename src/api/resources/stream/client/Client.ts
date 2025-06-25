@@ -55,7 +55,7 @@ export class Stream {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? ((await core.Supplier.get(this._options["environment"])) ?? environments.CortiEnvironment.Production).betaEu}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? ((await core.Supplier.get(this._options["environment"])) ?? environments.CortiEnvironment.BetaEu).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,
