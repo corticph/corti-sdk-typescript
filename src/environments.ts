@@ -11,17 +11,17 @@ export interface CortiEnvironmentUrls {
 export const CortiEnvironment = {
     BetaEu: {
         base: "https://api.beta-eu.corti.app/v2",
-        wss: "wss://api.beta-eu.corti.app/v2",
+        wss: "wss://api.beta-eu.corti.app",
         login: "https://auth.beta-eu.corti.app/realms",
     },
     Eu: {
         base: "https://api.eu.corti.app/v2",
-        wss: "wss://api.eu.corti.app/v2",
+        wss: "wss://api.eu.corti.app",
         login: "https://auth.eu.corti.app/realms",
     },
     Us: {
         base: "https://api.us.corti.app/v2",
-        wss: "wss://api.us.corti.app/v2",
+        wss: "wss://api.us.corti.app",
         login: "https://auth.us.corti.app/realms",
     },
 } as const;

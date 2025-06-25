@@ -6,7 +6,6 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import * as serializers from "../../../../serialization/index.js";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 import * as fs from "fs";
@@ -75,7 +74,7 @@ export class Recordings {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
+                `interactions/${encodeURIComponent(id)}/recordings/`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -91,44 +90,20 @@ export class Recordings {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseRecordingList.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseRecordingList, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
+                    throw new Corti.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -186,7 +161,7 @@ export class Recordings {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
+                `interactions/${encodeURIComponent(id)}/recordings/`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -206,44 +181,20 @@ export class Recordings {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseRecordingCreate.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseRecordingCreate, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
+                    throw new Corti.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -299,7 +250,7 @@ export class Recordings {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
+                `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -322,40 +273,16 @@ export class Recordings {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
+                    throw new Corti.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 404:
-                    throw new Corti.NotFoundError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.NotFoundError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -418,7 +345,7 @@ export class Recordings {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
+                `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -440,38 +367,14 @@ export class Recordings {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 404:
-                    throw new Corti.NotFoundError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.NotFoundError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:

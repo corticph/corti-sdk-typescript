@@ -806,8 +806,8 @@ Obtain an OAuth2 access token using client credentials
 
 ```typescript
 await client.auth.getToken({
-    clientId: "client_id",
-    clientSecret: "client_secret",
+    client_id: "client_id",
+    client_secret: "client_secret",
 });
 ```
 

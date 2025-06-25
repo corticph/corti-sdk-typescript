@@ -3,6 +3,6 @@
  */
 
 export interface AudioPacket {
-    timestamp?: Date;
+    timestamp?: string;
     data?: string;
 }

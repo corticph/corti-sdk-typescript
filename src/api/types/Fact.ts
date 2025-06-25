@@ -11,7 +11,7 @@ export interface Fact {
     groupId?: string;
     isDiscarded?: boolean;
     source?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
     evidence?: Corti.Evidence[];
 }
