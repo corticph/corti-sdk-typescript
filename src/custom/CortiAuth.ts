@@ -19,6 +19,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
 import * as serializers from "../serialization/index.js";
 import urlJoin from "url-join";
 import * as errors from "../errors/index.js";
+import * as environments from "../environments";
 
 interface AuthorizationCodeClient {
     clientId: string;
@@ -43,16 +44,6 @@ interface Options {
 }
 
 export class Auth extends FernAuth {
-    constructor(options: FernAuth.Options) {
-        super({
-            ...options,
-            /**
-             * Patch: changed `baseUrl` to use `auth` subdomain and `tenantName` in the path
-             */
-            baseUrl: `https://auth.${options.environment}.corti.app/realms/${options.tenantName}`
-        });
-    }
-
     /**
      * Patch: called custom implementation this.__getToken_custom instead of this.__getToken
      */
@@ -124,7 +115,8 @@ export class Auth extends FernAuth {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                (await core.Supplier.get(this._options.environment)),
+                ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
+                    .login,
                 "protocol/openid-connect/token",
             ),
             method: "POST",
