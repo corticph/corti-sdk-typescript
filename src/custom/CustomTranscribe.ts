@@ -10,7 +10,7 @@ import { TranscribeSocket } from "./CustomTranscribeSocket.js";
 import * as qs from "qs";
 
 export class Transcribe extends FernTranscribe {
-    public async connect(args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenant-name'>): Promise<TranscribeSocket> {
+    public async connect(args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenant-name'> = {}): Promise<TranscribeSocket> {
         return this.__connect_patch({
             ...args,
             token: await this._getAuthorizationHeader(),
