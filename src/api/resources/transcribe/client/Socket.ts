@@ -6,18 +6,18 @@ import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { fromJson, toJson } from "../../../../core/json.js";
 
-export declare namespace StreamSocket {
+export declare namespace TranscribeSocket {
     export interface Args {
         socket: core.ReconnectingWebSocket;
     }
 
     export type Response =
         | Corti.ConfigStatusMessage
-        | Corti.TranscriptMessage
-        | Corti.FactsMessage
-        | Corti.EndedMessage
         | Corti.UsageMessage
-        | Corti.ErrorMessage;
+        | Corti.EndedMessage
+        | Corti.ErrorMessage
+        | Corti.TranscriptMessage
+        | Corti.CommandMessage;
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
@@ -26,16 +26,16 @@ export declare namespace StreamSocket {
     };
 }
 
-export class StreamSocket {
+export class TranscribeSocket {
     public readonly socket: core.ReconnectingWebSocket;
-    protected readonly eventHandlers: StreamSocket.EventHandlers = {};
+    protected readonly eventHandlers: TranscribeSocket.EventHandlers = {};
     private handleOpen: () => void = () => {
         this.eventHandlers.open?.();
     };
     private handleMessage: (event: { data: string }) => void = (event) => {
         const data = fromJson(event.data);
 
-        this.eventHandlers.message?.(data as StreamSocket.Response);
+        this.eventHandlers.message?.(data as TranscribeSocket.Response);
     };
     private handleClose: (event: core.CloseEvent) => void = (event) => {
         this.eventHandlers.close?.(event);
@@ -45,7 +45,7 @@ export class StreamSocket {
         this.eventHandlers.error?.(new Error(message));
     };
 
-    constructor(args: StreamSocket.Args) {
+    constructor(args: TranscribeSocket.Args) {
         this.socket = args.socket;
         this.socket.addEventListener("open", this.handleOpen);
         this.socket.addEventListener("message", this.handleMessage);
@@ -68,7 +68,7 @@ export class StreamSocket {
      * });
      * ```
      */
-    public on<T extends keyof StreamSocket.EventHandlers>(event: T, callback: StreamSocket.EventHandlers[T]) {
+    public on<T extends keyof TranscribeSocket.EventHandlers>(event: T, callback: TranscribeSocket.EventHandlers[T]) {
         this.eventHandlers[event] = callback;
     }
 
@@ -88,7 +88,7 @@ export class StreamSocket {
     }
 
     /** Connect to the websocket and register event handlers. */
-    public connect(): StreamSocket {
+    public connect(): TranscribeSocket {
         this.socket.reconnect();
 
         this.socket.addEventListener("open", this.handleOpen);

@@ -5,6 +5,7 @@ export * from "./transcripts/types/index.js";
 export * as auth from "./auth/index.js";
 export * from "./auth/types/index.js";
 export * as stream from "./stream/index.js";
+export * as transcribe from "./transcribe/index.js";
 export * as recordings from "./recordings/index.js";
 export * from "./interactions/client/requests/index.js";
 export * from "./transcripts/client/requests/index.js";

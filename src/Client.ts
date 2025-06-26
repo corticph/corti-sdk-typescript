@@ -10,6 +10,7 @@ import { Interactions } from "./api/resources/interactions/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
 import { Transcripts } from "./api/resources/transcripts/client/Client.js";
 import { Stream } from "./api/resources/stream/client/Client.js";
+import { Transcribe } from "./api/resources/transcribe/client/Client.js";
 
 export declare namespace CortiClient {
     export interface Options {
@@ -46,6 +47,7 @@ export class CortiClient {
     protected _transcripts: Transcripts | undefined;
     protected _auth: Auth | undefined;
     protected _stream: Stream | undefined;
+    protected _transcribe: Transcribe | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -103,6 +105,13 @@ export class CortiClient {
 
     public get stream(): Stream {
         return (this._stream ??= new Stream({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get transcribe(): Transcribe {
+        return (this._transcribe ??= new Transcribe({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));

@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface ConfigData {
-    transcription: Corti.ConfigTranscription;
-    mode: Corti.ConfigMode;
+export interface ErrorMessage {
+    type: "error";
+    error?: Corti.ErrorMessageError;
 }
