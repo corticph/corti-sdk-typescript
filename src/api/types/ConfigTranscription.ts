@@ -5,9 +5,12 @@
 import * as Corti from "../index.js";
 
 export interface ConfigTranscription {
-    primaryLanguage?: Corti.ConfigTranscriptionPrimaryLanguage;
-    isMultichannel?: boolean;
+    /** Primary spoken language for transcription */
+    primaryLanguage: string;
+    /** Enable speaker diarization */
     isDiarization?: boolean;
-    participants?: Corti.ConfigParticipant[];
-    model?: "model1";
+    /** Enable multi-channel audio processing */
+    isMultichannel?: boolean;
+    /** List of participants with roles assigned to a channel */
+    participants: Corti.ConfigParticipant[];
 }

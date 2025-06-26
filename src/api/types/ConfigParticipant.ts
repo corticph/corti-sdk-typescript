@@ -5,6 +5,8 @@
 import * as Corti from "../index.js";
 
 export interface ConfigParticipant {
-    channel?: number;
-    role?: Corti.ConfigParticipantRole;
+    /** Audio channel number */
+    channel: number;
+    /** Role of the participant */
+    role: Corti.ConfigParticipantRole;
 }

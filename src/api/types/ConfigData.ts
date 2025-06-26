@@ -5,6 +5,6 @@
 import * as Corti from "../index.js";
 
 export interface ConfigData {
-    transcription?: Corti.ConfigTranscription;
-    mode?: Corti.ConfigMode;
+    transcription: Corti.ConfigTranscription;
+    mode: Corti.ConfigMode;
 }

@@ -5,7 +5,8 @@
 import * as Corti from "../index.js";
 
 export interface ConfigMode {
-    type?: Corti.ConfigModeType;
-    outputLocale?: string;
-    templateId?: string;
+    /** Processing mode */
+    type: Corti.ConfigModeType;
+    /** Output language locale specific to facts */
+    outputLocale: string;
 }

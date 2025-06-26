@@ -5,6 +5,6 @@
 import * as Corti from "../index.js";
 
 export interface Configuration {
-    type?: "config";
-    configuration?: Corti.ConfigData;
+    type: "config";
+    data?: Corti.ConfigData;
 }

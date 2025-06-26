@@ -11,7 +11,7 @@ export declare namespace StreamSocket {
         socket: core.ReconnectingWebSocket;
     }
 
-    export type Response = Corti.AudioPacket;
+    export type Response = Corti.ConfigStatus;
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
@@ -67,21 +67,6 @@ export class StreamSocket {
     }
 
     public sendConfiguration(message: Corti.Configuration): void {
-        this.assertSocketIsOpen();
-        this.sendJson(message);
-    }
-
-    public sendStatus(message: Corti.Status): void {
-        this.assertSocketIsOpen();
-        this.sendJson(message);
-    }
-
-    public sendTranscripts(message: Corti.Transcripts): void {
-        this.assertSocketIsOpen();
-        this.sendJson(message);
-    }
-
-    public sendFacts(message: Corti.Facts): void {
         this.assertSocketIsOpen();
         this.sendJson(message);
     }
@@ -144,7 +129,7 @@ export class StreamSocket {
     }
 
     /** Send a JSON payload to the websocket. */
-    private sendJson(payload: Corti.Configuration | Corti.Status | Corti.Transcripts | Corti.Facts): void {
+    private sendJson(payload: Corti.Configuration): void {
         const jsonPayload = toJson(payload);
         this.socket.send(jsonPayload);
     }
