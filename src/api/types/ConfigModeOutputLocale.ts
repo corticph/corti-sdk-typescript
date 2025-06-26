@@ -3,9 +3,9 @@
  */
 
 /**
- * The locale of the primary spoken language. Supported languages: en (English US), en-GB (English UK), da (Danish), de (German), fr (French), de-CH (Swiss-German), sv (Swedish), es (Spanish), it (Italian), nl (Dutch), no (Norwegian), pt (Portuguese)
+ * Output language locale specific to facts. Supported languages: en (English US), en-GB (English UK), da (Danish), de (German), fr (French), de-CH (Swiss-German), sv (Swedish), es (Spanish), it (Italian), nl (Dutch), no (Norwegian), pt (Portuguese)
  */
-export type ConfigurationMessagePrimaryLanguage =
+export type ConfigModeOutputLocale =
     | "en"
     | "en-GB"
     | "da"
@@ -18,7 +18,7 @@ export type ConfigurationMessagePrimaryLanguage =
     | "nl"
     | "no"
     | "pt";
-export const ConfigurationMessagePrimaryLanguage = {
+export const ConfigModeOutputLocale = {
     En: "en",
     EnGb: "en-GB",
     Da: "da",
