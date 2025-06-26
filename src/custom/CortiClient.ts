@@ -26,9 +26,10 @@ import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 import { Transcripts } from "../api/resources/transcripts/client/Client.js";
 /**
- * Patch: changed import to custom Stream implementation
+ * Patch: changed import to custom Stream and Transcribe implementations
  */
 import { Stream } from "./CustomStream.js";
+import { Transcribe } from "./CustomTranscribe.js";
 
 /**
  * Patch: added custom RefreshBearerProvider
@@ -111,6 +112,7 @@ export class CortiClient {
      *   For other cases they can use `CortiAuth` module directly.
      */
     protected _stream: Stream | undefined;
+    protected _transcribe: Transcribe | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -173,6 +175,13 @@ export class CortiClient {
 
     public get stream(): Stream {
         return (this._stream ??= new Stream({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get transcribe(): Transcribe {
+        return (this._transcribe ??= new Transcribe({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
