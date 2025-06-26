@@ -21,6 +21,8 @@ export declare namespace Stream {
 
     export interface ConnectArgs {
         id: string;
+        "tenant-name"?: string;
+        token?: string;
         /** Arbitrary headers to send with the websocket connect request. */
         headers?: Record<string, unknown>;
         /** Enable debug mode on the websocket. Defaults to false. */
@@ -39,6 +41,14 @@ export class Stream {
 
     public async connect(args: Stream.ConnectArgs): Promise<StreamSocket> {
         const queryParams: Record<string, unknown> = {};
+        if (args["tenant-name"] != null) {
+            queryParams["tenant-name"] = args["tenant-name"];
+        }
+
+        if (args["token"] != null) {
+            queryParams["token"] = args["token"];
+        }
+
         let websocketHeaders: Record<string, unknown> = {};
         websocketHeaders = {
             ...websocketHeaders,
