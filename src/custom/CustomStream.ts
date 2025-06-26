@@ -3,7 +3,10 @@
  */
 import { Stream as FernStream } from "../api/resources/stream/client/Client.js";
 import * as core from "../core/index.js";
-import { StreamSocket } from "../api/resources/stream/client/Socket.js";
+/**
+ * Patch: changed import to custom StreamSocket implementation
+ */
+import { StreamSocket } from "./CustomStreamSocket.js";
 import * as qs from "qs";
 
 export class Stream extends FernStream {
