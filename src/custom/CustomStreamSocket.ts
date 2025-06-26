@@ -2,7 +2,7 @@
  * Patch: file patches disability of auto-generating binary data methods for sending data to the socket
  */
 import { StreamSocket as FernStreamSocket } from '../api/resources/stream/client/Socket.js';
-import * as core from "../core";
+import * as core from "../core/index.js";
 
 export class StreamSocket extends FernStreamSocket {
     public sendAudio(message: ArrayBuffer | string): void {

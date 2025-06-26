@@ -2,7 +2,7 @@
  * Patch: file patches disability of auto-generating binary data methods for sending data to the socket
  */
 import { TranscribeSocket as FernTranscribeSocket } from '../api/resources/transcribe/client/Socket.js';
-import * as core from "../core";
+import * as core from "../core/index.js";
 
 export class TranscribeSocket extends FernTranscribeSocket {
     public sendAudio(message: ArrayBuffer | string): void {
