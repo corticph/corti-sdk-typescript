@@ -15,6 +15,8 @@ npm i -s @corti/core
 
 A full reference for this library is available [here](https://github.com/corticph/corti-sdk-typescript/blob/HEAD/./reference.md).
 
+For detailed authentication instructions, see the [Authentication Guide](./AUTHENTICATION.md).
+
 ## Usage
 
 Instantiate and use the client with the following:
@@ -22,12 +24,32 @@ Instantiate and use the client with the following:
 ```typescript
 import { CortiEnvironment, CortiClient } from "@corti/core";
 
+// Using client credentials (OAuth2)
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+    },
 });
+
+// Or using a bearer token
+const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
+    tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        access_token: "YOUR_ACCESS_TOKEN",
+        // Optional: refresh token for automatic token refresh
+        refresh_token: "YOUR_REFRESH_TOKEN",
+        expires_in: 3600,
+        refresh_expires_in: 86400,
+    },
+});
+
+// For user authentication, you can also use Authorization Code Flow
+// See the Authentication Guide for detailed instructions
+
 await client.interactions.create({
     encounter: {
         identifier: "identifier",
@@ -79,9 +101,11 @@ import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+    },
 });
 const response = await client.interactions.list();
 for await (const item of response) {
