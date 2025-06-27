@@ -6,5 +6,5 @@ import * as Corti from "../index.js";
 
 export interface FactsMessage {
     type: "facts";
-    data: Corti.Fact[];
+    fact: Corti.Fact[];
 }

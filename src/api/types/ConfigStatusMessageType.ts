@@ -5,9 +5,18 @@
 /**
  * Configuration status result
  */
-export type ConfigStatusMessageType = "CONFIG_ACCEPTED" | "CONFIG_DENIED" | "CONFIG_TIMEOUT";
+export type ConfigStatusMessageType =
+    | "CONFIG_ACCEPTED"
+    | "CONFIG_DENIED"
+    | "CONFIG_MISSING"
+    | "CONFIG_NOT_PROVIDED"
+    | "CONFIG_ALREADY_RECEIVED"
+    | "CONFIG_TIMEOUT";
 export const ConfigStatusMessageType = {
     ConfigAccepted: "CONFIG_ACCEPTED",
     ConfigDenied: "CONFIG_DENIED",
+    ConfigMissing: "CONFIG_MISSING",
+    ConfigNotProvided: "CONFIG_NOT_PROVIDED",
+    ConfigAlreadyReceived: "CONFIG_ALREADY_RECEIVED",
     ConfigTimeout: "CONFIG_TIMEOUT",
 } as const;

@@ -7,8 +7,8 @@ import * as Corti from "../index.js";
 export interface ConfigStatusMessage {
     /** Configuration status result */
     type: Corti.ConfigStatusMessageType;
-    /** Optional reason for rejection */
+    /** Optional reason for rejection (e.g., 'language unavailable') */
     reason?: string;
-    /** Session identifier returned when configuration is accepted */
-    sessionId: string;
+    /** Session identifier returned when configuration is accepted (transcribe only) */
+    sessionId?: string;
 }
