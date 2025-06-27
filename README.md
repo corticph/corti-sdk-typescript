@@ -3,17 +3,25 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcorticph%2Fcorti-sdk-typescript)
 [![npm shield](https://img.shields.io/npm/v/@corti/core)](https://www.npmjs.com/package/@corti/core)
 
+> [!WARNING]
+> This is an **alpha version** of the Corti TypeScript SDK library. As such, there will be breaking changes in future releases as we work toward our beta version. Additionally, types might not always match the actual API reality, and some features may be missing or incomplete. We're actively working to improve the library and would greatly appreciate any feedback if you encounter any inconsistencies or issues 💚
+
 The Corti TypeScript library provides convenient access to the Corti API from TypeScript.
 
 ## Installation
 
+> [!NOTE]
+> You must install the alpha version as the latest version is essentially empty. Use the command below to get the functional SDK.
+
 ```sh
-npm i -s @corti/core
+npm i -s @corti/core@alpha
 ```
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/corticph/corti-sdk-typescript/blob/HEAD/./reference.md).
+A full reference for this library is available [here](REFERENCE-latest.md).
+
+For detailed authentication instructions, see the [Authentication Guide](./AUTHENTICATION.md).
 
 ## Usage
 
@@ -22,12 +30,32 @@ Instantiate and use the client with the following:
 ```typescript
 import { CortiEnvironment, CortiClient } from "@corti/core";
 
+// Using client credentials (OAuth2)
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+    },
 });
+
+// Or using a bearer token
+const client = new CortiClient({
+    environment: CortiEnvironment.BetaEu,
+    tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        access_token: "YOUR_ACCESS_TOKEN",
+        // Optional: refresh token for automatic token refresh
+        refresh_token: "YOUR_REFRESH_TOKEN",
+        expires_in: 3600,
+        refresh_expires_in: 86400,
+    },
+});
+
+// For user authentication, you can also use Authorization Code Flow
+// See the Authentication Guide for detailed instructions
+
 await client.interactions.create({
     encounter: {
         identifier: "identifier",
@@ -79,9 +107,11 @@ import { CortiEnvironment, CortiClient } from "@corti/core";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
-    clientId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_SECRET",
     tenantName: "YOUR_TENANT_NAME",
+    auth: {
+        clientId: "YOUR_CLIENT_ID",
+        clientSecret: "YOUR_CLIENT_SECRET",
+    },
 });
 const response = await client.interactions.list();
 for await (const item of response) {
@@ -169,6 +199,7 @@ The SDK defaults to `node-fetch` but will use the global fetch client if present
 runtimes:
 
 - Node.js 18+
+- Modern browsers
 - Vercel
 - Cloudflare Workers
 - Deno v1.25+
