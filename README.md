@@ -3,12 +3,18 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcorticph%2Fcorti-sdk-typescript)
 [![npm shield](https://img.shields.io/npm/v/@corti/core)](https://www.npmjs.com/package/@corti/core)
 
+> [!WARNING]
+> This is an **alpha version** of the Corti TypeScript SDK library. As such, there will be breaking changes in future releases as we work toward our beta version. Additionally, types might not always match the actual API reality, and some features may be missing or incomplete. We're actively working to improve the library and would greatly appreciate any feedback if you encounter any inconsistencies or issues ❤️
+
 The Corti TypeScript library provides convenient access to the Corti API from TypeScript.
 
 ## Installation
 
+> [!NOTE]
+> You must install the alpha version as the latest version is essentially empty. Use the command below to get the functional SDK.
+
 ```sh
-npm i -s @corti/core
+npm i -s @corti/core@alpha
 ```
 
 ## Reference
@@ -193,6 +199,7 @@ The SDK defaults to `node-fetch` but will use the global fetch client if present
 runtimes:
 
 - Node.js 18+
+- Modern browsers
 - Vercel
 - Cloudflare Workers
 - Deno v1.25+
