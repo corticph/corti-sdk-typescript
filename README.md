@@ -4,7 +4,7 @@
 [![npm shield](https://img.shields.io/npm/v/@corti/core)](https://www.npmjs.com/package/@corti/core)
 
 > [!WARNING]
-> This is an **alpha version** of the Corti TypeScript SDK library. As such, there will be breaking changes in future releases as we work toward our beta version. Additionally, types might not always match the actual API reality, and some features may be missing or incomplete. We're actively working to improve the library and would greatly appreciate any feedback if you encounter any inconsistencies or issues ❤️
+> This is an **alpha version** of the Corti TypeScript SDK library. As such, there will be breaking changes in future releases as we work toward our beta version. Additionally, types might not always match the actual API reality, and some features may be missing or incomplete. We're actively working to improve the library and would greatly appreciate any feedback if you encounter any inconsistencies or issues 💚
 
 The Corti TypeScript library provides convenient access to the Corti API from TypeScript.
 
