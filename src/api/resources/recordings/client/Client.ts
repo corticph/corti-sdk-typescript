@@ -11,7 +11,6 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 import * as fs from "fs";
 import { Blob } from "buffer";
-import * as stream from "stream";
 
 export declare namespace Recordings {
     export interface Options {
@@ -286,7 +285,7 @@ export class Recordings {
         id: Corti.Uuid,
         recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<stream.Readable> {
+    ): core.HttpResponsePromise<ReadableStream<Uint8Array>> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, recordingId, requestOptions));
     }
 
@@ -294,8 +293,8 @@ export class Recordings {
         id: Corti.Uuid,
         recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<stream.Readable>> {
-        const _response = await core.fetcher<stream.Readable>({
+    ): Promise<core.WithRawResponse<ReadableStream<Uint8Array>>> {
+        const _response = await core.fetcher<ReadableStream<Uint8Array>>({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)),
