@@ -19,7 +19,7 @@ npm i -s @corti/core@alpha
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/corticph/corti-sdk-typescript/blob/HEAD/./reference.md).
+A full reference for this library is available [here](REFERENCE-latest.md).
 
 For detailed authentication instructions, see the [Authentication Guide](./AUTHENTICATION.md).
 
