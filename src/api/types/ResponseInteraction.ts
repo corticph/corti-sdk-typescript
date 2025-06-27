@@ -14,13 +14,13 @@ export interface ResponseInteraction {
     /** Details about the patient involved in the interaction, if applicable. */
     patient: Corti.Patient;
     /** The timestamp when the interaction concluded (UTC). */
-    endedAt: Date;
+    endedAt: string;
     /** The timestamp when the interaction was started (UTC). */
-    createdAt: Date;
+    createdAt: string;
     /** The timestamp when the interaction was last modified (UTC). */
-    updatedAt: Date;
+    updatedAt: string;
     /** WebSocket URL for streaming real-time interactions. Append a token in the format: /interactions/{interactionID}/streams?token=Bearer token-value-here */
     websocketUrl: string;
     /** The timestamp indicating the last recorded update for this interaction. */
-    lastUpdated: Date;
+    lastUpdated: string;
 }

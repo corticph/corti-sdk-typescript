@@ -3,12 +3,12 @@ export * as Corti from "./api/index.js";
  * Patch: use custom CortiClient instead of the generated one.
  */
 export { CortiClient } from "./custom/CortiClient.js";
-/**
- * Patch: use custom environments instead of the generated ones.
- */
-export { CortiEnvironment } from "./custom/environments.js";
+export { CortiEnvironment, CortiEnvironmentUrls } from "./environments.js";
 export { CortiError, CortiTimeoutError } from "./errors/index.js";
-export * as serialization from "./serialization/index.js";
+/**
+ * TEMP: removed type validation for Alpha 1
+ */
+// export * as serialization from "./serialization/index.js";
 
 /**
  * Patch: added new export to provide Authorization code flow support.

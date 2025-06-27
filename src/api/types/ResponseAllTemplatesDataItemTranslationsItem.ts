@@ -4,7 +4,7 @@
 
 export interface ResponseAllTemplatesDataItemTranslationsItem {
     /** Language identifier */
-    languagesId?: string;
+    languages_id?: string;
     /** Localized name of the template */
     name?: string;
     /** Localized description of the template */

@@ -5,14 +5,13 @@
 import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
-import * as serializers from "../../../../serialization/index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Interactions {
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -65,46 +64,32 @@ export class Interactions {
             ): Promise<core.WithRawResponse<Corti.ResponseInteractions>> => {
                 const { sort, direction, pageSize, index, encounterStatus, patient } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (sort !== undefined) {
-                    _queryParams["sort"] = serializers.InteractionsListRequestSort.jsonOrThrow(sort, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    });
+                if (sort != null) {
+                    _queryParams["sort"] = sort;
                 }
-                if (direction !== undefined) {
-                    _queryParams["direction"] = serializers.InteractionsListRequestDirection.jsonOrThrow(direction, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    });
+                if (direction != null) {
+                    _queryParams["direction"] = direction;
                 }
-                if (pageSize !== undefined) {
-                    _queryParams["pageSize"] = pageSize?.toString() ?? null;
+                if (pageSize != null) {
+                    _queryParams["pageSize"] = pageSize.toString();
                 }
-                if (index !== undefined) {
-                    _queryParams["index"] = index?.toString() ?? null;
+                if (index != null) {
+                    _queryParams["index"] = index.toString();
                 }
                 if (encounterStatus != null) {
                     if (Array.isArray(encounterStatus)) {
-                        _queryParams["encounterStatus"] = encounterStatus.map((item) =>
-                            serializers.EncounterStatus.jsonOrThrow(item, {
-                                unrecognizedObjectKeys: "strip",
-                                omitUndefined: true,
-                            }),
-                        );
+                        _queryParams["encounterStatus"] = encounterStatus.map((item) => item);
                     } else {
-                        _queryParams["encounterStatus"] = serializers.EncounterStatus.jsonOrThrow(encounterStatus, {
-                            unrecognizedObjectKeys: "strip",
-                            omitUndefined: true,
-                        });
+                        _queryParams["encounterStatus"] = encounterStatus;
                     }
                 }
-                if (patient !== undefined) {
+                if (patient != null) {
                     _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({
                     url: urlJoin(
                         (await core.Supplier.get(this._options.baseUrl)) ??
-                            (await core.Supplier.get(this._options.environment)),
+                            (await core.Supplier.get(this._options.environment)).base,
                         "interactions/",
                     ),
                     method: "GET",
@@ -123,39 +108,18 @@ export class Interactions {
                     abortSignal: requestOptions?.abortSignal,
                 });
                 if (_response.ok) {
-                    return {
-                        data: serializers.ResponseInteractions.parseOrThrow(_response.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        rawResponse: _response.rawResponse,
-                    };
+                    return { data: _response.body as Corti.ResponseInteractions, rawResponse: _response.rawResponse };
                 }
                 if (_response.error.reason === "status-code") {
                     switch (_response.error.statusCode) {
                         case 403:
                             throw new Corti.ForbiddenError(
-                                serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
+                                _response.error.body as Corti.ErrorResponse,
                                 _response.rawResponse,
                             );
                         case 504:
                             throw new Corti.GatewayTimeoutError(
-                                serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
+                                _response.error.body as Corti.ErrorResponse,
                                 _response.rawResponse,
                             );
                         default:
@@ -231,7 +195,7 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
+                    (await core.Supplier.get(this._options.environment)).base,
                 "interactions/",
             ),
             method: "POST",
@@ -245,53 +209,26 @@ export class Interactions {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestInteractionCreate.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseInteractionCreate.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseInteractionCreate, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
+                    throw new Corti.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -346,8 +283,8 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
+                    (await core.Supplier.get(this._options.environment)).base,
+                `interactions/${encodeURIComponent(id)}`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -363,40 +300,16 @@ export class Interactions {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseInteraction.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseInteraction, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -448,8 +361,8 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
+                    (await core.Supplier.get(this._options.environment)).base,
+                `interactions/${encodeURIComponent(id)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -471,25 +384,10 @@ export class Interactions {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:
@@ -547,8 +445,8 @@ export class Interactions {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}`,
+                    (await core.Supplier.get(this._options.environment)).base,
+                `interactions/${encodeURIComponent(id)}`,
             ),
             method: "PATCH",
             headers: mergeHeaders(
@@ -561,49 +459,22 @@ export class Interactions {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestInteractionUpdate.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseInteraction.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseInteraction, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Corti.ForbiddenError(_response.error.body as Corti.ErrorResponse, _response.rawResponse);
                 case 504:
                     throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
+                        _response.error.body as Corti.ErrorResponse,
                         _response.rawResponse,
                     );
                 default:

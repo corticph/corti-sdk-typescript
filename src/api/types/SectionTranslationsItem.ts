@@ -4,7 +4,7 @@
 
 export interface SectionTranslationsItem {
     /** Language identifier */
-    languagesId?: string;
+    languages_id?: string;
     /** Localized name of the section */
     name?: string;
     /** Localized description of the section */

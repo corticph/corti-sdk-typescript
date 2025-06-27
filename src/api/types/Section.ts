@@ -6,19 +6,19 @@ import * as Corti from "../index.js";
 
 export interface Section {
     /** The timestamp when the section was updated. */
-    dateUpdated?: Date;
+    date_updated?: string;
     /** Name of the section */
     name?: string;
     /** Alternate names for the section */
-    alternateNames?: string[];
+    alternate_names?: string[];
     /** Unique key for the section */
     key?: string;
     /** Description of the section */
     description?: string;
     /** Default writing style for the section */
-    defaultWritingStyle?: Corti.WritingStyle;
+    default_writing_style?: Corti.WritingStyle;
     /** Type of section */
-    sectionType?: string;
+    section_type?: string;
     /** Available translations for the section */
     translations?: Corti.SectionTranslationsItem[];
 }

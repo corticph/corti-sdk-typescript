@@ -9,5 +9,6 @@ src/custom
 # Custom imports from custom code that replaces generated one
 src/index.ts
 
-# Has direct imports from generated code, stop generating since it's being replaces with custom code
-src/environments.ts
+# Export Socket types
+src/api/resources/stream/client/index.ts
+src/api/resources/transcribe/client/index.ts

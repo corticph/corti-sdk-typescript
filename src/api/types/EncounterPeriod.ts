@@ -4,7 +4,7 @@
 
 export interface EncounterPeriod {
     /** The start date/time of the encounter. (UTC) */
-    startedAt?: Date;
+    startedAt?: string;
     /** The end date/time of the encounter. (UTC) */
-    endedAt?: Date;
+    endedAt?: string;
 }

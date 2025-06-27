@@ -15,7 +15,7 @@
  * All the patches marked with `// Patch: ...` comments.
  */
 
-import * as environments from "./environments.js";
+import * as environments from "../environments.js";
 import * as core from "../core/index.js";
 /**
  * Patch: changed import to custom Auth implementation
@@ -25,10 +25,11 @@ import { mergeHeaders } from "../core/headers.js";
 import { Interactions } from "../api/resources/interactions/client/Client.js";
 import { Recordings } from "../api/resources/recordings/client/Client.js";
 import { Transcripts } from "../api/resources/transcripts/client/Client.js";
-import { Facts } from "../api/resources/facts/client/Client.js";
-import { Documents  } from "../api/resources/documents/client/Client.js";
-import { Templates } from "../api/resources/templates/client/Client.js";
-
+/**
+ * Patch: changed import to custom Stream and Transcribe implementations
+ */
+import { Stream } from "./CustomStream.js";
+import { Transcribe } from "./CustomTranscribe.js";
 
 /**
  * Patch: added custom RefreshBearerProvider
@@ -50,7 +51,7 @@ export declare namespace CortiClient {
     }
 
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -66,7 +67,7 @@ export declare namespace CortiClient {
      *  - made clientId and clientSecret optional
      */
     interface InternalOptions {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         clientId?: core.Supplier<string>;
@@ -104,15 +105,14 @@ export class CortiClient {
     protected _interactions: Interactions | undefined;
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
-    protected _facts: Facts | undefined;
-    protected _templates: Templates | undefined;
-    protected _documents: Documents | undefined;
     /**
      * Patch: removed `auth` field
      * `_oauthTokenProvider` uses Auth module directly to get the token,
      *   and our client also don't need to use it within the main client.
      *   For other cases they can use `CortiAuth` module directly.
      */
+    protected _stream: Stream | undefined;
+    protected _transcribe: Transcribe | undefined;
 
     constructor(_options: CortiClient.Options) {
         this._options = {
@@ -132,20 +132,15 @@ export class CortiClient {
                 },
                 _options?.headers,
             ),
-            /**
-             * Patch: generated `baseUrl` from environment, added authentication fields
-             *  Using plain fields instead of `auth` field, because this is the format other Client-s would expect
-             */
-            baseUrl: `https://api.${_options.environment}.corti.app/v2`,
             clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
             clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
-            token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
+            token: "access_token" in _options.auth ? _options.auth.access_token : undefined,
         };
 
         /**
          * Patch: if `accessToken` is provided, use BearerProvider, otherwise use OAuthTokenProvider
          */
-        this._oauthTokenProvider = "accessToken" in _options.auth ?
+        this._oauthTokenProvider = "access_token" in _options.auth ?
             new RefreshBearerProvider(_options.auth) :
             new core.OAuthTokenProvider({
                 clientId: _options.auth.clientId,
@@ -178,22 +173,15 @@ export class CortiClient {
         }));
     }
 
-    public get facts(): Facts {
-        return (this._facts ??= new Facts({
+    public get stream(): Stream {
+        return (this._stream ??= new Stream({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
     }
 
-    public get documents(): Documents {
-        return (this._documents ??= new Documents({
-            ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
-        }));
-    }
-  
-    public get templates(): Templates {
-        return (this._templates ??= new Templates({
+    public get transcribe(): Transcribe {
+        return (this._transcribe ??= new Transcribe({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));

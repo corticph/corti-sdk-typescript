@@ -15,9 +15,9 @@ export interface ResponseDocumentRead {
     /** Individual document sections */
     sections?: Corti.ResponseDocumentReadSectionsItem[];
     /** The original timestamp when the document was created. */
-    createdAt?: Date;
+    createdAt?: string;
     /** The timestamp when the document was last updated. */
-    updatedAt?: Date;
+    updatedAt?: string;
     /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
     outputLanguage?: string;
     usageInfo?: Corti.UsageInfo;

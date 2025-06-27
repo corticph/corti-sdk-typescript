@@ -7,12 +7,11 @@ import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Templates {
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | string>;
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
@@ -68,18 +67,18 @@ export class Templates {
     ): Promise<core.WithRawResponse<Corti.ResponseAllTemplateSections>> {
         const { org, lang } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (org !== undefined) {
+        if (org != null) {
             _queryParams["org"] = org;
         }
 
-        if (lang !== undefined) {
+        if (lang != null) {
             _queryParams["lang"] = lang;
         }
 
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
+                    (await core.Supplier.get(this._options.environment)).base,
                 "templateSections/",
             ),
             method: "GET",
@@ -97,24 +96,15 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseAllTemplateSections.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseAllTemplateSections, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,
@@ -166,22 +156,22 @@ export class Templates {
     ): Promise<core.WithRawResponse<Corti.ResponseAllTemplates>> {
         const { org, lang, status } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (org !== undefined) {
+        if (org != null) {
             _queryParams["org"] = org;
         }
 
-        if (lang !== undefined) {
+        if (lang != null) {
             _queryParams["lang"] = lang;
         }
 
-        if (status !== undefined) {
+        if (status != null) {
             _queryParams["status"] = status;
         }
 
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
+                    (await core.Supplier.get(this._options.environment)).base,
                 "templates/",
             ),
             method: "GET",
@@ -199,24 +189,15 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.ResponseAllTemplates.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.ResponseAllTemplates, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,
@@ -269,7 +250,7 @@ export class Templates {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)),
+                    (await core.Supplier.get(this._options.environment)).base,
                 `templates/${encodeURIComponent(key)}`,
             ),
             method: "GET",
@@ -286,24 +267,15 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: serializers.TemplateFiltered.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Corti.TemplateFiltered, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,
