@@ -14,5 +14,5 @@ export interface TranscribeConfigurationMessageConfiguration {
     /** When true, automatically punctuates and capitalizes in the final transcript */
     automaticPunctuation?: boolean;
     /** Commands that should be registered and detected */
-    commands?: Corti.Command[];
+    commands?: Corti.TranscribeCommand[];
 }

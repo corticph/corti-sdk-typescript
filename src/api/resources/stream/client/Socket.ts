@@ -12,12 +12,12 @@ export declare namespace StreamSocket {
     }
 
     export type Response =
-        | Corti.ConfigStatusMessage
-        | Corti.TranscriptMessage
-        | Corti.FactsMessage
-        | Corti.EndedMessage
-        | Corti.UsageMessage
-        | Corti.ErrorMessage;
+        | Corti.StreamConfigStatusMessage
+        | Corti.StreamTranscriptMessage
+        | Corti.StreamFactsMessage
+        | Corti.StreamEndedMessage
+        | Corti.StreamUsageMessage
+        | Corti.StreamErrorMessage;
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
@@ -72,7 +72,7 @@ export class StreamSocket {
         this.eventHandlers[event] = callback;
     }
 
-    public sendConfiguration(message: Corti.ConfigurationMessage): void {
+    public sendConfiguration(message: Corti.StreamConfigurationMessage): void {
         this.assertSocketIsOpen();
         this.sendJson(message);
     }
@@ -82,7 +82,7 @@ export class StreamSocket {
         this.sendJson(message);
     }
 
-    public sendEnd(message: Corti.EndMessage): void {
+    public sendEnd(message: Corti.StreamEndMessage): void {
         this.assertSocketIsOpen();
         this.sendJson(message);
     }
@@ -145,7 +145,7 @@ export class StreamSocket {
     }
 
     /** Send a JSON payload to the websocket. */
-    private sendJson(payload: Corti.ConfigurationMessage | string | Corti.EndMessage): void {
+    private sendJson(payload: Corti.StreamConfigurationMessage | string | Corti.StreamEndMessage): void {
         const jsonPayload = toJson(payload);
         this.socket.send(jsonPayload);
     }

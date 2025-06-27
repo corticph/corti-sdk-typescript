@@ -13,11 +13,11 @@ export declare namespace TranscribeSocket {
 
     export type Response =
         | Corti.TranscribeConfigStatusMessage
-        | Corti.UsageMessage
+        | Corti.TranscribeUsageMessage
         | Corti.TranscribeEndedMessage
-        | Corti.ErrorMessage
+        | Corti.TranscribeErrorMessage
         | Corti.TranscribeTranscriptMessage
-        | Corti.CommandMessage;
+        | Corti.TranscribeCommandMessage;
     type EventHandlers = {
         open?: () => void;
         message?: (message: Response) => void;
@@ -82,7 +82,7 @@ export class TranscribeSocket {
         this.sendJson(message);
     }
 
-    public sendEnd(message: Corti.EndMessage): void {
+    public sendEnd(message: Corti.TranscribeEndMessage): void {
         this.assertSocketIsOpen();
         this.sendJson(message);
     }
@@ -145,7 +145,7 @@ export class TranscribeSocket {
     }
 
     /** Send a JSON payload to the websocket. */
-    private sendJson(payload: Corti.TranscribeConfigurationMessage | string | Corti.EndMessage): void {
+    private sendJson(payload: Corti.TranscribeConfigurationMessage | string | Corti.TranscribeEndMessage): void {
         const jsonPayload = toJson(payload);
         this.socket.send(jsonPayload);
     }
