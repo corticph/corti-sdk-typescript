@@ -9,5 +9,6 @@ src/custom
 # Custom imports from custom code that replaces generated one
 src/index.ts
 
-# Export StreamSocket type
+# Export Socket types
 src/api/resources/stream/client/index.ts
+src/api/resources/transcribe/client/index.ts
