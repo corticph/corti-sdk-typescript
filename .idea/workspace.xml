@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5636f06c-1d6a-486b-a292-d931ebe67d75" name="Changes" comment="Exported Socket types">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2y5ZfnhQ8GnqN0Gy4MWunEyLHEa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "update-readme-and-referencemd-to-match-new-authentication-gro-124",
+    "last_opened_file_path": "/Users/nmt/corti-sdk-typescript",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/Users/nmt/corti-sdk-typescript/node_modules/prettier",
+    "ts.external.directory.path": "/Users/nmt/corti-sdk-typescript/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/custom" />
+      <recent name="$PROJECT_DIR$/src/custom/serialization" />
+      <recent name="$PROJECT_DIR$/src/custom/serialization/requests" />
+      <recent name="$PROJECT_DIR$/src/custom/requests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/custom/serialization/requests" />
+      <recent name="$PROJECT_DIR$/src/custom/requests" />
+      <recent name="$PROJECT_DIR$/src/custom" />
+      <recent name="$PROJECT_DIR$/src/custom/api/resources/auth/client" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.25659.40" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5636f06c-1d6a-486b-a292-d931ebe67d75" name="Changes" comment="" />
+      <created>1749126500366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749126500366</updated>
+      <workItem from="1749126501516" duration="8359000" />
+      <workItem from="1750081285507" duration="21031000" />
+      <workItem from="1750232991353" duration="55301000" />
+    </task>
+    <task id="LOCAL-00014" summary="Fixed error in file name">
+      <option name="closed" value="true" />
+      <created>1750149831091</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1750149831091</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Supported both Bearer and Client credentials for authentication">
+      <option name="closed" value="true" />
+      <created>1750151130122</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1750151130122</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added authorizeURL for &quot;code&quot; auth flow">
+      <option name="closed" value="true" />
+      <created>1750154957463</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1750154957463</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Exported Auth Client separately to have an access to authentification methods">
+      <option name="closed" value="true" />
+      <created>1750155301512</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1750155301512</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added new method to request access token from code">
+      <option name="closed" value="true" />
+      <created>1750160869150</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1750160869150</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Updated request type">
+      <option name="closed" value="true" />
+      <created>1750161046304</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750161046304</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Fixed naming via serialization">
+      <option name="closed" value="true" />
+      <created>1750161292014</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750161292014</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Reduced scope">
+      <option name="closed" value="true" />
+      <created>1750162331742</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750162331742</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Recordings added to the extended client">
+      <option name="closed" value="true" />
+      <created>1750165652516</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1750165652516</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fixed extention">
+      <option name="closed" value="true" />
+      <created>1750231237954</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1750231237954</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed merge bug with duplication">
+      <option name="closed" value="true" />
+      <created>1750233146276</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1750233146276</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Ignored Client because of ts errors">
+      <option name="closed" value="true" />
+      <created>1750248807967</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1750248807967</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Replaced generated environments and main CortiClient">
+      <option name="closed" value="true" />
+      <created>1750250889788</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1750250889788</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Supported Bearer auth along with Client Credentials">
+      <option name="closed" value="true" />
+      <created>1750252669660</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1750252669660</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Supported authorization code flow via our package">
+      <option name="closed" value="true" />
+      <created>1750255912692</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1750255912692</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Made options optional">
+      <option name="closed" value="true" />
+      <created>1750258166621</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1750258166621</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added refresh token method">
+      <option name="closed" value="true" />
+      <created>1750429026023</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1750429026023</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Updated method name">
+      <option name="closed" value="true" />
+      <created>1750429225930</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1750429225930</updated>
+    </task>
+    <task id="LOCAL-00032" summary="BearerProvider replaced with RefreshBearerProvider">
+      <option name="closed" value="true" />
+      <created>1750430658151</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1750430658151</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Fixed an error in refresh flow">
+      <option name="closed" value="true" />
+      <created>1750432301863</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1750432301863</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Removed unused provider">
+      <option name="closed" value="true" />
+      <created>1750433601335</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1750433601335</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Added transcripts to the client">
+      <option name="closed" value="true" />
+      <created>1750761419670</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1750761419670</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Commented environments to check if it causes errors in generation">
+      <option name="closed" value="true" />
+      <created>1750841386796</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1750841386796</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Removed comment from environments">
+      <option name="closed" value="true" />
+      <created>1750842454745</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1750842454745</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Commented environments to check an endresult again">
+      <option name="closed" value="true" />
+      <created>1750843756723</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1750843756723</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Replaced environments with original generation">
+      <option name="closed" value="true" />
+      <created>1750845264344</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1750845264344</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Removed environments from locked from generation files">
+      <option name="closed" value="true" />
+      <created>1750845362008</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1750845362008</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Updated environment variable typings, removed work-around for api link generation in main client">
+      <option name="closed" value="true" />
+      <created>1750845586160</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1750845586160</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Updated url generation in Authentication module, removed hack with redefining baseUrl">
+      <option name="closed" value="true" />
+      <created>1750845714951</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1750845714951</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Updated url generation in authorizeURL">
+      <option name="closed" value="true" />
+      <created>1750845817702</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1750845817702</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Fixed file extention">
+      <option name="closed" value="true" />
+      <created>1750848372783</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1750848372783</updated>
+    </task>
+    <task id="LOCAL-00045" summary="customized oauth url">
+      <option name="closed" value="true" />
+      <created>1750848802008</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1750848802009</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added parch comment">
+      <option name="closed" value="true" />
+      <created>1750849474224</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1750849474224</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Added custom implementation of Stream">
+      <option name="closed" value="true" />
+      <created>1750850632209</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1750850632209</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Added temporary fix to move forward with sockets implementation">
+      <option name="closed" value="true" />
+      <created>1750852275493</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1750852275493</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Made method private">
+      <option name="closed" value="true" />
+      <created>1750852423757</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1750852423757</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Fixed exports">
+      <option name="closed" value="true" />
+      <created>1750852571654</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1750852571654</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Updated custom stream to match changes in main stream">
+      <option name="closed" value="true" />
+      <created>1750853021629</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1750853021629</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Updated passing parameters to patched method">
+      <option name="closed" value="true" />
+      <created>1750853299851</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1750853299851</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Updated export">
+      <option name="closed" value="true" />
+      <created>1750856387886</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1750856387886</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Removed errors after type checker was removed">
+      <option name="closed" value="true" />
+      <created>1750859446045</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1750859446045</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Temporary removed custom stream implementation">
+      <option name="closed" value="true" />
+      <created>1750928773904</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1750928773904</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Temporary removed custom stream implementation">
+      <option name="closed" value="true" />
+      <created>1750928881963</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1750928881963</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Added transcribe to a main client">
+      <option name="closed" value="true" />
+      <created>1750941565786</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1750941565786</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Added patches to WebSocket implementations">
+      <option name="closed" value="true" />
+      <created>1750942501887</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1750942501888</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Heavily patch sockets implementation because if mission binary methods">
+      <option name="closed" value="true" />
+      <created>1750943328615</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1750943328615</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Fixed imports">
+      <option name="closed" value="true" />
+      <created>1750943570463</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1750943570463</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Removed empty parameters">
+      <option name="closed" value="true" />
+      <created>1750948358793</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1750948358793</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Exported Socket types">
+      <option name="closed" value="true" />
+      <created>1751016816670</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1751016816670</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Removed comment from environments" />
+    <MESSAGE value="Commented environments to check an endresult again" />
+    <MESSAGE value="Replaced environments with original generation" />
+    <MESSAGE value="Removed environments from locked from generation files" />
+    <MESSAGE value="Updated environment variable typings, removed work-around for api link generation in main client" />
+    <MESSAGE value="Updated url generation in Authentication module, removed hack with redefining baseUrl" />
+    <MESSAGE value="Updated url generation in authorizeURL" />
+    <MESSAGE value="Fixed file extention" />
+    <MESSAGE value="customized oauth url" />
+    <MESSAGE value="Added parch comment" />
+    <MESSAGE value="Added custom implementation of Stream" />
+    <MESSAGE value="Added temporary fix to move forward with sockets implementation" />
+    <MESSAGE value="Made method private" />
+    <MESSAGE value="Fixed exports" />
+    <MESSAGE value="Updated custom stream to match changes in main stream" />
+    <MESSAGE value="Updated passing parameters to patched method" />
+    <MESSAGE value="Updated export" />
+    <MESSAGE value="Removed errors after type checker was removed" />
+    <MESSAGE value="Temporary removed custom stream implementation" />
+    <MESSAGE value="Added transcribe to a main client" />
+    <MESSAGE value="Added patches to WebSocket implementations" />
+    <MESSAGE value="Heavily patch sockets implementation because if mission binary methods" />
+    <MESSAGE value="Fixed imports" />
+    <MESSAGE value="Removed empty parameters" />
+    <MESSAGE value="Exported Socket types" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exported Socket types" />
+  </component>
+</project>
