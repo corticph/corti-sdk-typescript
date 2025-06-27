@@ -6,9 +6,9 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const ResponseTranscriptCreateTranscriptsItem: core.serialization.ObjectSchema<
-    serializers.ResponseTranscriptCreateTranscriptsItem.Raw,
-    Corti.ResponseTranscriptCreateTranscriptsItem
+export const ResponseTranscriptListFullTranscriptsItem: core.serialization.ObjectSchema<
+    serializers.ResponseTranscriptListFullTranscriptsItem.Raw,
+    Corti.ResponseTranscriptListFullTranscriptsItem
 > = core.serialization.object({
     channel: core.serialization.number().optional(),
     participant: core.serialization.number().optional(),
@@ -18,7 +18,7 @@ export const ResponseTranscriptCreateTranscriptsItem: core.serialization.ObjectS
     end: core.serialization.number().optional(),
 });
 
-export declare namespace ResponseTranscriptCreateTranscriptsItem {
+export declare namespace ResponseTranscriptListFullTranscriptsItem {
     export interface Raw {
         channel?: number | null;
         participant?: number | null;

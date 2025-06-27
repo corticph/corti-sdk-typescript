@@ -72,7 +72,7 @@ export class Interactions {
                     });
                 }
                 if (direction !== undefined) {
-                    _queryParams["direction"] = serializers.InteractionsListRequestDirection.jsonOrThrow(direction, {
+                    _queryParams["direction"] = serializers.SortingDirectionEnum.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
