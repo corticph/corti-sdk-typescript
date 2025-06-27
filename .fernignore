@@ -12,3 +12,6 @@ src/index.ts
 # Export Socket types
 src/api/resources/stream/client/index.ts
 src/api/resources/transcribe/client/index.ts
+
+# Documentation
+README.md
