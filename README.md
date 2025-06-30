@@ -1,7 +1,7 @@
 # Corti TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcorticph%2Fcorti-sdk-typescript)
-[![npm shield](https://img.shields.io/npm/v/@corti/core)](https://www.npmjs.com/package/@corti/core)
+[![npm shield](https://img.shields.io/npm/v/@corti/sdk)](https://www.npmjs.com/package/@corti/sdk)
 
 > [!WARNING]
 > This is an **alpha version** of the Corti TypeScript SDK library. As such, there will be breaking changes in future releases as we work toward our beta version. Additionally, types might not always match the actual API reality, and some features may be missing or incomplete. We're actively working to improve the library and would greatly appreciate any feedback if you encounter any inconsistencies or issues 💚
@@ -14,7 +14,7 @@ The Corti TypeScript library provides convenient access to the Corti API from Ty
 > You must install the alpha version as the latest version is essentially empty. Use the command below to get the functional SDK.
 
 ```sh
-npm i -s @corti/core@alpha
+npm i -s @corti/sdk@alpha
 ```
 
 ## Reference
@@ -28,7 +28,7 @@ For detailed authentication instructions, see the [Authentication Guide](./AUTHE
 Instantiate and use the client with the following:
 
 ```typescript
-import { CortiEnvironment, CortiClient } from "@corti/core";
+import { CortiEnvironment, CortiClient } from "@corti/sdk";
 
 // Using client credentials (OAuth2)
 const client = new CortiClient({
@@ -71,7 +71,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Corti } from "@corti/core";
+import { Corti } from "@corti/sdk";
 
 const request: Corti.InteractionsListRequest = {
     ...
@@ -84,7 +84,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { CortiError } from "@corti/core";
+import { CortiError } from "@corti/sdk";
 
 try {
     await client.interactions.create(...);
@@ -103,7 +103,7 @@ try {
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
 
 ```typescript
-import { CortiEnvironment, CortiClient } from "@corti/core";
+import { CortiEnvironment, CortiClient } from "@corti/sdk";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
@@ -212,7 +212,7 @@ The SDK provides a way for you to customize the underlying HTTP client / Fetch f
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { CortiClient } from "@corti/core";
+import { CortiClient } from "@corti/sdk";
 
 const client = new CortiClient({
     ...

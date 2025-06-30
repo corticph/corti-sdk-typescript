@@ -21,7 +21,7 @@ For detailed information about Client Credentials flow, see the [official Corti 
 ### Basic Usage
 
 ```typescript
-import { CortiEnvironment, CortiClient } from "@corti/core";
+import { CortiEnvironment, CortiClient } from "@corti/sdk";
 
 const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
@@ -44,7 +44,7 @@ Use this method when you already have an access token from another source or wan
 You can generate bearer tokens on your **backend server** using `CortiAuth`:
 
 ```typescript
-import { CortiAuth, CortiEnvironment } from "@corti/core";
+import { CortiAuth, CortiEnvironment } from "@corti/sdk";
 
 const auth = new CortiAuth({
     environment: CortiEnvironment.BetaEu,
@@ -135,7 +135,7 @@ For detailed information about Authorization Code Flow, see the [official Corti 
 ### Step 1: Create Authorization URL
 
 ```typescript
-import { CortiAuth, CortiEnvironment } from "@corti/core";
+import { CortiAuth, CortiEnvironment } from "@corti/sdk";
 
 const auth = new CortiAuth({
     environment: CortiEnvironment.BetaEu,
@@ -192,7 +192,7 @@ if (code) {
 
 ```typescript
 // Backend: Handle the callback and exchange code for tokens using CortiAuth
-import { CortiAuth, CortiEnvironment } from "@corti/core";
+import { CortiAuth, CortiEnvironment } from "@corti/sdk";
 import express from 'express';
 
 const app = express();
