@@ -5,7 +5,7 @@
 import * as core from "../core/index.js";
 import * as api from "../api/index.js";
 
-type RefreshAccessTokenFunction = (refreshToken: string) => Promise<api.GetTokenResponse> | api.GetTokenResponse;
+type RefreshAccessTokenFunction = (refreshToken?: string) => Promise<api.GetTokenResponse> | api.GetTokenResponse;
 
 export type BearerOptions = Partial<Omit<api.GetTokenResponse, 'access_token'>> & {
     refreshAccessToken?: RefreshAccessTokenFunction;
@@ -48,7 +48,7 @@ export class RefreshBearerProvider {
     }
 
     private async refresh(): Promise<string> {
-        if (!this._refreshAccessToken || !this._refreshToken || this._refreshExpiresAt < new Date()) {
+        if (!this._refreshAccessToken || this._refreshExpiresAt < new Date()) {
             return core.Supplier.get(this._accessToken);
         }
 
