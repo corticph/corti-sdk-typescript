@@ -1,6 +1,6 @@
 {
     "name": "@corti/core",
-    "version": "0.0.0-alpha.9",
+    "version": "0.0.0-alpha.10",
     "private": false,
     "repository": "https://github.com/corticph/corti-sdk-typescript",
     "license": "MIT",
