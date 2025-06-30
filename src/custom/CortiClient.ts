@@ -128,12 +128,12 @@ export class CortiClient {
                 {
                     "Tenant-Name": _options?.tenantName,
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "@corti/core",
+                    "X-Fern-SDK-Name": "@corti/sdk",
                     /**
                      * Patch: replaced hardcoded SDK version with imported one
                      */
                     "X-Fern-SDK-Version": SDK_VERSION,
-                    "User-Agent": `@corti/core/${SDK_VERSION}`,
+                    "User-Agent": `@corti/sdk/${SDK_VERSION}`,
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
