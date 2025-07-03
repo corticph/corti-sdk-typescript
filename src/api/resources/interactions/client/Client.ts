@@ -6,7 +6,6 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Interactions {
@@ -87,7 +86,7 @@ export class Interactions {
                     _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({
-                    url: urlJoin(
+                    url: core.url.join(
                         (await core.Supplier.get(this._options.baseUrl)) ??
                             (await core.Supplier.get(this._options.environment)).base,
                         "interactions/",
@@ -193,7 +192,7 @@ export class Interactions {
         requestOptions?: Interactions.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseInteractionCreate>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 "interactions/",
@@ -281,7 +280,7 @@ export class Interactions {
         requestOptions?: Interactions.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseInteraction>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}`,
@@ -359,7 +358,7 @@ export class Interactions {
         requestOptions?: Interactions.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}`,
@@ -443,7 +442,7 @@ export class Interactions {
         requestOptions?: Interactions.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseInteraction>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}`,

@@ -6,7 +6,6 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 import * as fs from "fs";
 import { Blob } from "buffer";
@@ -70,7 +69,7 @@ export class Recordings {
         requestOptions?: Recordings.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseRecordingList>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/recordings/`,
@@ -157,7 +156,7 @@ export class Recordings {
         requestOptions?: Recordings.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseRecordingCreate>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/recordings/`,
@@ -236,7 +235,7 @@ export class Recordings {
         id: Corti.Uuid,
         recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<ReadableStream<Uint8Array>> {
+    ): core.HttpResponsePromise<core.BinaryResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, recordingId, requestOptions));
     }
 
@@ -244,9 +243,9 @@ export class Recordings {
         id: Corti.Uuid,
         recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<ReadableStream<Uint8Array>>> {
-        const _response = await core.fetcher<ReadableStream<Uint8Array>>({
-            url: urlJoin(
+    ): Promise<core.WithRawResponse<core.BinaryResponse>> {
+        const _response = await core.fetcher<core.BinaryResponse>({
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,
@@ -260,7 +259,7 @@ export class Recordings {
                 }),
                 requestOptions?.headers,
             ),
-            responseType: "streaming",
+            responseType: "binary-response",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -341,7 +340,7 @@ export class Recordings {
         requestOptions?: Recordings.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,

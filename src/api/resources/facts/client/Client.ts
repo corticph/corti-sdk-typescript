@@ -6,7 +6,6 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Facts {
@@ -60,7 +59,7 @@ export class Facts {
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactGroupsFiltered>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 "factgroups/",
@@ -135,7 +134,7 @@ export class Facts {
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsList>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/facts/`,
@@ -221,7 +220,7 @@ export class Facts {
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsCreate>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/facts/`,
@@ -309,7 +308,7 @@ export class Facts {
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsUpdate>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/facts/`,
@@ -399,7 +398,7 @@ export class Facts {
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactUpdate>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/facts/${encodeURIComponent(factId)}`,

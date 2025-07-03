@@ -6,7 +6,6 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Documents {
@@ -68,7 +67,7 @@ export class Documents {
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseDocumentList>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/documents/`,
@@ -168,7 +167,7 @@ export class Documents {
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/documents/`,
@@ -270,7 +269,7 @@ export class Documents {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/documents/${encodeURIComponent(documentId)}`,
@@ -361,7 +360,7 @@ export class Documents {
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/documents/${encodeURIComponent(documentId)}`,
@@ -454,7 +453,7 @@ export class Documents {
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `interactions/${encodeURIComponent(id)}/documents/${encodeURIComponent(documentId)}`,
