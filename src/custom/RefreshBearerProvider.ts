@@ -7,9 +7,9 @@ import * as api from "../api/index.js";
 
 type RefreshAccessTokenFunction = (refreshToken?: string) => Promise<api.GetTokenResponse> | api.GetTokenResponse;
 
-export type BearerOptions = Partial<Omit<api.GetTokenResponse, 'access_token'>> & {
+export type BearerOptions = Partial<Omit<api.GetTokenResponse, 'accessToken'>> & {
     refreshAccessToken?: RefreshAccessTokenFunction;
-    access_token: core.Supplier<string>;
+    accessToken: core.Supplier<string>;
 }
 
 export class RefreshBearerProvider {
@@ -24,17 +24,17 @@ export class RefreshBearerProvider {
     private _refreshExpiresAt: Date;
 
     constructor({
-        access_token,
+        accessToken,
         refreshAccessToken,
-        refresh_token,
-        refresh_expires_in,
-        expires_in,
+        refreshToken,
+        refreshExpiresIn,
+        expiresIn,
     }: BearerOptions) {
-        this._expiresAt = this.getExpiresAt(expires_in, this.BUFFER_IN_MINUTES);
-        this._refreshExpiresAt = this.getExpiresAt(refresh_expires_in, 0);
+        this._expiresAt = this.getExpiresAt(expiresIn, this.BUFFER_IN_MINUTES);
+        this._refreshExpiresAt = this.getExpiresAt(refreshExpiresIn, 0);
 
-        this._accessToken = access_token;
-        this._refreshToken = refresh_token;
+        this._accessToken = accessToken;
+        this._refreshToken = refreshToken;
 
         this._refreshAccessToken = refreshAccessToken;
     }
@@ -54,11 +54,11 @@ export class RefreshBearerProvider {
 
         const tokenResponse = await this._refreshAccessToken(this._refreshToken);
 
-        this._accessToken = tokenResponse.access_token;
-        this._expiresAt = this.getExpiresAt(tokenResponse.expires_in, this.BUFFER_IN_MINUTES);
+        this._accessToken = tokenResponse.accessToken;
+        this._expiresAt = this.getExpiresAt(tokenResponse.expiresIn, this.BUFFER_IN_MINUTES);
 
-        this._refreshToken = tokenResponse.refresh_token;
-        this._refreshExpiresAt = this.getExpiresAt(tokenResponse.refresh_expires_in, 0);
+        this._refreshToken = tokenResponse.refreshToken;
+        this._refreshExpiresAt = this.getExpiresAt(tokenResponse.refreshExpiresIn, 0);
 
         return this._accessToken;
     }

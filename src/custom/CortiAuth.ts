@@ -19,23 +19,24 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
 import urlJoin from "url-join";
 import * as errors from "../errors/index.js";
 import * as environments from "../environments.js";
+import * as serializers from "../serialization/index.js";
 
 interface AuthorizationCodeClient {
-    client_id: string;
-    redirect_uri: string;
+    clientId: string;
+    redirectUri: string;
 }
 
 interface AuthorizationCodeServer {
-    client_id: string;
-    client_secret: string;
-    redirect_uri: string;
+    clientId: string;
+    clientSecret: string;
+    redirectUri: string;
     code: string;
 }
 
 interface AuthorizationRefreshServer {
-    client_id: string;
-    client_secret: string;
-    refresh_token: string;
+    clientId: string;
+    clientSecret: string;
+    refreshToken: string;
 }
 
 interface Options {
@@ -57,8 +58,8 @@ export class Auth extends FernAuth {
      * Patch: added method to get Authorization URL for Authorization code flow
      */
     public async authorizeURL({
-        client_id,
-        redirect_uri,
+        clientId,
+        redirectUri,
     }: AuthorizationCodeClient, options?: Options): Promise<string> {
         const authUrl = new URL(urlJoin(
             (await core.Supplier.get(this._options.baseUrl)) ??
@@ -71,12 +72,12 @@ export class Auth extends FernAuth {
         authUrl.searchParams.set('response_type', 'code');
         authUrl.searchParams.set('scope', 'openid profile');
 
-        if (client_id !== undefined) {
-            authUrl.searchParams.set('client_id', client_id);
+        if (clientId !== undefined) {
+            authUrl.searchParams.set('client_id', clientId);
         }
 
-        if (redirect_uri !== undefined) {
-            authUrl.searchParams.set('redirect_uri', redirect_uri);
+        if (redirectUri !== undefined) {
+            authUrl.searchParams.set('redirect_uri', redirectUri);
         }
 
         const authUrlString = authUrl.toString();
@@ -98,7 +99,7 @@ export class Auth extends FernAuth {
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getToken_custom({
             ...request,
-            grant_type: "authorization_code",
+            grantType: "authorization_code",
         }, requestOptions));
     }
 
@@ -110,10 +111,10 @@ export class Auth extends FernAuth {
          * Patch: added additional fields to request to support Authorization code flow
          */
         request: Corti.AuthGetTokenRequest & Partial<{
-            grant_type: "client_credentials" | "authorization_code" | "refresh_token";
+            grantType: "client_credentials" | "authorization_code" | "refresh_token";
             code: string;
-            redirect_uri: string;
-            refresh_token: string;
+            redirectUri: string;
+            refreshToken: string;
         }>,
         requestOptions?: FernAuth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
@@ -140,31 +141,35 @@ export class Auth extends FernAuth {
                 requestOptions?.headers,
             ),
             contentType: "application/x-www-form-urlencoded",
+            requestType: "json",
             /**
              * Patch: removed `requestType: "json"`, made body a URLSearchParams object
              */
             body: new URLSearchParams({
-                ...request,
+                ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
                 scope: "openid",
                 /**
                  * Patch: `grant_type` uses values from request or defaults to "client_credentials"
                  */
-                grant_type: request.grant_type || "client_credentials",
+                grant_type: request.grantType || "client_credentials",
                 /**
                  * Patch: added `code` and `redirect_uri` fields for Authorization code flow
                  * Patch: added `refresh_token` field for Refresh token flow
                  */
-                ...(request.grant_type === "authorization_code"
+                ...(request.grantType === "authorization_code"
                     ? {
                         code: request.code,
-                        redirect_uri: request.redirect_uri
+                        redirect_uri: request.redirectUri
                     }
                     : {}),
-                ...(request.grant_type === "refresh_token"
-                    ? {
-                        refresh_token: request.refresh_token,
-                    }
-                    : {}
+                ...(request.grantType === "refresh_token"
+                        ? {
+                            refresh_token: request.refreshToken,
+                        }
+                        : {}
                 ),
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -172,7 +177,16 @@ export class Auth extends FernAuth {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.GetTokenResponse, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.GetTokenResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -211,7 +225,7 @@ export class Auth extends FernAuth {
     ): core.HttpResponsePromise<Corti.GetTokenResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getToken_custom({
             ...request,
-            grant_type: "refresh_token",
+            grantType: "refresh_token",
         }, requestOptions));
     }
 }
