@@ -4,6 +4,7 @@
 
 import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
+import * as qs from "qs";
 import { StreamSocket } from "./Socket.js";
 
 export declare namespace Stream {
@@ -54,7 +55,7 @@ export class Stream {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${core.url.toQueryString(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,
