@@ -1,2 +1,2 @@
-export { type TemplatesSectionsListRequest } from "./TemplatesSectionsListRequest.js";
+export { type TemplatesSectionListRequest } from "./TemplatesSectionListRequest.js";
 export { type TemplatesListRequest } from "./TemplatesListRequest.js";

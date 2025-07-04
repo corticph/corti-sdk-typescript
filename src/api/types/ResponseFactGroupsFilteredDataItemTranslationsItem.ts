@@ -4,6 +4,6 @@
 
 export interface ResponseFactGroupsFilteredDataItemTranslationsItem {
     id?: number;
-    languages_id?: string;
+    languagesId?: string;
     name?: string;
 }

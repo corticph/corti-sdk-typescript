@@ -16,7 +16,7 @@ export interface StreamFact {
     /** Source of the fact (e.g., core for generated automatically) */
     source: string;
     /** Timestamp when the fact was created */
-    createdAt?: string;
+    createdAt?: Date;
     /** Timestamp when the fact was last updated */
-    updatedAt?: string;
+    updatedAt?: Date;
 }
