@@ -13,13 +13,12 @@
  */
 
 import { Auth as FernAuth } from "../api/resources/auth/client/Client.js";
+import * as environments from "../environments.js";
 import * as core from "../core/index.js";
 import * as Corti from "../api/index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
-import urlJoin from "url-join";
-import * as errors from "../errors/index.js";
-import * as environments from "../environments.js";
 import * as serializers from "../serialization/index.js";
+import * as errors from "../errors/index.js";
 
 interface AuthorizationCodeClient {
     clientId: string;
@@ -61,12 +60,11 @@ export class Auth extends FernAuth {
         clientId,
         redirectUri,
     }: AuthorizationCodeClient, options?: Options): Promise<string> {
-        const authUrl = new URL(urlJoin(
+        const authUrl = new URL(core.url.join(
             (await core.Supplier.get(this._options.baseUrl)) ??
-            ((await core.Supplier.get(this._options.environment)) ?? environments.CortiEnvironment.BetaEu)
-                .login,
+            (await core.Supplier.get(this._options.environment)).login,
             await core.Supplier.get(this._options.tenantName),
-            "protocol/openid-connect/auth",
+            "protocol/openid-connect/token",
         ));
 
         authUrl.searchParams.set('response_type', 'code');
@@ -119,7 +117,7 @@ export class Auth extends FernAuth {
         requestOptions?: FernAuth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                 (await core.Supplier.get(this._options.environment)).login,
                 /**

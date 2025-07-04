@@ -7,7 +7,6 @@ import * as core from "../core/index.js";
  * Patch: changed import to custom TranscribeSocket implementation
  */
 import { TranscribeSocket } from "./CustomTranscribeSocket.js";
-import * as qs from "qs";
 
 export class Transcribe extends FernTranscribe {
     public async connect(args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenant-name'> = {}): Promise<TranscribeSocket> {
@@ -37,7 +36,7 @@ export class Transcribe extends FernTranscribe {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/transcribe?${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/transcribe?${core.url.toQueryString(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,

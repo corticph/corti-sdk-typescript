@@ -7,7 +7,6 @@ import * as core from "../core/index.js";
  * Patch: changed import to custom StreamSocket implementation
  */
 import { StreamSocket } from "./CustomStreamSocket.js";
-import * as qs from "qs";
 
 export class Stream extends FernStream {
     public async connect(args: Omit<FernStream.ConnectArgs, 'token' | 'tenant-name'>): Promise<StreamSocket> {
@@ -37,7 +36,7 @@ export class Stream extends FernStream {
             ...args["headers"],
         };
         const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/${encodeURIComponent(args["id"])}/streams?${qs.stringify(queryParams, { arrayFormat: "repeat" })}`,
+            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/${encodeURIComponent(args["id"])}/streams?${core.url.toQueryString(queryParams, { arrayFormat: "repeat" })}`,
             [],
             { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
             websocketHeaders,
