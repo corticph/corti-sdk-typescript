@@ -6,7 +6,7 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Templates {
@@ -45,38 +45,46 @@ export class Templates {
     /**
      *  Retrieves a list of template sections with optional filters for organization and language.
      *
-     * @param {Corti.TemplatesSectionsListRequest} request
+     * @param {Corti.TemplatesSectionListRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.UnauthorizedError}
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.templates.sectionsList()
+     *     await client.templates.sectionList()
      */
-    public sectionsList(
-        request: Corti.TemplatesSectionsListRequest = {},
+    public sectionList(
+        request: Corti.TemplatesSectionListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseAllTemplateSections> {
-        return core.HttpResponsePromise.fromPromise(this.__sectionsList(request, requestOptions));
+    ): core.HttpResponsePromise<Corti.TemplatesSectionListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__sectionList(request, requestOptions));
     }
 
-    private async __sectionsList(
-        request: Corti.TemplatesSectionsListRequest = {},
+    private async __sectionList(
+        request: Corti.TemplatesSectionListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseAllTemplateSections>> {
+    ): Promise<core.WithRawResponse<Corti.TemplatesSectionListResponse>> {
         const { org, lang } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
-            _queryParams["org"] = org;
+            if (Array.isArray(org)) {
+                _queryParams["org"] = org.map((item) => item);
+            } else {
+                _queryParams["org"] = org;
+            }
         }
 
         if (lang != null) {
-            _queryParams["lang"] = lang;
+            if (Array.isArray(lang)) {
+                _queryParams["lang"] = lang.map((item) => item);
+            } else {
+                _queryParams["lang"] = lang;
+            }
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 "templateSections/",
@@ -96,15 +104,24 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.ResponseAllTemplateSections, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.TemplatesSectionListResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,
@@ -146,30 +163,42 @@ export class Templates {
     public list(
         request: Corti.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseAllTemplates> {
+    ): core.HttpResponsePromise<Corti.TemplatesListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Corti.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseAllTemplates>> {
+    ): Promise<core.WithRawResponse<Corti.TemplatesListResponse>> {
         const { org, lang, status } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
-            _queryParams["org"] = org;
+            if (Array.isArray(org)) {
+                _queryParams["org"] = org.map((item) => item);
+            } else {
+                _queryParams["org"] = org;
+            }
         }
 
         if (lang != null) {
-            _queryParams["lang"] = lang;
+            if (Array.isArray(lang)) {
+                _queryParams["lang"] = lang.map((item) => item);
+            } else {
+                _queryParams["lang"] = lang;
+            }
         }
 
         if (status != null) {
-            _queryParams["status"] = status;
+            if (Array.isArray(status)) {
+                _queryParams["status"] = status.map((item) => item);
+            } else {
+                _queryParams["status"] = status;
+            }
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 "templates/",
@@ -189,15 +218,24 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.ResponseAllTemplates, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.TemplatesListResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,
@@ -225,7 +263,7 @@ export class Templates {
     }
 
     /**
-     *  Retrieves template by key.
+     * Retrieves template by key.
      *
      * @param {string} key - The key of the template
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -236,19 +274,16 @@ export class Templates {
      * @example
      *     await client.templates.get("key")
      */
-    public get(
-        key: string,
-        requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.TemplateFiltered> {
+    public get(key: string, requestOptions?: Templates.RequestOptions): core.HttpResponsePromise<Corti.TemplatesItem> {
         return core.HttpResponsePromise.fromPromise(this.__get(key, requestOptions));
     }
 
     private async __get(
         key: string,
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.TemplateFiltered>> {
+    ): Promise<core.WithRawResponse<Corti.TemplatesItem>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
                 `templates/${encodeURIComponent(key)}`,
@@ -267,15 +302,24 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.TemplateFiltered, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.TemplatesItem.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Corti.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.UnauthorizedError(_response.error.body, _response.rawResponse);
                 case 500:
-                    throw new Corti.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
                 default:
                     throw new errors.CortiError({
                         statusCode: _response.error.statusCode,

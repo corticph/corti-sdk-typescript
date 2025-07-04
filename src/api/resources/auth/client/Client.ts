@@ -6,7 +6,7 @@ import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
 
 export declare namespace Auth {
@@ -50,8 +50,8 @@ export class Auth {
      *
      * @example
      *     await client.auth.getToken({
-     *         client_id: "client_id",
-     *         client_secret: "client_secret"
+     *         clientId: "client_id",
+     *         clientSecret: "client_secret"
      *     })
      */
     public getToken(
@@ -66,7 +66,7 @@ export class Auth {
         requestOptions?: Auth.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.GetTokenResponse>> {
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).login,
                 "protocol/openid-connect/token",
@@ -82,13 +82,29 @@ export class Auth {
             ),
             contentType: "application/x-www-form-urlencoded",
             requestType: "json",
-            body: { ...request, scope: "openid", grant_type: "client_credentials" },
+            body: {
+                ...serializers.AuthGetTokenRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                scope: "openid",
+                grant_type: "client_credentials",
+            },
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.GetTokenResponse, rawResponse: _response.rawResponse };
+            return {
+                data: serializers.GetTokenResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {

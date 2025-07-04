@@ -53,8 +53,8 @@ const auth = new CortiAuth({
 
 // Generate tokens using client credentials
 const tokenResponse = await auth.getToken({
-    client_id: "YOUR_CLIENT_ID",
-    client_secret: "YOUR_CLIENT_SECRET",
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_SECRET",
 });
 
 /**
@@ -100,7 +100,7 @@ const client = new CortiClient({
             const response = await fetch("https://your-auth-server/refresh", {
                 method: "POST", 
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ refresh_token: refreshToken }),
+                body: JSON.stringify({ refreshToken: refreshToken }),
             });
             
             // Response must return a valid token object containing GetTokenResponse:
@@ -144,14 +144,14 @@ const auth = new CortiAuth({
 
 // Generate authorization URL
 const authUrl = await auth.authorizeURL({
-    client_id: "YOUR_CLIENT_ID",
-    redirect_uri: "https://your-app.com/callback",
+    clientId: "YOUR_CLIENT_ID",
+    redirectUri: "https://your-app.com/callback",
 }); // Automatically redirects to authorization URL
 
 // To prevent automatic redirect and get URL only:
 const authUrlNoRedirect = await auth.authorizeURL({
-    client_id: "YOUR_CLIENT_ID", 
-    redirect_uri: "https://your-app.com/callback",
+    clientId: "YOUR_CLIENT_ID", 
+    redirectUri: "https://your-app.com/callback",
 }, { skipRedirect: true });
 ```
 
@@ -213,9 +213,9 @@ app.post('/api/auth/callback', async (req, res) => {
 
         // Exchange the authorization code for tokens using CortiAuth
         const tokenResponse = await auth.getCodeFlowToken({
-            client_id: "YOUR_CLIENT_ID",
-            client_secret: "YOUR_CLIENT_SECRET", // Securely stored on server
-            redirect_uri: "https://your-app.com/callback",
+            clientId: "YOUR_CLIENT_ID",
+            clientSecret: "YOUR_CLIENT_SECRET", // Securely stored on server
+            redirectUri: "https://your-app.com/callback",
             code: code,
         });
 
@@ -231,17 +231,17 @@ app.post('/api/auth/callback', async (req, res) => {
 // Optional: Endpoint to refresh tokens
 app.post('/api/auth/refresh', async (req, res) => {
     try {
-        const { refresh_token } = req.body;
+        const { refreshToken } = req.body;
         
-        if (!refresh_token) {
+        if (!refreshToken) {
             return res.status(400).json({ error: 'Refresh token is required' });
         }
 
         // Refresh tokens using CortiAuth
         const refreshResponse = await auth.refreshToken({
-            client_id: "YOUR_CLIENT_ID",
-            client_secret: "YOUR_CLIENT_SECRET",
-            refresh_token: refresh_token,
+            clientId: "YOUR_CLIENT_ID",
+            clientSecret: "YOUR_CLIENT_SECRET",
+            refreshToken: refreshToken,
         });
 
         res.json(refreshResponse);
@@ -275,7 +275,7 @@ const client = new CortiClient({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ refresh_token: refreshToken }),
+                body: JSON.stringify({ refreshToken: refreshToken }),
             });
             
             if (!response.ok) {

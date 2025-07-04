@@ -11,7 +11,7 @@ export class StreamSocket extends FernStreamSocket {
         }
 
         this.__assertSocketIsOpen();
-        this.socket.send(message);
+        super.sendBinary(message);
     }
 
     /**
