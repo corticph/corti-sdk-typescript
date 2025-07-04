@@ -10,11 +10,11 @@ export interface TemplatesListRequest {
     /**
      * Filter templates by organization.
      */
-    org?: string;
+    org?: string | string[];
     /**
      * Filter templates by language.
      */
-    lang?: string;
+    lang?: string | string[];
     /**
      * Filter templates by their status.
      */

@@ -4,9 +4,9 @@
 
 import * as Corti from "../index.js";
 
-export interface ResponseAllTemplatesDataItemTemplateSectionsItem {
+export interface TemplatesSectionSorted {
     /** Sort order of the section within the template */
-    sort?: number;
+    sort: number;
     /** The section details */
-    sections_id?: Corti.TemplatesSection;
+    sections_id: Corti.TemplatesSection;
 }

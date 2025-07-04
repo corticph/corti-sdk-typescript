@@ -16,9 +16,9 @@ export interface TemplatesSection {
     /** Description of the section */
     description: string;
     /** Default writing style for the section */
-    default_writing_style: Corti.WritingStyle;
+    default_writing_style: Corti.TemplatesWritingStyle;
     /** Type of section */
     section_type: string;
     /** Available translations for the section */
-    translations: Corti.TemplatesSectionTranslationsItem[];
+    translations: Corti.TemplatesTranslation[];
 }

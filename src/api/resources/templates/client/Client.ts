@@ -57,14 +57,14 @@ export class Templates {
     public sectionsList(
         request: Corti.TemplatesSectionsListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.TemplatesSectionsListResponse> {
+    ): core.HttpResponsePromise<Corti.TemplatesSectionListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__sectionsList(request, requestOptions));
     }
 
     private async __sectionsList(
         request: Corti.TemplatesSectionsListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.TemplatesSectionsListResponse>> {
+    ): Promise<core.WithRawResponse<Corti.TemplatesSectionListResponse>> {
         const { org, lang } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
@@ -104,7 +104,7 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.TemplatesSectionsListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Corti.TemplatesSectionListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -154,22 +154,30 @@ export class Templates {
     public list(
         request: Corti.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseAllTemplates> {
+    ): core.HttpResponsePromise<Corti.TemplatesListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
         request: Corti.TemplatesListRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseAllTemplates>> {
+    ): Promise<core.WithRawResponse<Corti.TemplatesListResponse>> {
         const { org, lang, status } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
-            _queryParams["org"] = org;
+            if (Array.isArray(org)) {
+                _queryParams["org"] = org.map((item) => item);
+            } else {
+                _queryParams["org"] = org;
+            }
         }
 
         if (lang != null) {
-            _queryParams["lang"] = lang;
+            if (Array.isArray(lang)) {
+                _queryParams["lang"] = lang.map((item) => item);
+            } else {
+                _queryParams["lang"] = lang;
+            }
         }
 
         if (status != null) {
@@ -197,7 +205,7 @@ export class Templates {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Corti.ResponseAllTemplates, rawResponse: _response.rawResponse };
+            return { data: _response.body as Corti.TemplatesListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
