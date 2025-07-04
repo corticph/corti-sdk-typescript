@@ -13,7 +13,6 @@
  */
 
 import { Auth as FernAuth } from "../api/resources/auth/client/Client.js";
-import * as environments from "../environments.js";
 import * as core from "../core/index.js";
 import * as Corti from "../api/index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
@@ -139,7 +138,6 @@ export class Auth extends FernAuth {
                 requestOptions?.headers,
             ),
             contentType: "application/x-www-form-urlencoded",
-            requestType: "json",
             /**
              * Patch: removed `requestType: "json"`, made body a URLSearchParams object
              */
