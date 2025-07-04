@@ -11,7 +11,7 @@ export class TranscribeSocket extends FernTranscribeSocket {
         }
 
         this.__assertSocketIsOpen();
-        this.socket.send(message);
+        super.sendBinary(message);
     }
 
     /**
