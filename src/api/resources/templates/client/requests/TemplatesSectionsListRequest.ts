@@ -10,9 +10,9 @@ export interface TemplatesSectionsListRequest {
     /**
      * Filter template sections by organization.
      */
-    org?: string;
+    org?: string | string[];
     /**
      * Filter template sections by language.
      */
-    lang?: string;
+    lang?: string | string[];
 }

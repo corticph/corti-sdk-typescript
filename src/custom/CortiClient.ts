@@ -141,13 +141,13 @@ export class CortiClient {
             ),
             clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
             clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
-            token: "access_token" in _options.auth ? _options.auth.access_token : undefined,
+            token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
         };
 
         /**
          * Patch: if `accessToken` is provided, use BearerProvider, otherwise use OAuthTokenProvider
          */
-        this._oauthTokenProvider = "access_token" in _options.auth ?
+        this._oauthTokenProvider = "accessToken" in _options.auth ?
             new RefreshBearerProvider(_options.auth) :
             new core.OAuthTokenProvider({
                 clientId: _options.auth.clientId,
