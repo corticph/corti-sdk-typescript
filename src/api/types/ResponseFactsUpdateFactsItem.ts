@@ -18,7 +18,7 @@ export interface ResponseFactsUpdateFactsItem {
     /** Indicates whether the fact is marked as discarded. */
     isDiscarded?: boolean;
     /** The original timestamp when the fact was created. */
-    createdAt?: Date;
+    createdAt?: string;
     /** The timestamp when the fact was last updated. */
-    updatedAt?: Date;
+    updatedAt?: string;
 }

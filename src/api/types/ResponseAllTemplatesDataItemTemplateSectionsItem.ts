@@ -8,5 +8,5 @@ export interface ResponseAllTemplatesDataItemTemplateSectionsItem {
     /** Sort order of the section within the template */
     sort?: number;
     /** The section details */
-    sectionsId?: Corti.Section;
+    sections_id?: Corti.TemplatesSection;
 }

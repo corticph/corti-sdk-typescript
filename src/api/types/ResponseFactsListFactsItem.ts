@@ -18,8 +18,8 @@ export interface ResponseFactsListFactsItem {
     /** The origin of the fact. */
     source?: Corti.V2SourceEnum;
     /** The timestamp when the fact was created. */
-    createdAt?: Date;
+    createdAt?: string;
     /** The timestamp when the fact was last updated. */
-    updatedAt?: Date;
+    updatedAt?: string;
     evidence?: Corti.ResponseFactsListFactsItemEvidenceItem[];
 }

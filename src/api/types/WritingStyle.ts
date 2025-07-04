@@ -4,5 +4,5 @@
 
 export interface WritingStyle {
     /** Name of the writing style */
-    name?: string;
+    name: string;
 }

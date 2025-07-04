@@ -1468,7 +1468,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionsList</a>({ ...params }) -> Corti.ResponseAllTemplateSections</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionsList</a>({ ...params }) -> Corti.TemplatesSectionsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1688,8 +1688,8 @@ Obtain an OAuth2 access token using client credentials
 
 ```typescript
 await client.auth.getToken({
-    clientId: "client_id",
-    clientSecret: "client_secret",
+    client_id: "client_id",
+    client_secret: "client_secret",
 });
 ```
 

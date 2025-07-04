@@ -12,7 +12,7 @@ export interface Patient {
     /** FHIR reference to patient gender. */
     gender?: Corti.GenderEnum;
     /** FHIR reference to patient birth date. */
-    birthDate?: Date;
+    birthDate?: string;
     /** FHIR reference to patient extension Individual Pronouns. */
     pronouns?: string;
 }

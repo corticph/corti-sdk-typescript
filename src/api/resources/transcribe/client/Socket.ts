@@ -4,10 +4,7 @@
 
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
-import { TranscribeConfigurationMessage } from "../../../../serialization/types/TranscribeConfigurationMessage.js";
-import { TranscribeEndMessage } from "../../../../serialization/types/TranscribeEndMessage.js";
-import { fromJson } from "../../../../core/json.js";
-import * as serializers from "../../../../serialization/index.js";
+import { fromJson, toJson } from "../../../../core/json.js";
 
 export declare namespace TranscribeSocket {
     export interface Args {
@@ -38,15 +35,7 @@ export class TranscribeSocket {
     private handleMessage: (event: { data: string }) => void = (event) => {
         const data = fromJson(event.data);
 
-        const parsedResponse = serializers.TranscribeSocketResponse.parse(data, {
-            unrecognizedObjectKeys: "strip",
-            omitUndefined: true,
-        });
-        if (parsedResponse.ok) {
-            this.eventHandlers.message?.(parsedResponse.value);
-        } else {
-            this.eventHandlers.error?.(new Error("Received unknown message type"));
-        }
+        this.eventHandlers.message?.(data as TranscribeSocket.Response);
     };
     private handleClose: (event: core.CloseEvent) => void = (event) => {
         this.eventHandlers.close?.(event);
@@ -85,37 +74,17 @@ export class TranscribeSocket {
 
     public sendConfiguration(message: Corti.TranscribeConfigurationMessage): void {
         this.assertSocketIsOpen();
-        const jsonPayload = TranscribeConfigurationMessage.jsonOrThrow(message, {
-            unrecognizedObjectKeys: "strip",
-            allowUnrecognizedUnionMembers: true,
-            allowUnrecognizedEnumValues: true,
-            skipValidation: true,
-        });
-        this.socket.send(JSON.stringify(jsonPayload));
+        this.sendJson(message);
     }
 
     public sendAudio(message: string): void {
         this.assertSocketIsOpen();
-        const jsonPayload = core.serialization
-            .string()
-            .jsonOrThrow(message, {
-                unrecognizedObjectKeys: "strip",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-            });
-        this.socket.send(JSON.stringify(jsonPayload));
+        this.sendJson(message);
     }
 
     public sendEnd(message: Corti.TranscribeEndMessage): void {
         this.assertSocketIsOpen();
-        const jsonPayload = TranscribeEndMessage.jsonOrThrow(message, {
-            unrecognizedObjectKeys: "strip",
-            allowUnrecognizedUnionMembers: true,
-            allowUnrecognizedEnumValues: true,
-            skipValidation: true,
-        });
-        this.socket.send(JSON.stringify(jsonPayload));
+        this.sendJson(message);
     }
 
     /** Connect to the websocket and register event handlers. */
@@ -173,5 +142,11 @@ export class TranscribeSocket {
     /** Send a binary payload to the websocket. */
     private sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
         this.socket.send(payload);
+    }
+
+    /** Send a JSON payload to the websocket. */
+    private sendJson(payload: Corti.TranscribeConfigurationMessage | string | Corti.TranscribeEndMessage): void {
+        const jsonPayload = toJson(payload);
+        this.socket.send(jsonPayload);
     }
 }
