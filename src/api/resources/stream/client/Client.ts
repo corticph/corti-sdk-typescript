@@ -20,10 +20,10 @@ export declare namespace Stream {
 
     export interface ConnectArgs {
         id: string;
-        "tenant-name"?: string;
-        token?: string;
+        tenantName: string;
+        token: string;
         /** Arbitrary headers to send with the websocket connect request. */
-        headers?: Record<string, unknown>;
+        headers?: Record<string, string>;
         /** Enable debug mode on the websocket. Defaults to false. */
         debug?: boolean;
         /** Number of reconnect attempts. Defaults to 30. */
@@ -39,26 +39,24 @@ export class Stream {
     }
 
     public async connect(args: Stream.ConnectArgs): Promise<StreamSocket> {
-        const queryParams: Record<string, unknown> = {};
-        if (args["tenant-name"] != null) {
-            queryParams["tenant-name"] = args["tenant-name"];
-        }
-
-        if (args["token"] != null) {
-            queryParams["token"] = args["token"];
-        }
-
-        let websocketHeaders: Record<string, unknown> = {};
-        websocketHeaders = {
-            ...websocketHeaders,
-            ...args["headers"],
+        const { id, tenantName, token, headers, debug, reconnectAttempts } = args;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["tenant-name"] = tenantName;
+        _queryParams["token"] = token;
+        let _headers: Record<string, string> = {
+            ...headers,
         };
-        const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/interactions/?${encodeURIComponent(args["id"])}/streams${core.url.toQueryString(queryParams, { arrayFormat: "repeat" })}`,
-            [],
-            { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
-            websocketHeaders,
-        );
+        const socket = new core.ReconnectingWebSocket({
+            url: core.url.join(
+                (await core.Supplier.get(this._options["baseUrl"])) ??
+                    (await core.Supplier.get(this._options["environment"])).wss,
+                `/audio-bridge/v2/interactions/${encodeURIComponent(id)}/streams`,
+            ),
+            protocols: [],
+            queryParameters: _queryParams,
+            headers: _headers,
+            options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
+        });
         return new StreamSocket({ socket });
     }
 

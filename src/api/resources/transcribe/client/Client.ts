@@ -19,10 +19,10 @@ export declare namespace Transcribe {
     }
 
     export interface ConnectArgs {
-        "tenant-name"?: string;
-        token?: string;
+        tenantName: string;
+        token: string;
         /** Arbitrary headers to send with the websocket connect request. */
-        headers?: Record<string, unknown>;
+        headers?: Record<string, string>;
         /** Enable debug mode on the websocket. Defaults to false. */
         debug?: boolean;
         /** Number of reconnect attempts. Defaults to 30. */
@@ -37,27 +37,25 @@ export class Transcribe {
         this._options = _options;
     }
 
-    public async connect(args: Transcribe.ConnectArgs = {}): Promise<TranscribeSocket> {
-        const queryParams: Record<string, unknown> = {};
-        if (args["tenant-name"] != null) {
-            queryParams["tenant-name"] = args["tenant-name"];
-        }
-
-        if (args["token"] != null) {
-            queryParams["token"] = args["token"];
-        }
-
-        let websocketHeaders: Record<string, unknown> = {};
-        websocketHeaders = {
-            ...websocketHeaders,
-            ...args["headers"],
+    public async connect(args: Transcribe.ConnectArgs): Promise<TranscribeSocket> {
+        const { tenantName, token, headers, debug, reconnectAttempts } = args;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["tenant-name"] = tenantName;
+        _queryParams["token"] = token;
+        let _headers: Record<string, string> = {
+            ...headers,
         };
-        const socket = new core.ReconnectingWebSocket(
-            `${(await core.Supplier.get(this._options["baseUrl"])) ?? (await core.Supplier.get(this._options["environment"])).wss}/audio-bridge/v2/transcribe?${core.url.toQueryString(queryParams, { arrayFormat: "repeat" })}`,
-            [],
-            { debug: args["debug"] ?? false, maxRetries: args["reconnectAttempts"] ?? 30 },
-            websocketHeaders,
-        );
+        const socket = new core.ReconnectingWebSocket({
+            url: core.url.join(
+                (await core.Supplier.get(this._options["baseUrl"])) ??
+                    (await core.Supplier.get(this._options["environment"])).wss,
+                "/audio-bridge/v2/transcribe",
+            ),
+            protocols: [],
+            queryParameters: _queryParams,
+            headers: _headers,
+            options: { debug: debug ?? false, maxRetries: reconnectAttempts ?? 30 },
+        });
         return new TranscribeSocket({ socket });
     }
 

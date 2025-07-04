@@ -39,7 +39,10 @@ export class TranscribeSocket {
         const data = fromJson(event.data);
 
         const parsedResponse = serializers.TranscribeSocketResponse.parse(data, {
-            unrecognizedObjectKeys: "strip",
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
             omitUndefined: true,
         });
         if (parsedResponse.ok) {
@@ -86,10 +89,11 @@ export class TranscribeSocket {
     public sendConfiguration(message: Corti.TranscribeConfigurationMessage): void {
         this.assertSocketIsOpen();
         const jsonPayload = TranscribeConfigurationMessage.jsonOrThrow(message, {
-            unrecognizedObjectKeys: "strip",
+            unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
             skipValidation: true,
+            omitUndefined: true,
         });
         this.socket.send(JSON.stringify(jsonPayload));
     }
@@ -99,10 +103,11 @@ export class TranscribeSocket {
         const jsonPayload = core.serialization
             .string()
             .jsonOrThrow(message, {
-                unrecognizedObjectKeys: "strip",
+                unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
                 skipValidation: true,
+                omitUndefined: true,
             });
         this.socket.send(JSON.stringify(jsonPayload));
     }
@@ -110,10 +115,11 @@ export class TranscribeSocket {
     public sendEnd(message: Corti.TranscribeEndMessage): void {
         this.assertSocketIsOpen();
         const jsonPayload = TranscribeEndMessage.jsonOrThrow(message, {
-            unrecognizedObjectKeys: "strip",
+            unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,
             skipValidation: true,
+            omitUndefined: true,
         });
         this.socket.send(JSON.stringify(jsonPayload));
     }
@@ -171,7 +177,7 @@ export class TranscribeSocket {
     }
 
     /** Send a binary payload to the websocket. */
-    private sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
+    protected sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
         this.socket.send(payload);
     }
 }
