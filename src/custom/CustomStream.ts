@@ -7,7 +7,7 @@ import * as core from "../core/index.js";
  * Patch: added import for types and message parsing logic
  */
 import * as api from "../api/index.js";
-import { fromJson } from "../core/json";
+import { fromJson } from "../core/json.js";
 import * as serializers from "../serialization/index.js";
 
 /**
