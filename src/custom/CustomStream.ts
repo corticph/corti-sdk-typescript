@@ -48,10 +48,14 @@ export class Stream extends FernStream {
                     omitUndefined: true,
                 });
 
-                ws.socket.removeEventListener('message', handleMessage);
-
                 if (parsedResponse.ok && parsedResponse.value.type === 'CONFIG_ACCEPTED') {
                     resolve(ws);
+                    return;
+                }
+
+                if (parsedResponse.ok && parsedResponse.value.type === 'ENDED') {
+                    ws.socket.removeEventListener('message', handleMessage);
+                    ws.close();
                     return;
                 }
 
