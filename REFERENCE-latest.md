@@ -1468,7 +1468,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionsList</a>({ ...params }) -> Corti.ResponseAllTemplateSections</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionList</a>({ ...params }) -> Corti.TemplatesSectionListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1496,7 +1496,7 @@ Retrieves a list of template sections with optional filters for organization and
 <dd>
 
 ```typescript
-await client.templates.sectionsList();
+await client.templates.sectionList();
 ```
 
 </dd>
@@ -1512,7 +1512,7 @@ await client.templates.sectionsList();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesSectionsListRequest`
+**request:** `Corti.TemplatesSectionListRequest`
 
 </dd>
 </dl>
@@ -1531,7 +1531,7 @@ await client.templates.sectionsList();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.ResponseAllTemplates</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.TemplatesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1594,7 +1594,7 @@ await client.templates.list();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplateFiltered</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplatesItem</code></summary>
 <dl>
 <dd>
 
@@ -1688,8 +1688,8 @@ Obtain an OAuth2 access token using client credentials
 
 ```typescript
 await auth.getToken({
-    client_id: "client_id",
-    client_secret: "client_secret",
+    clientId: "client_id",
+    clientSecret: "client_secret",
 });
 ```
 
@@ -1754,8 +1754,8 @@ Get Authorization URL for Authorization code flow
 
 ```typescript
 const authUrl = await auth.authorizeURL({
-    client_id: "client_id",
-    redirect_uri: "https://example.com/callback",
+    clientId: "client_id",
+    redirectUri: "https://example.com/callback",
 });
 ```
 
@@ -1772,7 +1772,7 @@ const authUrl = await auth.authorizeURL({
 <dl>
 <dd>
 
-**request:** `{ client_id: string; redirect_uri: string }`
+**request:** `{ clientId: string; redirectUri: string }`
 
 </dd>
 </dl>
@@ -1820,9 +1820,9 @@ Obtain an OAuth2 access token using authorization code
 
 ```typescript
 await auth.getCodeFlowToken({
-    client_id: "client_id",
-    client_secret: "client_secret",
-    redirect_uri: "https://example.com/callback",
+    clientId: "client_id",
+    clientSecret: "client_secret",
+    redirectUri: "https://example.com/callback",
     code: "authorization_code",
 });
 ```
@@ -1840,7 +1840,7 @@ await auth.getCodeFlowToken({
 <dl>
 <dd>
 
-**request:** `{ client_id: string; client_secret: string; redirect_uri: string; code: string }`
+**request:** `{ clientId: string; clientSecret: string; redirectUri: string; code: string }`
 
 </dd>
 </dl>
@@ -1888,9 +1888,9 @@ Refresh an OAuth2 access token using refresh token
 
 ```typescript
 await auth.refreshToken({
-    client_id: "client_id",
-    client_secret: "client_secret",
-    refresh_token: "refresh_token",
+    clientId: "client_id",
+    clientSecret: "client_secret",
+    refreshToken: "refresh_token",
 });
 ```
 
@@ -1907,7 +1907,7 @@ await auth.refreshToken({
 <dl>
 <dd>
 
-**request:** `{ client_id: string; client_secret: string; refresh_token: string }`
+**request:** `{ clientId: string; clientSecret: string; refreshToken: string }`
 
 </dd>
 </dl>

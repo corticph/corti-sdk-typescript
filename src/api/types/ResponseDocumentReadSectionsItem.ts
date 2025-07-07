@@ -12,7 +12,7 @@ export interface ResponseDocumentReadSectionsItem {
     /** Order of the document section within the generated document */
     sort?: number;
     /** The original timestamp when the document section was created. */
-    createdAt?: string;
+    createdAt?: Date;
     /** The timestamp when the document section was last updated. */
-    updatedAt?: string;
+    updatedAt?: Date;
 }

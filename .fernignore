@@ -1,17 +1,8 @@
-# Extended with ignore of CortiClient, because it produces TypeScript error
-tsconfig.base.json
-tsconfig.cjs.json
-tsconfig.esm.json
-
 # All custom code
 src/custom
 
 # Custom imports from custom code that replaces generated one
 src/index.ts
-
-# Export Socket types
-src/api/resources/stream/client/index.ts
-src/api/resources/transcribe/client/index.ts
 
 # Documentation
 README.md

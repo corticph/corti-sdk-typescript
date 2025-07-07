@@ -1468,7 +1468,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionsList</a>({ ...params }) -> Corti.ResponseAllTemplateSections</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionList</a>({ ...params }) -> Corti.TemplatesSectionListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1496,7 +1496,7 @@ Retrieves a list of template sections with optional filters for organization and
 <dd>
 
 ```typescript
-await client.templates.sectionsList();
+await client.templates.sectionList();
 ```
 
 </dd>
@@ -1512,7 +1512,7 @@ await client.templates.sectionsList();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesSectionsListRequest`
+**request:** `Corti.TemplatesSectionListRequest`
 
 </dd>
 </dl>
@@ -1531,7 +1531,7 @@ await client.templates.sectionsList();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.ResponseAllTemplates</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.TemplatesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1594,7 +1594,7 @@ await client.templates.list();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplateFiltered</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplatesItem</code></summary>
 <dl>
 <dd>
 
@@ -1688,8 +1688,8 @@ Obtain an OAuth2 access token using client credentials
 
 ```typescript
 await client.auth.getToken({
-    client_id: "client_id",
-    client_secret: "client_secret",
+    clientId: "client_id",
+    clientSecret: "client_secret",
 });
 ```
 

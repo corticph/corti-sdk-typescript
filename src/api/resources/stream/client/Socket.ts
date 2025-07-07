@@ -4,7 +4,10 @@
 
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
-import { fromJson, toJson } from "../../../../core/json.js";
+import { StreamConfigurationMessage } from "../../../../serialization/types/StreamConfigurationMessage.js";
+import { StreamEndMessage } from "../../../../serialization/types/StreamEndMessage.js";
+import { fromJson } from "../../../../core/json.js";
+import * as serializers from "../../../../serialization/index.js";
 
 export declare namespace StreamSocket {
     export interface Args {
@@ -35,7 +38,18 @@ export class StreamSocket {
     private handleMessage: (event: { data: string }) => void = (event) => {
         const data = fromJson(event.data);
 
-        this.eventHandlers.message?.(data as StreamSocket.Response);
+        const parsedResponse = serializers.StreamSocketResponse.parse(data, {
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
+            omitUndefined: true,
+        });
+        if (parsedResponse.ok) {
+            this.eventHandlers.message?.(parsedResponse.value);
+        } else {
+            this.eventHandlers.error?.(new Error("Received unknown message type"));
+        }
     };
     private handleClose: (event: core.CloseEvent) => void = (event) => {
         this.eventHandlers.close?.(event);
@@ -74,17 +88,40 @@ export class StreamSocket {
 
     public sendConfiguration(message: Corti.StreamConfigurationMessage): void {
         this.assertSocketIsOpen();
-        this.sendJson(message);
+        const jsonPayload = StreamConfigurationMessage.jsonOrThrow(message, {
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
+            omitUndefined: true,
+        });
+        this.socket.send(JSON.stringify(jsonPayload));
     }
 
     public sendAudio(message: string): void {
         this.assertSocketIsOpen();
-        this.sendJson(message);
+        const jsonPayload = core.serialization
+            .string()
+            .jsonOrThrow(message, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                omitUndefined: true,
+            });
+        this.socket.send(JSON.stringify(jsonPayload));
     }
 
     public sendEnd(message: Corti.StreamEndMessage): void {
         this.assertSocketIsOpen();
-        this.sendJson(message);
+        const jsonPayload = StreamEndMessage.jsonOrThrow(message, {
+            unrecognizedObjectKeys: "passthrough",
+            allowUnrecognizedUnionMembers: true,
+            allowUnrecognizedEnumValues: true,
+            skipValidation: true,
+            omitUndefined: true,
+        });
+        this.socket.send(JSON.stringify(jsonPayload));
     }
 
     /** Connect to the websocket and register event handlers. */
@@ -140,13 +177,7 @@ export class StreamSocket {
     }
 
     /** Send a binary payload to the websocket. */
-    private sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
+    protected sendBinary(payload: ArrayBufferLike | Blob | ArrayBufferView): void {
         this.socket.send(payload);
-    }
-
-    /** Send a JSON payload to the websocket. */
-    private sendJson(payload: Corti.StreamConfigurationMessage | string | Corti.StreamEndMessage): void {
-        const jsonPayload = toJson(payload);
-        this.socket.send(jsonPayload);
     }
 }

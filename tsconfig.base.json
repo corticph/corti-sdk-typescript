@@ -12,5 +12,5 @@
         "baseUrl": "src"
     },
     "include": ["src"],
-    "exclude": ["src/Client.ts"]
+    "exclude": []
 }
