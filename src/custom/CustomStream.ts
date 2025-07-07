@@ -70,8 +70,6 @@ export class Stream extends FernStream {
                 type: 'config',
                 configuration,
             });
-
-            resolve(ws);
         });
     }
 }
