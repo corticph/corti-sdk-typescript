@@ -4,19 +4,19 @@
 
 import * as Corti from "../index.js";
 
-export interface TemplatesItem {
+export interface ResponseAllTemplatesDataItem {
     /** The timestamp when the template was updated. */
     dateUpdated?: Date;
     /** Name of the template */
-    name: string;
+    name?: string;
     /** Description of the template */
-    description: string;
+    description?: string;
     /** Unique key for the template */
-    key: string;
+    key?: string;
     /** Status of the template. */
-    status: string;
+    status?: string;
     /** List of sections included in the template */
-    templateSections: Corti.TemplatesSectionSorted[];
+    templateSections?: Corti.ResponseAllTemplatesDataItemTemplateSectionsItem[];
     /** Available translations for the template */
-    translations: Corti.TemplatesTranslation[];
+    translations?: Corti.ResponseAllTemplatesDataItemTranslationsItem[];
 }

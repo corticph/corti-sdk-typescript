@@ -6,13 +6,13 @@
  * @example
  *     {}
  */
-export interface TemplatesSectionListRequest {
+export interface GetTemplateSectionsRequest {
     /**
      * Filter template sections by organization.
      */
-    org?: string | string[];
+    org?: string;
     /**
      * Filter template sections by language.
      */
-    lang?: string | string[];
+    lang?: string;
 }

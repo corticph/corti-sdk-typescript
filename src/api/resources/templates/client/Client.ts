@@ -45,42 +45,34 @@ export class Templates {
     /**
      *  Retrieves a list of template sections with optional filters for organization and language.
      *
-     * @param {Corti.TemplatesSectionListRequest} request
+     * @param {Corti.GetTemplateSectionsRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.UnauthorizedError}
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.templates.sectionList()
+     *     await client.templates.listTemplateSections()
      */
-    public sectionList(
-        request: Corti.TemplatesSectionListRequest = {},
+    public listTemplateSections(
+        request: Corti.GetTemplateSectionsRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.TemplatesSectionListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__sectionList(request, requestOptions));
+    ): core.HttpResponsePromise<Corti.ResponseAllTemplateSections> {
+        return core.HttpResponsePromise.fromPromise(this.__listTemplateSections(request, requestOptions));
     }
 
-    private async __sectionList(
-        request: Corti.TemplatesSectionListRequest = {},
+    private async __listTemplateSections(
+        request: Corti.GetTemplateSectionsRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.TemplatesSectionListResponse>> {
+    ): Promise<core.WithRawResponse<Corti.ResponseAllTemplateSections>> {
         const { org, lang } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
-            if (Array.isArray(org)) {
-                _queryParams["org"] = org.map((item) => item);
-            } else {
-                _queryParams["org"] = org;
-            }
+            _queryParams["org"] = org;
         }
 
         if (lang != null) {
-            if (Array.isArray(lang)) {
-                _queryParams["lang"] = lang.map((item) => item);
-            } else {
-                _queryParams["lang"] = lang;
-            }
+            _queryParams["lang"] = lang;
         }
 
         const _response = await core.fetcher({
@@ -105,7 +97,7 @@ export class Templates {
         });
         if (_response.ok) {
             return {
-                data: serializers.TemplatesSectionListResponse.parseOrThrow(_response.body, {
+                data: serializers.ResponseAllTemplateSections.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -151,50 +143,38 @@ export class Templates {
     /**
      *  Retrieves a list of templates with optional filters for organization, language, and status.
      *
-     * @param {Corti.TemplatesListRequest} request
+     * @param {Corti.GetTemplatesRequest} request
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.UnauthorizedError}
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.templates.list()
+     *     await client.templates.listTemplates()
      */
-    public list(
-        request: Corti.TemplatesListRequest = {},
+    public listTemplates(
+        request: Corti.GetTemplatesRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): core.HttpResponsePromise<Corti.TemplatesListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    ): core.HttpResponsePromise<Corti.ResponseAllTemplates> {
+        return core.HttpResponsePromise.fromPromise(this.__listTemplates(request, requestOptions));
     }
 
-    private async __list(
-        request: Corti.TemplatesListRequest = {},
+    private async __listTemplates(
+        request: Corti.GetTemplatesRequest = {},
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.TemplatesListResponse>> {
-        const { org, lang, status } = request;
+    ): Promise<core.WithRawResponse<Corti.ResponseAllTemplates>> {
+        const { org, lang, templateStatus } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (org != null) {
-            if (Array.isArray(org)) {
-                _queryParams["org"] = org.map((item) => item);
-            } else {
-                _queryParams["org"] = org;
-            }
+            _queryParams["org"] = org;
         }
 
         if (lang != null) {
-            if (Array.isArray(lang)) {
-                _queryParams["lang"] = lang.map((item) => item);
-            } else {
-                _queryParams["lang"] = lang;
-            }
+            _queryParams["lang"] = lang;
         }
 
-        if (status != null) {
-            if (Array.isArray(status)) {
-                _queryParams["status"] = status.map((item) => item);
-            } else {
-                _queryParams["status"] = status;
-            }
+        if (templateStatus != null) {
+            _queryParams["templateStatus"] = templateStatus;
         }
 
         const _response = await core.fetcher({
@@ -219,7 +199,7 @@ export class Templates {
         });
         if (_response.ok) {
             return {
-                data: serializers.TemplatesListResponse.parseOrThrow(_response.body, {
+                data: serializers.ResponseAllTemplates.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -263,7 +243,7 @@ export class Templates {
     }
 
     /**
-     * Retrieves template by key.
+     *  Retrieves template by key.
      *
      * @param {string} key - The key of the template
      * @param {Templates.RequestOptions} requestOptions - Request-specific configuration.
@@ -272,16 +252,19 @@ export class Templates {
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.templates.get("key")
+     *     await client.templates.getTemplate("key")
      */
-    public get(key: string, requestOptions?: Templates.RequestOptions): core.HttpResponsePromise<Corti.TemplatesItem> {
-        return core.HttpResponsePromise.fromPromise(this.__get(key, requestOptions));
-    }
-
-    private async __get(
+    public getTemplate(
         key: string,
         requestOptions?: Templates.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.TemplatesItem>> {
+    ): core.HttpResponsePromise<Corti.TemplateFiltered> {
+        return core.HttpResponsePromise.fromPromise(this.__getTemplate(key, requestOptions));
+    }
+
+    private async __getTemplate(
+        key: string,
+        requestOptions?: Templates.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.TemplateFiltered>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -303,7 +286,7 @@ export class Templates {
         });
         if (_response.ok) {
             return {
-                data: serializers.TemplatesItem.parseOrThrow(_response.body, {
+                data: serializers.TemplateFiltered.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

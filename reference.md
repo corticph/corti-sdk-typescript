@@ -1468,7 +1468,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionList</a>({ ...params }) -> Corti.TemplatesSectionListResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listTemplateSections</a>({ ...params }) -> Corti.ResponseAllTemplateSections</code></summary>
 <dl>
 <dd>
 
@@ -1496,7 +1496,7 @@ Retrieves a list of template sections with optional filters for organization and
 <dd>
 
 ```typescript
-await client.templates.sectionList();
+await client.templates.listTemplateSections();
 ```
 
 </dd>
@@ -1512,7 +1512,7 @@ await client.templates.sectionList();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesSectionListRequest`
+**request:** `Corti.GetTemplateSectionsRequest`
 
 </dd>
 </dl>
@@ -1531,7 +1531,7 @@ await client.templates.sectionList();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.TemplatesListResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listTemplates</a>({ ...params }) -> Corti.ResponseAllTemplates</code></summary>
 <dl>
 <dd>
 
@@ -1559,7 +1559,7 @@ Retrieves a list of templates with optional filters for organization, language, 
 <dd>
 
 ```typescript
-await client.templates.list();
+await client.templates.listTemplates();
 ```
 
 </dd>
@@ -1575,7 +1575,7 @@ await client.templates.list();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesListRequest`
+**request:** `Corti.GetTemplatesRequest`
 
 </dd>
 </dl>
@@ -1594,7 +1594,7 @@ await client.templates.list();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplatesItem</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">getTemplate</a>(key) -> Corti.TemplateFiltered</code></summary>
 <dl>
 <dd>
 
@@ -1622,7 +1622,7 @@ Retrieves template by key.
 <dd>
 
 ```typescript
-await client.templates.get("key");
+await client.templates.getTemplate("key");
 ```
 
 </dd>
