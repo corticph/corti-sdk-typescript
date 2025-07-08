@@ -18,6 +18,7 @@ export const ResponseTranscriptCreate: core.serialization.ObjectSchema<
     metadata: ResponseMetadataCreate,
     transcripts: core.serialization.list(Transcript),
     usageInfo: UsageInfo,
+    recordingId: Uuid.optional(),
 });
 
 export declare namespace ResponseTranscriptCreate {
@@ -26,5 +27,6 @@ export declare namespace ResponseTranscriptCreate {
         metadata: ResponseMetadataCreate.Raw;
         transcripts: Transcript.Raw[];
         usageInfo: UsageInfo.Raw;
+        recordingId?: Uuid.Raw | null;
     }
 }

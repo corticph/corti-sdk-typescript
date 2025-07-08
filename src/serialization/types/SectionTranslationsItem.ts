@@ -6,18 +6,18 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const TemplatesTranslation: core.serialization.ObjectSchema<
-    serializers.TemplatesTranslation.Raw,
-    Corti.TemplatesTranslation
+export const SectionTranslationsItem: core.serialization.ObjectSchema<
+    serializers.SectionTranslationsItem.Raw,
+    Corti.SectionTranslationsItem
 > = core.serialization.object({
-    languagesId: core.serialization.property("languages_id", core.serialization.string()),
+    languagesId: core.serialization.property("languages_id", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
 });
 
-export declare namespace TemplatesTranslation {
+export declare namespace SectionTranslationsItem {
     export interface Raw {
-        languages_id: string;
+        languages_id?: string | null;
         name?: string | null;
         description?: string | null;
     }

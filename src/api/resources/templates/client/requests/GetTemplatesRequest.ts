@@ -6,17 +6,17 @@
  * @example
  *     {}
  */
-export interface TemplatesListRequest {
+export interface GetTemplatesRequest {
     /**
      * Filter templates by organization.
      */
-    org?: string | string[];
+    org?: string;
     /**
      * Filter templates by language.
      */
-    lang?: string | string[];
+    lang?: string;
     /**
      * Filter templates by their status.
      */
-    status?: string | string[];
+    templateStatus?: string;
 }
