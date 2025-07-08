@@ -24,7 +24,7 @@ export class Transcribe extends FernTranscribe {
      */
     public async connect(
         args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenantName'> = {},
-        configuration?: api.TranscribeConfigurationMessage['configuration']
+        configuration?: api.TranscribeConfig
     ): Promise<TranscribeSocket> {
         const ws = await super.connect({
             ...args,

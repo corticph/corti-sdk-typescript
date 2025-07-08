@@ -24,7 +24,7 @@ export class Stream extends FernStream {
      */
     public async connect(
         args: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'>,
-        configuration?: api.StreamConfigurationMessage['configuration']
+        configuration?: api.StreamConfig
     ): Promise<StreamSocket> {
         const ws = await super.connect({
             ...args,
