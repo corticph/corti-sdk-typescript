@@ -12,4 +12,6 @@ export interface ResponseTranscriptCreate {
     /** An array of transcripts. */
     transcripts: Corti.Transcript[];
     usageInfo: Corti.UsageInfo;
+    /** The unique identifier of the related recording. */
+    recordingId?: Corti.Uuid;
 }

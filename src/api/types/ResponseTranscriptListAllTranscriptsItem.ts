@@ -7,6 +7,8 @@ import * as Corti from "../index.js";
 export interface ResponseTranscriptListAllTranscriptsItem {
     /** The unique identifier of the transcript. */
     id?: Corti.Uuid;
+    /** The unique identifier of the related recording. */
+    recordingId?: Corti.Uuid;
     transcriptSample?: string;
     transcript?: Corti.ResponseTranscriptListFull;
 }
