@@ -9,17 +9,17 @@ import { V2SourceEnum } from "../../../../types/V2SourceEnum.js";
 
 export const RequestFactUpdate: core.serialization.Schema<serializers.RequestFactUpdate.Raw, Corti.RequestFactUpdate> =
     core.serialization.object({
-        text: core.serialization.string(),
+        text: core.serialization.string().optional(),
         group: core.serialization.string().optional(),
-        source: V2SourceEnum,
+        source: V2SourceEnum.optional(),
         isDiscarded: core.serialization.boolean().optional(),
     });
 
 export declare namespace RequestFactUpdate {
     export interface Raw {
-        text: string;
+        text?: string | null;
         group?: string | null;
-        source: V2SourceEnum.Raw;
+        source?: V2SourceEnum.Raw | null;
         isDiscarded?: boolean | null;
     }
 }

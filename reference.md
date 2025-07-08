@@ -1063,10 +1063,7 @@ Updates an existing fact within a specific interaction. If the interaction `stat
 <dd>
 
 ```typescript
-await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-    text: "text",
-    source: "core",
-});
+await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>

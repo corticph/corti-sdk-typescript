@@ -11,14 +11,14 @@ export const ResponseFactGroupsFilteredDataItemTranslationsItem: core.serializat
     Corti.ResponseFactGroupsFilteredDataItemTranslationsItem
 > = core.serialization.object({
     id: core.serialization.number().optional(),
-    languagesId: core.serialization.property("languages_id", core.serialization.string().optional()),
+    languagesId: core.serialization.string().optional(),
     name: core.serialization.string().optional(),
 });
 
 export declare namespace ResponseFactGroupsFilteredDataItemTranslationsItem {
     export interface Raw {
         id?: number | null;
-        languages_id?: string | null;
+        languagesId?: string | null;
         name?: string | null;
     }
 }

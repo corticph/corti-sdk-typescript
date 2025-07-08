@@ -438,15 +438,12 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-     *         text: "text",
-     *         source: "core"
-     *     })
+     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public update(
         id: Corti.Uuid,
         factId: Corti.Uuid,
-        request: Corti.RequestFactUpdate,
+        request: Corti.RequestFactUpdate = {},
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactUpdate> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, factId, request, requestOptions));
@@ -455,7 +452,7 @@ export class Facts {
     private async __update(
         id: Corti.Uuid,
         factId: Corti.Uuid,
-        request: Corti.RequestFactUpdate,
+        request: Corti.RequestFactUpdate = {},
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactUpdate>> {
         const _response = await core.fetcher({
