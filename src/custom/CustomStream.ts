@@ -34,12 +34,6 @@ export class Stream extends FernStream {
             return ws;
         }
 
-        // Current idea: return ws normally so user could subscribe to events
-        // add option where user can say that he wants promise to resolve only after configuration successfully sent
-        // check how reconnect works with this type of subscription
-
-        // reconnect ?
-
         ws.socket.addEventListener('open', () => {
             ws.sendConfiguration({
                 type: 'config',
@@ -70,7 +64,7 @@ export class Stream extends FernStream {
             )) {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: parsedResponse.value.type,
-                    message: `Configuration was not accepted: ${parsedResponse.value.reason || 'No reason provided'}`,
+                    message: `Configuration error "${parsedResponse.value.type}" : ${parsedResponse.value.reason || 'No reason provided'}`,
                 }, ''));
 
                 ws.close();
