@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface TranscribeConfigurationMessageConfiguration {
+export interface TranscribeConfig {
     /** The locale of the primary spoken language. */
     primaryLanguage: Corti.TranscribeSupportedLanguage;
     /** When true, returns interim results for reduced latency */
