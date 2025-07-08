@@ -14,6 +14,7 @@ import * as serializers from "../serialization/index.js";
  * Patch: changed import to custom StreamSocket implementation
  */
 import { StreamSocket } from "./CustomStreamSocket.js";
+import { ErrorEvent } from "../core/websocket/events.js";
 
 export class Stream extends FernStream {
     /**
@@ -33,43 +34,55 @@ export class Stream extends FernStream {
             return ws;
         }
 
-        return new Promise(async (resolve, reject) => {
-            /**
-             * Patch: reusing here parsing logic from the base class, because Socket can have only one event handler
-             */
-            function handleMessage(event: { data: string }) {
-                const data = fromJson(event.data);
+        // Current idea: return ws normally so user could subscribe to events
+        // add option where user can say that he wants promise to resolve only after configuration successfully sent
+        // check how reconnect works with this type of subscription
 
-                const parsedResponse = serializers.StreamSocketResponse.parse(data, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    omitUndefined: true,
-                });
+        // reconnect ?
 
-                if (parsedResponse.ok && parsedResponse.value.type === 'CONFIG_ACCEPTED') {
-                    resolve(ws);
-                    return;
-                }
-
-                if (parsedResponse.ok && parsedResponse.value.type === 'ENDED') {
-                    ws.socket.removeEventListener('message', handleMessage);
-                    ws.close();
-                    return;
-                }
-
-                reject(new Error('Configuration failed: ' + JSON.stringify(parsedResponse)));
-            }
-
-            ws.socket.addEventListener('message', handleMessage);
-
-            await ws.waitForOpen();
-
+        ws.socket.addEventListener('open', () => {
             ws.sendConfiguration({
                 type: 'config',
                 configuration,
             });
         });
+
+        ws.socket.addEventListener('message', (event) => {
+            const data = fromJson(event.data);
+
+            const parsedResponse = serializers.StreamSocketResponse.parse(data, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                omitUndefined: true,
+            });
+
+            if (parsedResponse.ok && parsedResponse.value.type === 'CONFIG_ACCEPTED') {
+                return;
+            }
+
+            if (parsedResponse.ok && (
+                parsedResponse.value.type === 'CONFIG_DENIED'
+                || parsedResponse.value.type === 'CONFIG_MISSING'
+                || parsedResponse.value.type === 'CONFIG_TIMEOUT'
+                || parsedResponse.value.type === 'CONFIG_NOT_PROVIDED'
+            )) {
+                ws.socket.dispatchEvent(new ErrorEvent({
+                    name: parsedResponse.value.type,
+                    message: `Configuration was not accepted: ${parsedResponse.value.reason || 'No reason provided'}`,
+                }, ''));
+
+                ws.close();
+                return;
+            }
+
+            if (parsedResponse.ok && parsedResponse.value.type === 'ENDED') {
+                ws.close();
+                return;
+            }
+        })
+
+        return ws;
     }
 }
