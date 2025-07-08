@@ -2,19 +2,21 @@
  * Patch: use custom Stream implementation to support passing _options parameters to connection function
  */
 import { Stream as FernStream } from "../api/resources/stream/client/Client.js";
+
 import * as core from "../core/index.js";
+
 /**
  * Patch: added import for types and message parsing logic
  */
 import * as api from "../api/index.js";
 import { fromJson } from "../core/json.js";
 import * as serializers from "../serialization/index.js";
+import { ErrorEvent } from "../core/websocket/events.js";
 
 /**
  * Patch: changed import to custom StreamSocket implementation
  */
 import { StreamSocket } from "./CustomStreamSocket.js";
-import { ErrorEvent } from "../core/websocket/events.js";
 
 export class Stream extends FernStream {
     /**
