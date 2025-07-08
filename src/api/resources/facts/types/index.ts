@@ -1,2 +1,2 @@
-export * from "./RequestFactsCreateFactsItem.js";
-export * from "./RequestFactsUpdateFactsItem.js";
+export * from "./FactsCreateRequestFactsItem.js";
+export * from "./FactsUpdateRequestFactsItem.js";

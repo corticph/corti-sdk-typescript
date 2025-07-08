@@ -1,3 +1,3 @@
-export { type RequestFactsCreate } from "./RequestFactsCreate.js";
-export { type RequestFactsUpdate } from "./RequestFactsUpdate.js";
-export { type RequestFactUpdate } from "./RequestFactUpdate.js";
+export { type FactsCreateRequest } from "./FactsCreateRequest.js";
+export { type FactsUpdateRequest } from "./FactsUpdateRequest.js";
+export { type FactUpdateRequest } from "./FactUpdateRequest.js";
