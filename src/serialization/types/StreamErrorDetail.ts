@@ -10,19 +10,19 @@ export const StreamErrorDetail: core.serialization.ObjectSchema<
     serializers.StreamErrorDetail.Raw,
     Corti.StreamErrorDetail
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    title: core.serialization.string().optional(),
-    status: core.serialization.number().optional(),
-    details: core.serialization.string().optional(),
-    doc: core.serialization.string().optional(),
+    id: core.serialization.string(),
+    title: core.serialization.string(),
+    status: core.serialization.number(),
+    details: core.serialization.string(),
+    doc: core.serialization.string(),
 });
 
 export declare namespace StreamErrorDetail {
     export interface Raw {
-        id?: string | null;
-        title?: string | null;
-        status?: number | null;
-        details?: string | null;
-        doc?: string | null;
+        id: string;
+        title: string;
+        status: number;
+        details: string;
+        doc: string;
     }
 }

@@ -12,19 +12,19 @@ export interface InteractionsListRequest {
     /**
      * Field used to sort interactions. Allowed values: [startedAt, endedAt, updatedAt, lastUpdated]. Default is startedAt.
      */
-    sort?: Corti.InteractionsListRequestSort;
+    sort?: Corti.InteractionsListRequestSort | null;
     /**
      * Sorting order. Allowed values: [asc, desc]. Default is desc.
      */
-    direction?: Corti.SortingDirectionEnum;
+    direction?: Corti.CommonSortingDirectionEnum | null;
     /**
      * Number of interactions to return per page. Must be greater than 0. Default is 10.
      */
-    pageSize?: number;
+    pageSize?: number | null;
     /**
      * Page number to retrieve. Starts at 1. For example, index=2 with pageSize=10 will return interactions 11–20. Must be greater than 0. Default is 1.
      */
-    index?: number;
+    index?: number | null;
     /**
      * The status of the encounter. To filter on multiple statuses, pass the same parameter again.
      */
@@ -32,5 +32,5 @@ export interface InteractionsListRequest {
     /**
      * A unique identifier for the patient. Must be a valid UUID.
      */
-    patient?: string;
+    patient?: string | null;
 }

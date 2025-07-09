@@ -64,23 +64,23 @@ export class Interactions {
             ): Promise<core.WithRawResponse<Corti.ResponseInteractions>> => {
                 const { sort, direction, pageSize, index, encounterStatus, patient } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-                if (sort != null) {
+                if (sort !== undefined) {
                     _queryParams["sort"] = serializers.InteractionsListRequestSort.jsonOrThrow(sort, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (direction != null) {
-                    _queryParams["direction"] = serializers.SortingDirectionEnum.jsonOrThrow(direction, {
+                if (direction !== undefined) {
+                    _queryParams["direction"] = serializers.CommonSortingDirectionEnum.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
                 }
-                if (pageSize != null) {
-                    _queryParams["pageSize"] = pageSize.toString();
+                if (pageSize !== undefined) {
+                    _queryParams["pageSize"] = pageSize?.toString() ?? null;
                 }
-                if (index != null) {
-                    _queryParams["index"] = index.toString();
+                if (index !== undefined) {
+                    _queryParams["index"] = index?.toString() ?? null;
                 }
                 if (encounterStatus != null) {
                     if (Array.isArray(encounterStatus)) {
@@ -97,7 +97,7 @@ export class Interactions {
                         });
                     }
                 }
-                if (patient != null) {
+                if (patient !== undefined) {
                     _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({

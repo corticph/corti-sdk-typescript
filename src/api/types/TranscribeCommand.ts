@@ -8,7 +8,7 @@ export interface TranscribeCommand {
     /** To identify the command when it gets detected and returned over the WebSocket */
     id: string;
     /** The spoken phrases that should trigger the command */
-    phrases?: string[];
+    phrases: string[];
     /** Variables for the command */
     variables?: Corti.TranscribeCommandVariable[];
 }

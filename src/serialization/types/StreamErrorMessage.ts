@@ -12,12 +12,12 @@ export const StreamErrorMessage: core.serialization.ObjectSchema<
     Corti.StreamErrorMessage
 > = core.serialization.object({
     type: core.serialization.stringLiteral("error"),
-    error: StreamErrorDetail.optional(),
+    error: StreamErrorDetail,
 });
 
 export declare namespace StreamErrorMessage {
     export interface Raw {
         type: "error";
-        error?: StreamErrorDetail.Raw | null;
+        error: StreamErrorDetail.Raw;
     }
 }

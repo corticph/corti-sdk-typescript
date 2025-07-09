@@ -12,14 +12,14 @@ export const TranscribeCommand: core.serialization.ObjectSchema<
     Corti.TranscribeCommand
 > = core.serialization.object({
     id: core.serialization.string(),
-    phrases: core.serialization.list(core.serialization.string()).optional(),
+    phrases: core.serialization.list(core.serialization.string()),
     variables: core.serialization.list(TranscribeCommandVariable).optional(),
 });
 
 export declare namespace TranscribeCommand {
     export interface Raw {
         id: string;
-        phrases?: string[] | null;
+        phrases: string[];
         variables?: TranscribeCommandVariable.Raw[] | null;
     }
 }

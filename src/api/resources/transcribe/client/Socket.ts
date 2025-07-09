@@ -4,7 +4,7 @@
 
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
-import { TranscribeConfigurationMessage } from "../../../../serialization/types/TranscribeConfigurationMessage.js";
+import { TranscribeConfigMessage } from "../../../../serialization/types/TranscribeConfigMessage.js";
 import { TranscribeEndMessage } from "../../../../serialization/types/TranscribeEndMessage.js";
 import { fromJson } from "../../../../core/json.js";
 import * as serializers from "../../../../serialization/index.js";
@@ -86,9 +86,9 @@ export class TranscribeSocket {
         this.eventHandlers[event] = callback;
     }
 
-    public sendConfiguration(message: Corti.TranscribeConfigurationMessage): void {
+    public sendConfiguration(message: Corti.TranscribeConfigMessage): void {
         this.assertSocketIsOpen();
-        const jsonPayload = TranscribeConfigurationMessage.jsonOrThrow(message, {
+        const jsonPayload = TranscribeConfigMessage.jsonOrThrow(message, {
             unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,

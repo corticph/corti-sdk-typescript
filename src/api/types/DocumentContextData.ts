@@ -10,7 +10,7 @@ export type DocumentContextData =
     | Corti.FactContext[]
     /**
      * Transcript */
-    | Corti.Transcript
+    | Corti.CommonTranscript
     /**
      * Text */
     | string;

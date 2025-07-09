@@ -12,21 +12,21 @@ export interface TranscriptsListRequest {
     /**
      * Describes transcript attribute for sorting
      */
-    sort?: Corti.TranscriptsListRequestSort;
+    sort?: Corti.TranscriptsListRequestSort | null;
     /**
      * Describes sorting direction
      */
-    direction?: Corti.SortingDirectionEnum;
+    direction?: Corti.CommonSortingDirectionEnum | null;
     /**
      * The number of transcripts to return. For example, a pageSize of 10 will return a maximum of 10 interactions.
      */
-    pageSize?: number;
+    pageSize?: number | null;
     /**
      * The number of transcripts to skip. For example, index=2 with pageSize=10 will skip the first 10 interactions and return 11-20.
      */
-    index?: number;
+    index?: number | null;
     /**
      * Display full transcripts in listing
      */
-    full?: boolean;
+    full?: boolean | null;
 }
