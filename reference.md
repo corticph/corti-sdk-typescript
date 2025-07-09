@@ -777,7 +777,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 
 ## facts
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factGroupsList</a>() -> Corti.FactGroupsFilteredResponse</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factGroupsList</a>() -> Corti.FactsFactGroupsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -958,7 +958,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.FactsUpdateResponse</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.FactsBatchUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1016,7 +1016,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.FactsUpdateRequest`
+**request:** `Corti.FactsBatchUpdateRequest`
 
 </dd>
 </dl>
@@ -1035,7 +1035,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.FactUpdateResponse</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.FactsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1095,7 +1095,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**request:** `Corti.FactUpdateRequest`
+**request:** `Corti.FactsUpdateRequest`
 
 </dd>
 </dl>

@@ -4,6 +4,6 @@
 
 import * as Corti from "../index.js";
 
-export interface FactGroupsFilteredResponse {
-    data: Corti.FactGroupsFilteredResponseDataItem[];
+export interface FactsFactGroupsListResponse {
+    data: Corti.FactsFactGroupsListResponseDataItem[];
 }

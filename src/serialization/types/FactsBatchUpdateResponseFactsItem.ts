@@ -8,9 +8,9 @@ import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
 import { V2SourceEnum } from "./V2SourceEnum.js";
 
-export const FactsUpdateResponseFactsItem: core.serialization.ObjectSchema<
-    serializers.FactsUpdateResponseFactsItem.Raw,
-    Corti.FactsUpdateResponseFactsItem
+export const FactsBatchUpdateResponseFactsItem: core.serialization.ObjectSchema<
+    serializers.FactsBatchUpdateResponseFactsItem.Raw,
+    Corti.FactsBatchUpdateResponseFactsItem
 > = core.serialization.object({
     id: Uuid,
     text: core.serialization.string(),
@@ -22,7 +22,7 @@ export const FactsUpdateResponseFactsItem: core.serialization.ObjectSchema<
     updatedAt: core.serialization.date(),
 });
 
-export declare namespace FactsUpdateResponseFactsItem {
+export declare namespace FactsBatchUpdateResponseFactsItem {
     export interface Raw {
         id: Uuid.Raw;
         text: string;

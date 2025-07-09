@@ -5,6 +5,20 @@
 import * as Corti from "../index.js";
 
 export interface FactsUpdateResponse {
-    /** A list of updated facts. */
-    facts: Corti.FactsUpdateResponseFactsItem[];
+    /** The unique identifier of the fact. */
+    id: Corti.Uuid;
+    /** The updated text content of the fact. */
+    text: string;
+    /** The updated group key to which the fact belongs. */
+    group: string;
+    /** The unique identifier of the associated group. */
+    groupId: Corti.Uuid;
+    /** The updated origin of the fact. */
+    source: Corti.V2SourceEnum;
+    /** Indicates whether the fact is marked as discarded. */
+    isDiscarded: boolean;
+    /** The original timestamp when the fact was created. */
+    createdAt: Date;
+    /** The timestamp when the fact was last updated. */
+    updatedAt: Date;
 }

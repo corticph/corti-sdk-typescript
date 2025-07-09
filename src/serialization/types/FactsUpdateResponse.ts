@@ -5,17 +5,32 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { FactsUpdateResponseFactsItem } from "./FactsUpdateResponseFactsItem.js";
+import { Uuid } from "./Uuid.js";
+import { V2SourceEnum } from "./V2SourceEnum.js";
 
 export const FactsUpdateResponse: core.serialization.ObjectSchema<
     serializers.FactsUpdateResponse.Raw,
     Corti.FactsUpdateResponse
 > = core.serialization.object({
-    facts: core.serialization.list(FactsUpdateResponseFactsItem),
+    id: Uuid,
+    text: core.serialization.string(),
+    group: core.serialization.string(),
+    groupId: Uuid,
+    source: V2SourceEnum,
+    isDiscarded: core.serialization.boolean(),
+    createdAt: core.serialization.date(),
+    updatedAt: core.serialization.date(),
 });
 
 export declare namespace FactsUpdateResponse {
     export interface Raw {
-        facts: FactsUpdateResponseFactsItem.Raw[];
+        id: Uuid.Raw;
+        text: string;
+        group: string;
+        groupId: Uuid.Raw;
+        source: V2SourceEnum.Raw;
+        isDiscarded: boolean;
+        createdAt: string;
+        updatedAt: string;
     }
 }

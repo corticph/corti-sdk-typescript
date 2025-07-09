@@ -5,17 +5,23 @@
 import * as serializers from "../../../../index.js";
 import * as Corti from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
-import { FactsUpdateRequestFactsItem } from "../../types/FactsUpdateRequestFactsItem.js";
+import { V2SourceEnum } from "../../../../types/V2SourceEnum.js";
 
 export const FactsUpdateRequest: core.serialization.Schema<
     serializers.FactsUpdateRequest.Raw,
     Corti.FactsUpdateRequest
 > = core.serialization.object({
-    facts: core.serialization.list(FactsUpdateRequestFactsItem),
+    text: core.serialization.string().optional(),
+    group: core.serialization.string().optional(),
+    source: V2SourceEnum.optional(),
+    isDiscarded: core.serialization.boolean().optional(),
 });
 
 export declare namespace FactsUpdateRequest {
     export interface Raw {
-        facts: FactsUpdateRequestFactsItem.Raw[];
+        text?: string | null;
+        group?: string | null;
+        source?: V2SourceEnum.Raw | null;
+        isDiscarded?: boolean | null;
     }
 }

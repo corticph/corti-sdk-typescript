@@ -1,2 +1,2 @@
 export * from "./FactsCreateRequestFactsItem.js";
-export * from "./FactsUpdateRequestFactsItem.js";
+export * from "./FactsBatchUpdateRequestFactsItem.js";

@@ -7,9 +7,9 @@ import * as Corti from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
 import { Uuid } from "../../../types/Uuid.js";
 
-export const FactsUpdateRequestFactsItem: core.serialization.ObjectSchema<
-    serializers.FactsUpdateRequestFactsItem.Raw,
-    Corti.FactsUpdateRequestFactsItem
+export const FactsBatchUpdateRequestFactsItem: core.serialization.ObjectSchema<
+    serializers.FactsBatchUpdateRequestFactsItem.Raw,
+    Corti.FactsBatchUpdateRequestFactsItem
 > = core.serialization.object({
     factId: Uuid,
     isDiscarded: core.serialization.boolean().optional(),
@@ -17,7 +17,7 @@ export const FactsUpdateRequestFactsItem: core.serialization.ObjectSchema<
     group: core.serialization.string().optional(),
 });
 
-export declare namespace FactsUpdateRequestFactsItem {
+export declare namespace FactsBatchUpdateRequestFactsItem {
     export interface Raw {
         factId: Uuid.Raw;
         isDiscarded?: boolean | null;
