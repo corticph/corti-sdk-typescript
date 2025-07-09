@@ -342,7 +342,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 
 ## recordings
 
-<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.ResponseRecordingList</code></summary>
+<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.RecordingsListResponse</code></summary>
 <dl>
 <dd>
 

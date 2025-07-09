@@ -61,14 +61,14 @@ export class Recordings {
     public list(
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseRecordingList> {
+    ): core.HttpResponsePromise<Corti.RecordingsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
     private async __list(
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseRecordingList>> {
+    ): Promise<core.WithRawResponse<Corti.RecordingsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -90,7 +90,7 @@ export class Recordings {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseRecordingList.parseOrThrow(_response.body, {
+                data: serializers.RecordingsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -171,7 +171,7 @@ export class Recordings {
         bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseRecordingCreate> {
+    ): core.HttpResponsePromise<Corti.RecordingsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__upload(bytes, id, requestOptions));
     }
 
@@ -179,7 +179,7 @@ export class Recordings {
         bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseRecordingCreate>> {
+    ): Promise<core.WithRawResponse<Corti.RecordingsCreateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -205,7 +205,7 @@ export class Recordings {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseRecordingCreate.parseOrThrow(_response.body, {
+                data: serializers.RecordingsCreateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface ResponseRecordingCreate {
+export interface RecordingsCreateResponse {
     /** The unique identifier for the created recording. */
     recordingId: Corti.Uuid;
 }

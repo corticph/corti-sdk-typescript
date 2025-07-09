@@ -7,14 +7,14 @@ import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
 
-export const ResponseRecordingCreate: core.serialization.ObjectSchema<
-    serializers.ResponseRecordingCreate.Raw,
-    Corti.ResponseRecordingCreate
+export const RecordingsCreateResponse: core.serialization.ObjectSchema<
+    serializers.RecordingsCreateResponse.Raw,
+    Corti.RecordingsCreateResponse
 > = core.serialization.object({
     recordingId: Uuid,
 });
 
-export declare namespace ResponseRecordingCreate {
+export declare namespace RecordingsCreateResponse {
     export interface Raw {
         recordingId: Uuid.Raw;
     }

@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface ResponseRecordingList {
+export interface RecordingsListResponse {
     /** A list of recordings for the interaction. */
     recordings: Corti.Uuid[];
 }
