@@ -16,7 +16,7 @@ export declare namespace Facts {
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Tenant-Name header */
-        tenantName: core.Supplier<string>;
+        tenantName?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -29,7 +29,7 @@ export declare namespace Facts {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string;
+        tenantName?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -130,7 +130,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.facts.list("id")
      */
     public list(
         id: Corti.Uuid,
@@ -224,7 +224,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.create("id", {
      *         facts: [{
      *                 text: "text",
      *                 group: "other"
@@ -331,9 +331,9 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.batchUpdate("id", {
      *         facts: [{
-     *                 factId: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+     *                 factId: "factId"
      *             }]
      *     })
      */
@@ -438,7 +438,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.update("id", "factId", {
      *         text: "text",
      *         source: "core"
      *     })

@@ -10,7 +10,7 @@ import * as Corti from "../../../../index.js";
  */
 export interface InteractionsListRequest {
     /**
-     * Field used to sort interactions. Allowed values: [startedAt, endedAt, updatedAt, lastUpdated]. Default is startedAt.
+     * Field used to sort interactions. Allowed values: [createdAt, endedAt, updatedAt, lastUpdated]. Default is createdAt.
      */
     sort?: Corti.InteractionsListRequestSort | null;
     /**
@@ -28,9 +28,9 @@ export interface InteractionsListRequest {
     /**
      * The status of the encounter. To filter on multiple statuses, pass the same parameter again.
      */
-    encounterStatus?: Corti.EncounterStatus | Corti.EncounterStatus[];
+    encounterStatus?: Corti.InteractionsEncounterStatusEnum | Corti.InteractionsEncounterStatusEnum[];
     /**
      * A unique identifier for the patient. Must be a valid UUID.
      */
-    patient?: string | null;
+    patient?: Corti.Uuid | null;
 }

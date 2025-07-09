@@ -3,10 +3,13 @@
  */
 
 /**
- * Field used to sort interactions. Allowed values: [startedAt, endedAt, updatedAt, lastUpdated]. Default is startedAt.
+ * Field used to sort interactions. Default is createdAt.
  */
-export type InteractionsListRequestSort = "createdAt" | "endedAt" | "updatedAt";
+export type InteractionsListRequestSort = "id" | "assignedUserId" | "patient" | "createdAt" | "endedAt" | "updatedAt";
 export const InteractionsListRequestSort = {
+    Id: "id",
+    AssignedUserId: "assignedUserId",
+    Patient: "patient",
     CreatedAt: "createdAt",
     EndedAt: "endedAt",
     UpdatedAt: "updatedAt",

@@ -16,7 +16,7 @@ export declare namespace Documents {
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Tenant-Name header */
-        tenantName: core.Supplier<string>;
+        tenantName?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -29,7 +29,7 @@ export declare namespace Documents {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string;
+        tenantName?: string | undefined;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -54,7 +54,7 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.documents.list("id")
      */
     public list(
         id: Corti.Uuid,
@@ -166,7 +166,7 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.documents.create("id", {
      *         context: [{
      *                 type: "facts",
      *                 data: [{
@@ -297,7 +297,7 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.documents.get("id", "documentId")
      */
     public get(
         id: Corti.Uuid,
@@ -420,7 +420,7 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.documents.delete("id", "documentId")
      */
     public delete(
         id: Corti.Uuid,
@@ -535,7 +535,7 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.documents.update("id", "documentId")
      */
     public update(
         id: Corti.Uuid,

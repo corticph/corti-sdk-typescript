@@ -9,8 +9,8 @@ import * as core from "../../../../core/index.js";
 export const InteractionsListRequestSort: core.serialization.Schema<
     serializers.InteractionsListRequestSort.Raw,
     Corti.InteractionsListRequestSort
-> = core.serialization.enum_(["createdAt", "endedAt", "updatedAt"]);
+> = core.serialization.enum_(["id", "assignedUserId", "patient", "createdAt", "endedAt", "updatedAt"]);
 
 export declare namespace InteractionsListRequestSort {
-    export type Raw = "createdAt" | "endedAt" | "updatedAt";
+    export type Raw = "id" | "assignedUserId" | "patient" | "createdAt" | "endedAt" | "updatedAt";
 }

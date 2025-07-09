@@ -1,2 +1,2 @@
-export { RequestInteractionCreate } from "./RequestInteractionCreate.js";
-export { RequestInteractionUpdate } from "./RequestInteractionUpdate.js";
+export { InteractionsCreateRequest } from "./InteractionsCreateRequest.js";
+export { InteractionsUpdateRequest } from "./InteractionsUpdateRequest.js";
