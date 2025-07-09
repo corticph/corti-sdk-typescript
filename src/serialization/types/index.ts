@@ -46,7 +46,7 @@ export * from "./V2DocumentContextTypeEnum.js";
 export * from "./EncounterStatus.js";
 export * from "./EncounterType.js";
 export * from "./GenderEnum.js";
-export * from "./V2SourceEnum.js";
+export * from "./CommonSourceEnum.js";
 export * from "./ParticipantRoleEnum.js";
 export * from "./TemplatesWritingStyle.js";
 export * from "./TemplatesTranslation.js";

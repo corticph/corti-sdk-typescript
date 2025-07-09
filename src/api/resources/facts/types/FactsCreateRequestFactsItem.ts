@@ -10,5 +10,5 @@ export interface FactsCreateRequestFactsItem {
     /** The key identifying the group to which the fact belongs. */
     group: string;
     /** The origin of the fact, such as 'USER' or 'SYSTEM'. */
-    source?: Corti.V2SourceEnum;
+    source?: Corti.CommonSourceEnum;
 }

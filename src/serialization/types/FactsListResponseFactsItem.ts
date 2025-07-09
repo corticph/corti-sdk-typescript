@@ -6,7 +6,7 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
-import { V2SourceEnum } from "./V2SourceEnum.js";
+import { CommonSourceEnum } from "./CommonSourceEnum.js";
 import { FactsListResponseFactsItemEvidenceItem } from "./FactsListResponseFactsItemEvidenceItem.js";
 
 export const FactsListResponseFactsItem: core.serialization.ObjectSchema<
@@ -18,7 +18,7 @@ export const FactsListResponseFactsItem: core.serialization.ObjectSchema<
     group: core.serialization.string(),
     groupId: Uuid,
     isDiscarded: core.serialization.boolean(),
-    source: V2SourceEnum,
+    source: CommonSourceEnum,
     createdAt: core.serialization.date(),
     updatedAt: core.serialization.date(),
     evidence: core.serialization.list(FactsListResponseFactsItemEvidenceItem).optional(),
@@ -31,7 +31,7 @@ export declare namespace FactsListResponseFactsItem {
         group: string;
         groupId: Uuid.Raw;
         isDiscarded: boolean;
-        source: V2SourceEnum.Raw;
+        source: CommonSourceEnum.Raw;
         createdAt: string;
         updatedAt: string;
         evidence?: FactsListResponseFactsItemEvidenceItem.Raw[] | null;

@@ -6,9 +6,9 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const V2SourceEnum: core.serialization.Schema<serializers.V2SourceEnum.Raw, Corti.V2SourceEnum> =
+export const CommonSourceEnum: core.serialization.Schema<serializers.CommonSourceEnum.Raw, Corti.CommonSourceEnum> =
     core.serialization.enum_(["core", "system", "user"]);
 
-export declare namespace V2SourceEnum {
+export declare namespace CommonSourceEnum {
     export type Raw = "core" | "system" | "user";
 }

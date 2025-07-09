@@ -16,7 +16,7 @@ export interface FactsListResponseFactsItem {
     /** Indicates whether the fact has been marked as discarded. */
     isDiscarded: boolean;
     /** The origin of the fact. */
-    source: Corti.V2SourceEnum;
+    source: Corti.CommonSourceEnum;
     /** The timestamp when the fact was created. */
     createdAt: Date;
     /** The timestamp when the fact was last updated. */

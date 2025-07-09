@@ -6,7 +6,7 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
-import { V2SourceEnum } from "./V2SourceEnum.js";
+import { CommonSourceEnum } from "./CommonSourceEnum.js";
 
 export const FactsUpdateResponse: core.serialization.ObjectSchema<
     serializers.FactsUpdateResponse.Raw,
@@ -16,7 +16,7 @@ export const FactsUpdateResponse: core.serialization.ObjectSchema<
     text: core.serialization.string(),
     group: core.serialization.string(),
     groupId: Uuid,
-    source: V2SourceEnum,
+    source: CommonSourceEnum,
     isDiscarded: core.serialization.boolean(),
     createdAt: core.serialization.date(),
     updatedAt: core.serialization.date(),
@@ -28,7 +28,7 @@ export declare namespace FactsUpdateResponse {
         text: string;
         group: string;
         groupId: Uuid.Raw;
-        source: V2SourceEnum.Raw;
+        source: CommonSourceEnum.Raw;
         isDiscarded: boolean;
         createdAt: string;
         updatedAt: string;

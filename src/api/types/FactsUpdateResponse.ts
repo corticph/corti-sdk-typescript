@@ -14,7 +14,7 @@ export interface FactsUpdateResponse {
     /** The unique identifier of the associated group. */
     groupId: Corti.Uuid;
     /** The updated origin of the fact. */
-    source: Corti.V2SourceEnum;
+    source: Corti.CommonSourceEnum;
     /** Indicates whether the fact is marked as discarded. */
     isDiscarded: boolean;
     /** The original timestamp when the fact was created. */

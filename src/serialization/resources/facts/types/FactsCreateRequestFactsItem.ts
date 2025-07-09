@@ -5,7 +5,7 @@
 import * as serializers from "../../../index.js";
 import * as Corti from "../../../../api/index.js";
 import * as core from "../../../../core/index.js";
-import { V2SourceEnum } from "../../../types/V2SourceEnum.js";
+import { CommonSourceEnum } from "../../../types/CommonSourceEnum.js";
 
 export const FactsCreateRequestFactsItem: core.serialization.ObjectSchema<
     serializers.FactsCreateRequestFactsItem.Raw,
@@ -13,13 +13,13 @@ export const FactsCreateRequestFactsItem: core.serialization.ObjectSchema<
 > = core.serialization.object({
     text: core.serialization.string(),
     group: core.serialization.string(),
-    source: V2SourceEnum.optional(),
+    source: CommonSourceEnum.optional(),
 });
 
 export declare namespace FactsCreateRequestFactsItem {
     export interface Raw {
         text: string;
         group: string;
-        source?: V2SourceEnum.Raw | null;
+        source?: CommonSourceEnum.Raw | null;
     }
 }

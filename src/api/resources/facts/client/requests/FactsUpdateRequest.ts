@@ -14,7 +14,7 @@ export interface FactsUpdateRequest {
     /** The updated group key for the fact. */
     group?: string;
     /** The updated origin of the fact. */
-    source?: Corti.V2SourceEnum;
+    source?: Corti.CommonSourceEnum;
     /** Indicates whether the fact should be marked as discarded. */
     isDiscarded?: boolean;
 }
