@@ -5,9 +5,9 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { Auth } from "./api/resources/auth/client/Client.js";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "./core/headers.js";
-import * as errors from "./errors/index.js";
+import { mergeHeaders } from "./core/headers.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
+import { Recordings } from "./api/resources/recordings/client/Client.js";
 import { Transcripts } from "./api/resources/transcripts/client/Client.js";
 import { Facts } from "./api/resources/facts/client/Client.js";
 import { Documents } from "./api/resources/documents/client/Client.js";
@@ -23,7 +23,7 @@ export declare namespace CortiClient {
         clientId: core.Supplier<string>;
         clientSecret: core.Supplier<string>;
         /** Override the Tenant-Name header */
-        tenantName?: core.Supplier<string | undefined>;
+        tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -36,7 +36,7 @@ export declare namespace CortiClient {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string | undefined;
+        tenantName?: string;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -46,6 +46,7 @@ export class CortiClient {
     protected readonly _options: CortiClient.Options;
     private readonly _oauthTokenProvider: core.OAuthTokenProvider;
     protected _interactions: Interactions | undefined;
+    protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
     protected _facts: Facts | undefined;
     protected _documents: Documents | undefined;
@@ -83,6 +84,13 @@ export class CortiClient {
 
     public get interactions(): Interactions {
         return (this._interactions ??= new Interactions({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get recordings(): Recordings {
+        return (this._recordings ??= new Recordings({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
@@ -135,77 +143,5 @@ export class CortiClient {
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
-    }
-
-    /**
-     * @param {string} id
-     * @param {CortiClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.postInteractionsId("id")
-     */
-    public postInteractionsId(id: string, requestOptions?: CortiClient.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__postInteractionsId(id, requestOptions));
-    }
-
-    private async __postInteractionsId(
-        id: string,
-        requestOptions?: CortiClient.RequestOptions,
-    ): Promise<core.WithRawResponse<void>> {
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(id)}`,
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({
-                    Authorization: await this._getAuthorizationHeader(),
-                    "Tenant-Name": requestOptions?.tenantName,
-                }),
-                requestOptions?.headers,
-            ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.CortiError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.CortiError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.CortiTimeoutError("Timeout exceeded when calling POST /interactions/{id}.");
-            case "unknown":
-                throw new errors.CortiError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
     }
 }

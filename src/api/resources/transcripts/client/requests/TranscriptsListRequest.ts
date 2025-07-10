@@ -16,7 +16,7 @@ export interface TranscriptsListRequest {
     /**
      * Describes sorting direction
      */
-    direction?: Corti.SortingDirectionEnum | null;
+    direction?: Corti.CommonSortingDirectionEnum | null;
     /**
      * The number of transcripts to return. For example, a pageSize of 10 will return a maximum of 10 interactions.
      */

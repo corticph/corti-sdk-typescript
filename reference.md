@@ -1,55 +1,5 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">postInteractionsId</a>(id) -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.postInteractionsId("id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CortiClient.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-##
-
 ## interactions
 
 <details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.InteractionsGetResponse></code></summary>
@@ -390,7 +340,298 @@ await client.interactions.update("id");
 </dl>
 </details>
 
+## recordings
+
+<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.RecordingsListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a list of recordings for a given interaction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.recordings.list("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `Corti.Uuid` — The unique identifier of the interaction for which recordings should be retrieved. Must be a valid UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Recordings.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">delete</a>(id, recordingId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a specific recording for a given interaction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.recordings.delete("id", "recordingId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recordingId:** `string` — The unique identifier of the recording to be deleted. Must be a valid UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Recordings.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## transcripts
+
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> core.Page<Corti.TranscriptsListItem></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a list of transcripts for a given interaction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.transcripts.list("id");
+for await (const item of response) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+const page = await client.transcripts.list("id");
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `Corti.Uuid` — The unique identifier of the interaction for which transcripts should be retrieved. Must be a valid UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Corti.TranscriptsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Transcripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">create</a>(id, { ...params }) -> Corti.TranscriptsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new transcript for an interaction.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.transcripts.create("id", {
+    recordingId: "recordingId",
+    primaryLanguage: "en",
+    modelName: "base",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `Corti.Uuid` — The unique identifier of the interaction for which the transcript is created. Must be a valid UUID.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Corti.TranscriptsCreateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Transcripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
 
 <details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">get</a>(id, transcriptId) -> Corti.TranscriptsResponse</code></summary>
 <dl>

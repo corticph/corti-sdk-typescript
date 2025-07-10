@@ -8,8 +8,10 @@ import * as Corti from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
+import * as fs from "fs";
+import { Blob } from "buffer";
 
-export declare namespace Documents {
+export declare namespace Recordings {
     export interface Options {
         environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
@@ -35,18 +37,18 @@ export declare namespace Documents {
     }
 }
 
-export class Documents {
-    protected readonly _options: Documents.Options;
+export class Recordings {
+    protected readonly _options: Recordings.Options;
 
-    constructor(_options: Documents.Options) {
+    constructor(_options: Recordings.Options) {
         this._options = _options;
     }
 
     /**
-     *  List Documents
+     *  Retrieve a list of recordings for a given interaction.
      *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction for which recordings should be retrieved. Must be a valid UUID.
+     * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
      * @throws {@link Corti.ForbiddenError}
@@ -54,24 +56,24 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.list("id")
+     *     await client.recordings.list("id")
      */
     public list(
         id: Corti.Uuid,
-        requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentList> {
+        requestOptions?: Recordings.RequestOptions,
+    ): core.HttpResponsePromise<Corti.RecordingsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
     private async __list(
         id: Corti.Uuid,
-        requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentList>> {
+        requestOptions?: Recordings.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.RecordingsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/documents/`,
+                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -88,7 +90,7 @@ export class Documents {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentList.parseOrThrow(_response.body, {
+                data: serializers.RecordingsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -144,7 +146,7 @@ export class Documents {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.CortiTimeoutError("Timeout exceeded when calling GET /interactions/{id}/documents/.");
+                throw new errors.CortiTimeoutError("Timeout exceeded when calling GET /interactions/{id}/recordings/.");
             case "unknown":
                 throw new errors.CortiError({
                     message: _response.error.errorMessage,
@@ -154,48 +156,35 @@ export class Documents {
     }
 
     /**
-     *  Generate Document.
+     *  Upload a recording for a given interaction. There is a maximum limit of 60 minutes in length and 150MB in size for recordings.
      *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.RequestDocumentCreate} request
-     * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {File | fs.ReadStream | Blob} bytes
+     * @param {Corti.Uuid} id
+     * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
      * @throws {@link Corti.ForbiddenError}
      * @throws {@link Corti.InternalServerError}
      * @throws {@link Corti.GatewayTimeoutError}
-     *
-     * @example
-     *     await client.documents.create("id", {
-     *         context: [{
-     *                 type: "facts",
-     *                 data: [{
-     *                         text: "text",
-     *                         source: "core"
-     *                     }]
-     *             }],
-     *         templateKey: "templateKey",
-     *         outputLanguage: "outputLanguage"
-     *     })
      */
-    public create(
+    public upload(
+        bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
-        request: Corti.RequestDocumentCreate,
-        requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
-        return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
+        requestOptions?: Recordings.RequestOptions,
+    ): core.HttpResponsePromise<Corti.RecordingsCreateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__upload(bytes, id, requestOptions));
     }
 
-    private async __create(
+    private async __upload(
+        bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
-        request: Corti.RequestDocumentCreate,
-        requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
+        requestOptions?: Recordings.RequestOptions,
+    ): Promise<core.WithRawResponse<Corti.RecordingsCreateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/documents/`,
+                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -206,143 +195,17 @@ export class Documents {
                 }),
                 requestOptions?.headers,
             ),
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.RequestDocumentCreate.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
+            contentType: "application/octet-stream",
+            requestType: "bytes",
+            duplex: "half",
+            body: bytes,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
-                case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
-                case 504:
-                    throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.CortiError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.CortiError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.CortiTimeoutError("Timeout exceeded when calling POST /interactions/{id}/documents/.");
-            case "unknown":
-                throw new errors.CortiError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     *  Get Document.
-     *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.DocumentsGetRequest} request
-     * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Corti.BadRequestError}
-     * @throws {@link Corti.ForbiddenError}
-     * @throws {@link Corti.InternalServerError}
-     * @throws {@link Corti.GatewayTimeoutError}
-     *
-     * @example
-     *     await client.documents.get("id", "documentId")
-     */
-    public get(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        request: Corti.DocumentsGetRequest = {},
-        requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, documentId, request, requestOptions));
-    }
-
-    private async __get(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        request: Corti.DocumentsGetRequest = {},
-        requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
-        const { context } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (context !== undefined) {
-            _queryParams["context"] = context?.toString() ?? null;
-        }
-
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/documents/${encodeURIComponent(serializers.Uuid.jsonOrThrow(documentId, { omitUndefined: true }))}`,
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({
-                    Authorization: await this._getAuthorizationHeader(),
-                    "Tenant-Name": requestOptions?.tenantName,
-                }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
+                data: serializers.RecordingsCreateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -399,7 +262,7 @@ export class Documents {
                 });
             case "timeout":
                 throw new errors.CortiTimeoutError(
-                    "Timeout exceeded when calling GET /interactions/{id}/documents/{documentId}.",
+                    "Timeout exceeded when calling POST /interactions/{id}/recordings/.",
                 );
             case "unknown":
                 throw new errors.CortiError({
@@ -410,9 +273,123 @@ export class Documents {
     }
 
     /**
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
-     * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
+     *  Retrieve a specific recording for a given interaction.
+     * @throws {@link Corti.BadRequestError}
+     * @throws {@link Corti.ForbiddenError}
+     * @throws {@link Corti.NotFoundError}
+     * @throws {@link Corti.InternalServerError}
+     * @throws {@link Corti.GatewayTimeoutError}
+     */
+    public get(
+        id: Corti.Uuid,
+        recordingId: Corti.Uuid,
+        requestOptions?: Recordings.RequestOptions,
+    ): core.HttpResponsePromise<core.BinaryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__get(id, recordingId, requestOptions));
+    }
+
+    private async __get(
+        id: Corti.Uuid,
+        recordingId: Corti.Uuid,
+        requestOptions?: Recordings.RequestOptions,
+    ): Promise<core.WithRawResponse<core.BinaryResponse>> {
+        const _response = await core.fetcher<core.BinaryResponse>({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)).base,
+                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({
+                    Authorization: await this._getAuthorizationHeader(),
+                    "Tenant-Name": requestOptions?.tenantName,
+                }),
+                requestOptions?.headers,
+            ),
+            responseType: "binary-response",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
+                case 403:
+                    throw new Corti.ForbiddenError(
+                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Corti.NotFoundError(
+                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
+                case 504:
+                    throw new Corti.GatewayTimeoutError(
+                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.CortiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.CortiError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.CortiTimeoutError(
+                    "Timeout exceeded when calling GET /interactions/{id}/recordings/{recordingId}.",
+                );
+            case "unknown":
+                throw new errors.CortiError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     *  Delete a specific recording for a given interaction.
+     *
+     * @param {string} id - The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
+     * @param {string} recordingId - The unique identifier of the recording to be deleted. Must be a valid UUID.
+     * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}
      * @throws {@link Corti.NotFoundError}
@@ -420,26 +397,26 @@ export class Documents {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.documents.delete("id", "documentId")
+     *     await client.recordings.delete("id", "recordingId")
      */
     public delete(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        requestOptions?: Documents.RequestOptions,
+        id: string,
+        recordingId: string,
+        requestOptions?: Recordings.RequestOptions,
     ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(id, documentId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(id, recordingId, requestOptions));
     }
 
     private async __delete(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        requestOptions?: Documents.RequestOptions,
+        id: string,
+        recordingId: string,
+        requestOptions?: Recordings.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/documents/${encodeURIComponent(serializers.Uuid.jsonOrThrow(documentId, { omitUndefined: true }))}`,
+                `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -513,130 +490,7 @@ export class Documents {
                 });
             case "timeout":
                 throw new errors.CortiTimeoutError(
-                    "Timeout exceeded when calling DELETE /interactions/{id}/documents/{documentId}.",
-                );
-            case "unknown":
-                throw new errors.CortiError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.RequestDocumentUpdate} request
-     * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Corti.BadRequestError}
-     * @throws {@link Corti.ForbiddenError}
-     * @throws {@link Corti.InternalServerError}
-     * @throws {@link Corti.GatewayTimeoutError}
-     *
-     * @example
-     *     await client.documents.update("id", "documentId")
-     */
-    public update(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        request: Corti.RequestDocumentUpdate = {},
-        requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, documentId, request, requestOptions));
-    }
-
-    private async __update(
-        id: Corti.Uuid,
-        documentId: Corti.Uuid,
-        request: Corti.RequestDocumentUpdate = {},
-        requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/documents/${encodeURIComponent(serializers.Uuid.jsonOrThrow(documentId, { omitUndefined: true }))}`,
-            ),
-            method: "PATCH",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({
-                    Authorization: await this._getAuthorizationHeader(),
-                    "Tenant-Name": requestOptions?.tenantName,
-                }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.RequestDocumentUpdate.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Corti.BadRequestError(_response.error.body, _response.rawResponse);
-                case 403:
-                    throw new Corti.ForbiddenError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Corti.InternalServerError(_response.error.body, _response.rawResponse);
-                case 504:
-                    throw new Corti.GatewayTimeoutError(
-                        serializers.ErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.CortiError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.CortiError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.CortiTimeoutError(
-                    "Timeout exceeded when calling PATCH /interactions/{id}/documents/{documentId}.",
+                    "Timeout exceeded when calling DELETE /interactions/{id}/recordings/{recordingId}.",
                 );
             case "unknown":
                 throw new errors.CortiError({
