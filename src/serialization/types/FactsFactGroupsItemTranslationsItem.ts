@@ -6,16 +6,16 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const FactGroupItemTranslationsItem: core.serialization.ObjectSchema<
-    serializers.FactGroupItemTranslationsItem.Raw,
-    Corti.FactGroupItemTranslationsItem
+export const FactsFactGroupsItemTranslationsItem: core.serialization.ObjectSchema<
+    serializers.FactsFactGroupsItemTranslationsItem.Raw,
+    Corti.FactsFactGroupsItemTranslationsItem
 > = core.serialization.object({
     id: core.serialization.number().optional(),
     languagesId: core.serialization.property("languages_id", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
 });
 
-export declare namespace FactGroupItemTranslationsItem {
+export declare namespace FactsFactGroupsItemTranslationsItem {
     export interface Raw {
         id?: number | null;
         languages_id?: string | null;

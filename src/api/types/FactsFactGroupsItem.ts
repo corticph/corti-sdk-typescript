@@ -4,8 +4,8 @@
 
 import * as Corti from "../index.js";
 
-export interface FactGroupItem {
+export interface FactsFactGroupsItem {
     id?: Corti.Uuid;
     key?: string;
-    translations?: Corti.FactGroupItemTranslationsItem[];
+    translations?: Corti.FactsFactGroupsItemTranslationsItem[];
 }
