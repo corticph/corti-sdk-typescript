@@ -4,9 +4,9 @@
 
 import * as Corti from "../index.js";
 
-export interface TranscribeConfigurationMessageConfiguration {
-    /** The locale of the primary spoken language. Supported languages: en (English US), en-GB (English UK), da (Danish), de (German), fr (French), de-CH (Swiss-German), sv (Swedish), es (Spanish), it (Italian), nl (Dutch), no (Norwegian), pt (Portuguese) */
-    primaryLanguage: Corti.TranscribeConfigurationMessageConfigurationPrimaryLanguage;
+export interface TranscribeConfig {
+    /** The locale of the primary spoken language. */
+    primaryLanguage: Corti.TranscribeSupportedLanguage;
     /** When true, returns interim results for reduced latency */
     interimResults?: boolean;
     /** When true, converts spoken punctuation such as 'period' or 'slash' into '.' or '/' */

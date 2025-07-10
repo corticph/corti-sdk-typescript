@@ -6,7 +6,7 @@ export interface TemplatesTranslation {
     /** Language identifier */
     languagesId: string;
     /** Localized name */
-    name?: string;
+    name?: string | null;
     /** Localized description */
-    description?: string;
+    description?: string | null;
 }

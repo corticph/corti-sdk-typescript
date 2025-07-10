@@ -59,11 +59,11 @@ const tokenResponse = await auth.getToken({
 
 /**
 interface GetTokenResponse {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    refresh_token?: string;
-    refresh_expires_in?: number;
+    accessToken: string;
+    tokenType: string;
+    expiresIn: number;
+    refreshToken?: string;
+    refreshExpiresIn?: number;
 }
 */
 ```
@@ -75,7 +75,7 @@ const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
     tenantName: "YOUR_TENANT_NAME",
     auth: {
-        access_token: "YOUR_ACCESS_TOKEN",
+        accessToken: "YOUR_ACCESS_TOKEN",
     },
 });
 ```
@@ -89,10 +89,10 @@ const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
     tenantName: "YOUR_TENANT_NAME",
     auth: {
-        access_token: "YOUR_ACCESS_TOKEN",
-        refresh_token: "YOUR_REFRESH_TOKEN",
-        expires_in: 3600, // Access token expires in 1 hour
-        refresh_expires_in: 86400, // Refresh token expires in 24 hours
+        accessToken: "YOUR_ACCESS_TOKEN",
+        refreshToken: "YOUR_REFRESH_TOKEN",
+        expiresIn: 3600, // Access token expires in 1 hour
+        refreshExpiresIn: 86400, // Refresh token expires in 24 hours
 
         // This function runs before any API call when the access_token is near expiration
         refreshAccessToken: async (refreshToken: string) => {
@@ -105,10 +105,10 @@ const client = new CortiClient({
             
             // Response must return a valid token object containing GetTokenResponse:
             // {
-            //   access_token: string;      // Required: The new access token
-            //   expires_in?: number;       // Optional: Seconds until token expires
-            //   refresh_token?: string;    // Optional: New refresh token if rotated
-            //   refresh_expires_in?: number; // Optional: Seconds until refresh token expires
+            //   accessToken: string;      // Required: The new access token
+            //   expiresIn?: number;       // Optional: Seconds until token expires
+            //   refreshToken?: string;    // Optional: New refresh token if rotated
+            //   refreshExpiresIn?: number; // Optional: Seconds until refresh token expires
             // }
             return response.json();
         },

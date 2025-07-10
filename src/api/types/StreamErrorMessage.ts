@@ -6,5 +6,5 @@ import * as Corti from "../index.js";
 
 export interface StreamErrorMessage {
     type: "error";
-    error?: Corti.StreamErrorDetail;
+    error: Corti.StreamErrorDetail;
 }

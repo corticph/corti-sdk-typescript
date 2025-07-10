@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface StreamConfigData {
+export interface StreamConfig {
     transcription: Corti.StreamConfigTranscription;
     mode: Corti.StreamConfigMode;
 }
