@@ -13,6 +13,7 @@ export const ResponseTranscriptListAllTranscriptsItem: core.serialization.Object
     Corti.ResponseTranscriptListAllTranscriptsItem
 > = core.serialization.object({
     id: Uuid.optional(),
+    recordingId: Uuid.optional(),
     transcriptSample: core.serialization.string().optional(),
     transcript: ResponseTranscriptListFull.optional(),
 });
@@ -20,6 +21,7 @@ export const ResponseTranscriptListAllTranscriptsItem: core.serialization.Object
 export declare namespace ResponseTranscriptListAllTranscriptsItem {
     export interface Raw {
         id?: Uuid.Raw | null;
+        recordingId?: Uuid.Raw | null;
         transcriptSample?: string | null;
         transcript?: ResponseTranscriptListFull.Raw | null;
     }
