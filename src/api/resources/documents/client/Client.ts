@@ -316,8 +316,8 @@ export class Documents {
     ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
         const { context } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (context !== undefined) {
-            _queryParams["context"] = context?.toString() ?? null;
+        if (context != null) {
+            _queryParams["context"] = context.toString();
         }
 
         const _response = await core.fetcher({

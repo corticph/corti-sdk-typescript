@@ -12,12 +12,12 @@ export const TranscribeErrorMessage: core.serialization.ObjectSchema<
     Corti.TranscribeErrorMessage
 > = core.serialization.object({
     type: core.serialization.stringLiteral("error"),
-    error: TranscribeErrorMessageError,
+    error: TranscribeErrorMessageError.optional(),
 });
 
 export declare namespace TranscribeErrorMessage {
     export interface Raw {
         type: "error";
-        error: TranscribeErrorMessageError.Raw;
+        error?: TranscribeErrorMessageError.Raw | null;
     }
 }

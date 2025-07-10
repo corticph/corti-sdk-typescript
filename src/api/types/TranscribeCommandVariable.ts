@@ -6,7 +6,7 @@ export interface TranscribeCommandVariable {
     /** Variable key identifier */
     key: string;
     /** Variable type */
-    type: "enum";
+    type?: string;
     /** Enum values for the variable */
-    enum: string[];
+    enum?: string[];
 }

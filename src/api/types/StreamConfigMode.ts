@@ -7,8 +7,6 @@ import * as Corti from "../index.js";
 export interface StreamConfigMode {
     /** Processing mode */
     type: Corti.StreamConfigModeType;
-    /** Output language locale specific to facts. */
-    outputLocale?: Corti.StreamSupportedLanguage;
-    /** Template identifier for processing configuration */
-    templateId?: string;
+    /** Output language locale specific to facts. Supported languages: en (English US), en-GB (English UK), da (Danish), de (German), fr (French), de-CH (Swiss-German), sv (Swedish), es (Spanish), it (Italian), nl (Dutch), no (Norwegian), pt (Portuguese) */
+    outputLocale: Corti.StreamConfigModeOutputLocale;
 }

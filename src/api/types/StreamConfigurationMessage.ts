@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface StreamConfigMessage {
+export interface StreamConfigurationMessage {
     type: "config";
-    configuration: Corti.StreamConfig;
+    configuration: Corti.StreamConfigData;
 }

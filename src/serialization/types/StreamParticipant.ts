@@ -5,16 +5,19 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { StreamParticipantRole } from "./StreamParticipantRole.js";
 
 export const StreamParticipant: core.serialization.ObjectSchema<
     serializers.StreamParticipant.Raw,
     Corti.StreamParticipant
 > = core.serialization.object({
     channel: core.serialization.number(),
+    role: StreamParticipantRole.optional(),
 });
 
 export declare namespace StreamParticipant {
     export interface Raw {
         channel: number;
+        role?: StreamParticipantRole.Raw | null;
     }
 }

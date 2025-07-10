@@ -16,11 +16,7 @@ export interface StreamFact {
     /** Source of the fact (e.g., core for generated automatically) */
     source: string;
     /** Timestamp when the fact was created */
-    createdAt: Date;
+    createdAt?: Date;
     /** Timestamp when the fact was last updated */
     updatedAt?: Date;
-    /** Timezone offset for createdAt timestamp */
-    createdAtTzOffset?: Date;
-    /** Timezone offset for updatedAt timestamp */
-    updatedAtTzOffset?: Date;
 }

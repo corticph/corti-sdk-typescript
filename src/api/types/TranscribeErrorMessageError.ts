@@ -6,11 +6,11 @@ export interface TranscribeErrorMessageError {
     /** Unique error identifier */
     id: string;
     /** Error title */
-    title: string;
+    title?: string;
     /** HTTP status code */
-    status: number;
+    status?: number;
     /** Detailed error description */
-    details: string;
+    details?: string;
     /** Link to documentation */
-    doc: string;
+    doc?: string;
 }

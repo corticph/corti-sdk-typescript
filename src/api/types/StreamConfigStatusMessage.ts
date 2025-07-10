@@ -9,4 +9,6 @@ export interface StreamConfigStatusMessage {
     type: Corti.StreamConfigStatusMessageType;
     /** Optional reason for rejection (e.g., 'language unavailable') */
     reason?: string;
+    /** Session identifier returned when configuration is accepted (transcribe only) */
+    sessionId?: string;
 }

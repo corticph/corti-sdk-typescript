@@ -11,9 +11,7 @@ export const TranscribeCommandData: core.serialization.ObjectSchema<
     Corti.TranscribeCommandData
 > = core.serialization.object({
     id: core.serialization.string(),
-    variables: core.serialization
-        .record(core.serialization.string(), core.serialization.string().optionalNullable())
-        .optionalNullable(),
+    variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     rawTranscriptText: core.serialization.string(),
     start: core.serialization.number(),
     end: core.serialization.number(),
@@ -22,7 +20,7 @@ export const TranscribeCommandData: core.serialization.ObjectSchema<
 export declare namespace TranscribeCommandData {
     export interface Raw {
         id: string;
-        variables?: (Record<string, (string | null) | null | undefined> | null) | null;
+        variables?: Record<string, unknown> | null;
         rawTranscriptText: string;
         start: number;
         end: number;

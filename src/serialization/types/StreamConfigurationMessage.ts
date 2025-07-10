@@ -5,19 +5,19 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { TranscribeConfig } from "./TranscribeConfig.js";
+import { StreamConfigData } from "./StreamConfigData.js";
 
-export const TranscribeConfigMessage: core.serialization.ObjectSchema<
-    serializers.TranscribeConfigMessage.Raw,
-    Corti.TranscribeConfigMessage
+export const StreamConfigurationMessage: core.serialization.ObjectSchema<
+    serializers.StreamConfigurationMessage.Raw,
+    Corti.StreamConfigurationMessage
 > = core.serialization.object({
     type: core.serialization.stringLiteral("config"),
-    configuration: TranscribeConfig,
+    configuration: StreamConfigData,
 });
 
-export declare namespace TranscribeConfigMessage {
+export declare namespace StreamConfigurationMessage {
     export interface Raw {
         type: "config";
-        configuration: TranscribeConfig.Raw;
+        configuration: StreamConfigData.Raw;
     }
 }

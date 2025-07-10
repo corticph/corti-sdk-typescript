@@ -14,10 +14,8 @@ export const StreamFact: core.serialization.ObjectSchema<serializers.StreamFact.
         groupId: core.serialization.string(),
         isDiscarded: core.serialization.boolean(),
         source: core.serialization.string(),
-        createdAt: core.serialization.date(),
+        createdAt: core.serialization.date().optional(),
         updatedAt: core.serialization.date().optional(),
-        createdAtTzOffset: core.serialization.date().optional(),
-        updatedAtTzOffset: core.serialization.date().optional(),
     });
 
 export declare namespace StreamFact {
@@ -28,9 +26,7 @@ export declare namespace StreamFact {
         groupId: string;
         isDiscarded: boolean;
         source: string;
-        createdAt: string;
+        createdAt?: string | null;
         updatedAt?: string | null;
-        createdAtTzOffset?: string | null;
-        updatedAtTzOffset?: string | null;
     }
 }

@@ -10,5 +10,5 @@ export interface DocumentsGetRequest {
     /**
      * If true the response contains the context used to generated the document, such as fact, transcript or string.
      */
-    context?: boolean | null;
+    context?: boolean;
 }

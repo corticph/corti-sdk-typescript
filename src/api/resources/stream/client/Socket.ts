@@ -4,7 +4,7 @@
 
 import * as core from "../../../../core/index.js";
 import * as Corti from "../../../index.js";
-import { StreamConfigMessage } from "../../../../serialization/types/StreamConfigMessage.js";
+import { StreamConfigurationMessage } from "../../../../serialization/types/StreamConfigurationMessage.js";
 import { StreamEndMessage } from "../../../../serialization/types/StreamEndMessage.js";
 import { fromJson } from "../../../../core/json.js";
 import * as serializers from "../../../../serialization/index.js";
@@ -86,9 +86,9 @@ export class StreamSocket {
         this.eventHandlers[event] = callback;
     }
 
-    public sendConfiguration(message: Corti.StreamConfigMessage): void {
+    public sendConfiguration(message: Corti.StreamConfigurationMessage): void {
         this.assertSocketIsOpen();
-        const jsonPayload = StreamConfigMessage.jsonOrThrow(message, {
+        const jsonPayload = StreamConfigurationMessage.jsonOrThrow(message, {
             unrecognizedObjectKeys: "passthrough",
             allowUnrecognizedUnionMembers: true,
             allowUnrecognizedEnumValues: true,

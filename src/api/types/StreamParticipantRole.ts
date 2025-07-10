@@ -5,8 +5,8 @@
 /**
  * Role of the participant (e.g., doctor, patient, or multiple)
  */
-export type StreamConfigParticipantRole = "doctor" | "patient" | "multiple";
-export const StreamConfigParticipantRole = {
+export type StreamParticipantRole = "doctor" | "patient" | "multiple";
+export const StreamParticipantRole = {
     Doctor: "doctor",
     Patient: "patient",
     Multiple: "multiple",

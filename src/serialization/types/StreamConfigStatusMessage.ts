@@ -13,11 +13,13 @@ export const StreamConfigStatusMessage: core.serialization.ObjectSchema<
 > = core.serialization.object({
     type: StreamConfigStatusMessageType,
     reason: core.serialization.string().optional(),
+    sessionId: core.serialization.string().optional(),
 });
 
 export declare namespace StreamConfigStatusMessage {
     export interface Raw {
         type: StreamConfigStatusMessageType.Raw;
         reason?: string | null;
+        sessionId?: string | null;
     }
 }

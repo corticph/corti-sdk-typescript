@@ -11,14 +11,14 @@ export const TranscribeCommandVariable: core.serialization.ObjectSchema<
     Corti.TranscribeCommandVariable
 > = core.serialization.object({
     key: core.serialization.string(),
-    type: core.serialization.stringLiteral("enum"),
-    enum: core.serialization.list(core.serialization.string()),
+    type: core.serialization.string().optional(),
+    enum: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace TranscribeCommandVariable {
     export interface Raw {
         key: string;
-        type: "enum";
-        enum: string[];
+        type?: string | null;
+        enum?: string[] | null;
     }
 }

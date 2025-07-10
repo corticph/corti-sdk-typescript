@@ -4,13 +4,13 @@
 
 export interface StreamErrorDetail {
     /** Error identifier */
-    id: string;
+    id?: string;
     /** Error title */
-    title: string;
+    title?: string;
     /** HTTP status code or similar error code */
-    status: number;
+    status?: number;
     /** Detailed error message */
-    details: string;
+    details?: string;
     /** Link to documentation or further information */
-    doc: string;
+    doc?: string;
 }

@@ -5,12 +5,12 @@
 import * as Corti from "../index.js";
 
 export interface StreamConfigTranscription {
-    /** Primary spoken language for transcription */
-    primaryLanguage: Corti.StreamSupportedLanguage;
+    /** Primary spoken language for transcription. Supported languages: en (English US), en-GB (English UK), da (Danish), de (German), fr (French), de-CH (Swiss-German), sv (Swedish), es (Spanish), it (Italian), nl (Dutch), no (Norwegian), pt (Portuguese) */
+    primaryLanguage: Corti.StreamConfigTranscriptionPrimaryLanguage;
     /** Enable speaker diarization */
     isDiarization?: boolean;
     /** Enable multi-channel audio processing */
     isMultichannel?: boolean;
     /** List of participants with roles assigned to a channel */
-    participants: Corti.StreamConfigParticipant[];
+    participants: Corti.StreamParticipant[];
 }
