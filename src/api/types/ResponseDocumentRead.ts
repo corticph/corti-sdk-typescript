@@ -20,5 +20,5 @@ export interface ResponseDocumentRead {
     updatedAt?: Date;
     /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
     outputLanguage?: string;
-    usageInfo?: Corti.UsageInfo;
+    usageInfo?: Corti.CommonUsageInfo;
 }

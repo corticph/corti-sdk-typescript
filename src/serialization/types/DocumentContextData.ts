@@ -6,17 +6,17 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { FactContext } from "./FactContext.js";
-import { Transcript } from "./Transcript.js";
+import { CommonTranscript } from "./CommonTranscript.js";
 
 export const DocumentContextData: core.serialization.Schema<
     serializers.DocumentContextData.Raw,
     Corti.DocumentContextData
 > = core.serialization.undiscriminatedUnion([
     core.serialization.list(FactContext),
-    Transcript,
+    CommonTranscript,
     core.serialization.string(),
 ]);
 
 export declare namespace DocumentContextData {
-    export type Raw = FactContext.Raw[] | Transcript.Raw | string;
+    export type Raw = FactContext.Raw[] | CommonTranscript.Raw | string;
 }
