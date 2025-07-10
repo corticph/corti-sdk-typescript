@@ -30,17 +30,13 @@ Lists all existing interactions. Results can be filtered by encounter status and
 <dd>
 
 ```typescript
-const response = await client.interactions.list({
-    patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-});
+const response = await client.interactions.list();
 for await (const item of response) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.interactions.list({
-    patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-});
+const page = await client.interactions.list();
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }

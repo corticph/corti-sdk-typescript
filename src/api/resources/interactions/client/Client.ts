@@ -52,9 +52,7 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.list({
-     *         patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
-     *     })
+     *     await client.interactions.list()
      */
     public async list(
         request: Corti.InteractionsListRequest = {},
@@ -100,10 +98,7 @@ export class Interactions {
                     }
                 }
                 if (patient !== undefined) {
-                    _queryParams["patient"] = serializers.Uuid.jsonOrThrow(patient, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    });
+                    _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({
                     url: core.url.join(

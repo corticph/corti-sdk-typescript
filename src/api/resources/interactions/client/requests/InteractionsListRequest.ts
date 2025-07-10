@@ -6,9 +6,7 @@ import * as Corti from "../../../../index.js";
 
 /**
  * @example
- *     {
- *         patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
- *     }
+ *     {}
  */
 export interface InteractionsListRequest {
     /**
@@ -32,7 +30,7 @@ export interface InteractionsListRequest {
      */
     encounterStatus?: Corti.InteractionsEncounterStatusEnum | Corti.InteractionsEncounterStatusEnum[];
     /**
-     * A unique identifier for the patient. Must be a valid UUID.
+     * A unique identifier for the patient.
      */
-    patient?: Corti.Uuid | null;
+    patient?: string | null;
 }
