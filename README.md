@@ -45,11 +45,11 @@ const client = new CortiClient({
     environment: CortiEnvironment.BetaEu,
     tenantName: "YOUR_TENANT_NAME",
     auth: {
-        access_token: "YOUR_ACCESS_TOKEN",
+        accessToken: "YOUR_ACCESS_TOKEN",
         // Optional: refresh token for automatic token refresh
-        refresh_token: "YOUR_REFRESH_TOKEN",
-        expires_in: 3600,
-        refresh_expires_in: 86400,
+        refreshToken: "YOUR_REFRESH_TOKEN",
+        expiresIn: 3600,
+        refreshExpiresIn: 86400,
     },
 });
 

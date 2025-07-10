@@ -2,7 +2,7 @@
 
 ## interactions
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.ResponseInteraction></code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.InteractionsGetResponse></code></summary>
 <dl>
 <dd>
 
@@ -74,7 +74,7 @@ while (page.hasNextPage()) {
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">create</a>({ ...params }) -> Corti.ResponseInteractionCreate</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">create</a>({ ...params }) -> Corti.InteractionsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -124,7 +124,7 @@ await client.interactions.create({
 <dl>
 <dd>
 
-**request:** `Corti.RequestInteractionCreate`
+**request:** `Corti.InteractionsCreateRequest`
 
 </dd>
 </dl>
@@ -143,7 +143,7 @@ await client.interactions.create({
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">get</a>(id) -> Corti.ResponseInteraction</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">get</a>(id) -> Corti.InteractionsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -269,7 +269,7 @@ await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">update</a>(id, { ...params }) -> Corti.ResponseInteraction</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">update</a>(id, { ...params }) -> Corti.InteractionsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -321,7 +321,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**request:** `Corti.RequestInteractionUpdate`
+**request:** `Corti.InteractionsUpdateRequest`
 
 </dd>
 </dl>
@@ -342,7 +342,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 
 ## recordings
 
-<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.ResponseRecordingList</code></summary>
+<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.RecordingsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -478,7 +478,7 @@ await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b
 
 ## transcripts
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> core.Page<Corti.ResponseTranscriptListAllTranscriptsItem></code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> Corti.TranscriptsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -506,16 +506,7 @@ Retrieves a list of transcripts for a given interaction.
 <dd>
 
 ```typescript
-const response = await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
+await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -558,7 +549,7 @@ while (page.hasNextPage()) {
 </dl>
 </details>
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseTranscriptCreate</code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">create</a>(id, { ...params }) -> Corti.TranscriptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -589,7 +580,7 @@ Creates a new transcript for an interaction.
 await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     primaryLanguage: "en",
-    modelName: "premier",
+    modelName: "base",
 });
 ```
 
@@ -614,7 +605,7 @@ await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.TranscriptCreate`
+**request:** `Corti.TranscriptsCreateRequest`
 
 </dd>
 </dl>
@@ -633,7 +624,7 @@ await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">get</a>(id, transcriptId) -> Corti.ResponseTranscriptCreate</code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">get</a>(id, transcriptId) -> Corti.TranscriptsResponse</code></summary>
 <dl>
 <dd>
 
