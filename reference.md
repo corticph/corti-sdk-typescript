@@ -478,7 +478,7 @@ await client.recordings.delete("id", "recordingId");
 
 ## transcripts
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> core.Page<Corti.TranscriptsListItem></code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> Corti.TranscriptsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -506,16 +506,7 @@ Retrieves a list of transcripts for a given interaction.
 <dd>
 
 ```typescript
-const response = await client.transcripts.list("id");
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.transcripts.list("id");
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
+await client.transcripts.list("id");
 ```
 
 </dd>
