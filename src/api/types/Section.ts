@@ -4,21 +4,21 @@
 
 import * as Corti from "../index.js";
 
-export interface TemplatesSection {
+export interface Section {
     /** The timestamp when the section was updated. */
-    dateUpdated?: Date | null;
+    dateUpdated?: Date;
     /** Name of the section */
-    name: string;
+    name?: string;
     /** Alternate names for the section */
-    alternateNames?: string[] | null;
+    alternateNames?: string[];
     /** Unique key for the section */
-    key: string;
+    key?: string;
     /** Description of the section */
-    description: string;
+    description?: string;
     /** Default writing style for the section */
-    defaultWritingStyle: Corti.TemplatesWritingStyle;
+    defaultWritingStyle?: Corti.WritingStyle;
     /** Type of section */
-    sectionType: string;
+    sectionType?: string;
     /** Available translations for the section */
-    translations: Corti.TemplatesTranslation[];
+    translations?: Corti.SectionTranslationsItem[];
 }
