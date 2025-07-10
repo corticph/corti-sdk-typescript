@@ -16,7 +16,7 @@ export declare namespace Interactions {
         baseUrl?: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
         /** Override the Tenant-Name header */
-        tenantName?: core.Supplier<string | undefined>;
+        tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -29,7 +29,7 @@ export declare namespace Interactions {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Override the Tenant-Name header */
-        tenantName?: string | undefined;
+        tenantName?: string;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -57,11 +57,11 @@ export class Interactions {
     public async list(
         request: Corti.InteractionsListRequest = {},
         requestOptions?: Interactions.RequestOptions,
-    ): Promise<core.Page<Corti.InteractionsGetResponse>> {
+    ): Promise<core.Page<Corti.ResponseInteraction>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Corti.InteractionsListRequest,
-            ): Promise<core.WithRawResponse<Corti.InteractionsListResponse>> => {
+            ): Promise<core.WithRawResponse<Corti.ResponseInteractions>> => {
                 const { sort, direction, pageSize, index, encounterStatus, patient } = request;
                 const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
                 if (sort !== undefined) {
@@ -71,7 +71,7 @@ export class Interactions {
                     });
                 }
                 if (direction !== undefined) {
-                    _queryParams["direction"] = serializers.CommonSortingDirectionEnum.jsonOrThrow(direction, {
+                    _queryParams["direction"] = serializers.SortingDirectionEnum.jsonOrThrow(direction, {
                         unrecognizedObjectKeys: "strip",
                         omitUndefined: true,
                     });
@@ -85,23 +85,20 @@ export class Interactions {
                 if (encounterStatus != null) {
                     if (Array.isArray(encounterStatus)) {
                         _queryParams["encounterStatus"] = encounterStatus.map((item) =>
-                            serializers.InteractionsEncounterStatusEnum.jsonOrThrow(item, {
+                            serializers.EncounterStatus.jsonOrThrow(item, {
                                 unrecognizedObjectKeys: "strip",
                                 omitUndefined: true,
                             }),
                         );
                     } else {
-                        _queryParams["encounterStatus"] = serializers.InteractionsEncounterStatusEnum.jsonOrThrow(
-                            encounterStatus,
-                            { unrecognizedObjectKeys: "strip", omitUndefined: true },
-                        );
+                        _queryParams["encounterStatus"] = serializers.EncounterStatus.jsonOrThrow(encounterStatus, {
+                            unrecognizedObjectKeys: "strip",
+                            omitUndefined: true,
+                        });
                     }
                 }
                 if (patient !== undefined) {
-                    _queryParams["patient"] = serializers.Uuid.jsonOrThrow(patient, {
-                        unrecognizedObjectKeys: "strip",
-                        omitUndefined: true,
-                    });
+                    _queryParams["patient"] = patient;
                 }
                 const _response = await core.fetcher({
                     url: core.url.join(
@@ -126,7 +123,7 @@ export class Interactions {
                 });
                 if (_response.ok) {
                     return {
-                        data: serializers.InteractionsListResponse.parseOrThrow(_response.body, {
+                        data: serializers.ResponseInteractions.parseOrThrow(_response.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -187,7 +184,7 @@ export class Interactions {
         );
         let _offset = request?.index != null ? request?.index : 1;
         const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Pageable<Corti.InteractionsListResponse, Corti.InteractionsGetResponse>({
+        return new core.Pageable<Corti.ResponseInteractions, Corti.ResponseInteraction>({
             response: dataWithRawResponse.data,
             rawResponse: dataWithRawResponse.rawResponse,
             hasNextPage: (response) => (response?.interactions ?? []).length > 0,
@@ -202,7 +199,7 @@ export class Interactions {
     /**
      *  Creates a new interaction.
      *
-     * @param {Corti.InteractionsCreateRequest} request
+     * @param {Corti.RequestInteractionCreate} request
      * @param {Interactions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -220,16 +217,16 @@ export class Interactions {
      *     })
      */
     public create(
-        request: Corti.InteractionsCreateRequest,
+        request: Corti.RequestInteractionCreate,
         requestOptions?: Interactions.RequestOptions,
-    ): core.HttpResponsePromise<Corti.InteractionsCreateResponse> {
+    ): core.HttpResponsePromise<Corti.ResponseInteractionCreate> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Corti.InteractionsCreateRequest,
+        request: Corti.RequestInteractionCreate,
         requestOptions?: Interactions.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.InteractionsCreateResponse>> {
+    ): Promise<core.WithRawResponse<Corti.ResponseInteractionCreate>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -247,7 +244,7 @@ export class Interactions {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.InteractionsCreateRequest.jsonOrThrow(request, {
+            body: serializers.RequestInteractionCreate.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -257,7 +254,7 @@ export class Interactions {
         });
         if (_response.ok) {
             return {
-                data: serializers.InteractionsCreateResponse.parseOrThrow(_response.body, {
+                data: serializers.ResponseInteractionCreate.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -332,19 +329,19 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.get("id")
+     *     await client.interactions.get("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public get(
         id: Corti.Uuid,
         requestOptions?: Interactions.RequestOptions,
-    ): core.HttpResponsePromise<Corti.InteractionsGetResponse> {
+    ): core.HttpResponsePromise<Corti.ResponseInteraction> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: Corti.Uuid,
         requestOptions?: Interactions.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.InteractionsGetResponse>> {
+    ): Promise<core.WithRawResponse<Corti.ResponseInteraction>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -366,7 +363,7 @@ export class Interactions {
         });
         if (_response.ok) {
             return {
-                data: serializers.InteractionsGetResponse.parseOrThrow(_response.body, {
+                data: serializers.ResponseInteraction.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -437,7 +434,7 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.delete("id")
+     *     await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public delete(id: Corti.Uuid, requestOptions?: Interactions.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
@@ -524,28 +521,28 @@ export class Interactions {
      *  Modifies an existing interaction by updating specific fields without overwriting the entire record.
      *
      * @param {Corti.Uuid} id - The unique identifier of the interaction to update. Must be a valid UUID.
-     * @param {Corti.InteractionsUpdateRequest} request
+     * @param {Corti.RequestInteractionUpdate} request
      * @param {Interactions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.update("id")
+     *     await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public update(
         id: Corti.Uuid,
-        request: Corti.InteractionsUpdateRequest = {},
+        request: Corti.RequestInteractionUpdate = {},
         requestOptions?: Interactions.RequestOptions,
-    ): core.HttpResponsePromise<Corti.InteractionsGetResponse> {
+    ): core.HttpResponsePromise<Corti.ResponseInteraction> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
     private async __update(
         id: Corti.Uuid,
-        request: Corti.InteractionsUpdateRequest = {},
+        request: Corti.RequestInteractionUpdate = {},
         requestOptions?: Interactions.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.InteractionsGetResponse>> {
+    ): Promise<core.WithRawResponse<Corti.ResponseInteraction>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -563,7 +560,7 @@ export class Interactions {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.InteractionsUpdateRequest.jsonOrThrow(request, {
+            body: serializers.RequestInteractionUpdate.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -573,7 +570,7 @@ export class Interactions {
         });
         if (_response.ok) {
             return {
-                data: serializers.InteractionsGetResponse.parseOrThrow(_response.body, {
+                data: serializers.ResponseInteraction.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

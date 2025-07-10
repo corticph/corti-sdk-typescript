@@ -10,13 +10,13 @@ import * as Corti from "../../../../index.js";
  */
 export interface InteractionsListRequest {
     /**
-     * Field used to sort interactions. Allowed values: [createdAt, endedAt, updatedAt, lastUpdated]. Default is createdAt.
+     * Field used to sort interactions. Allowed values: [startedAt, endedAt, updatedAt, lastUpdated]. Default is startedAt.
      */
     sort?: Corti.InteractionsListRequestSort | null;
     /**
      * Sorting order. Allowed values: [asc, desc]. Default is desc.
      */
-    direction?: Corti.CommonSortingDirectionEnum | null;
+    direction?: Corti.SortingDirectionEnum | null;
     /**
      * Number of interactions to return per page. Must be greater than 0. Default is 10.
      */
@@ -28,9 +28,9 @@ export interface InteractionsListRequest {
     /**
      * The status of the encounter. To filter on multiple statuses, pass the same parameter again.
      */
-    encounterStatus?: Corti.InteractionsEncounterStatusEnum | Corti.InteractionsEncounterStatusEnum[];
+    encounterStatus?: Corti.EncounterStatus | Corti.EncounterStatus[];
     /**
      * A unique identifier for the patient. Must be a valid UUID.
      */
-    patient?: Corti.Uuid | null;
+    patient?: string | null;
 }
