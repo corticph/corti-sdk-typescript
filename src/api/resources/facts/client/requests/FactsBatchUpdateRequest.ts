@@ -14,5 +14,5 @@ import * as Corti from "../../../../index.js";
  */
 export interface FactsBatchUpdateRequest {
     /** A list of facts to be updated. */
-    facts: Corti.FactsBatchUpdateRequestFactsItem[];
+    facts: Corti.FactsBatchUpdateInput[];
 }

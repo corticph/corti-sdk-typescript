@@ -8,9 +8,9 @@ import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
 import { CommonSourceEnum } from "./CommonSourceEnum.js";
 
-export const FactsCreateResponseFactsItem: core.serialization.ObjectSchema<
-    serializers.FactsCreateResponseFactsItem.Raw,
-    Corti.FactsCreateResponseFactsItem
+export const FactsBatchUpdateItem: core.serialization.ObjectSchema<
+    serializers.FactsBatchUpdateItem.Raw,
+    Corti.FactsBatchUpdateItem
 > = core.serialization.object({
     id: Uuid,
     text: core.serialization.string(),
@@ -18,10 +18,11 @@ export const FactsCreateResponseFactsItem: core.serialization.ObjectSchema<
     groupId: Uuid,
     source: CommonSourceEnum,
     isDiscarded: core.serialization.boolean(),
+    createdAt: core.serialization.date(),
     updatedAt: core.serialization.date(),
 });
 
-export declare namespace FactsCreateResponseFactsItem {
+export declare namespace FactsBatchUpdateItem {
     export interface Raw {
         id: Uuid.Raw;
         text: string;
@@ -29,6 +30,7 @@ export declare namespace FactsCreateResponseFactsItem {
         groupId: Uuid.Raw;
         source: CommonSourceEnum.Raw;
         isDiscarded: boolean;
+        createdAt: string;
         updatedAt: string;
     }
 }

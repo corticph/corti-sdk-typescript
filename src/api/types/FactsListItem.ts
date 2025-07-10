@@ -4,22 +4,22 @@
 
 import * as Corti from "../index.js";
 
-export interface FactsListResponseFactsItem {
+export interface FactsListItem {
     /** The unique identifier of the fact. */
-    id: Corti.Uuid;
+    id?: Corti.Uuid;
     /** The text content of the fact. */
-    text: string;
+    text?: string;
     /** The key identifying the group to which the fact belongs. */
-    group: string;
+    group?: string;
     /** The unique identifier of the group to which the fact belongs. */
-    groupId: Corti.Uuid;
+    groupId?: Corti.Uuid;
     /** Indicates whether the fact has been marked as discarded. */
-    isDiscarded: boolean;
+    isDiscarded?: boolean;
     /** The origin of the fact. */
-    source: Corti.CommonSourceEnum;
+    source?: Corti.CommonSourceEnum;
     /** The timestamp when the fact was created. */
-    createdAt: Date;
+    createdAt?: Date;
     /** The timestamp when the fact was last updated. */
-    updatedAt: Date;
-    evidence?: Corti.FactsListResponseFactsItemEvidenceItem[];
+    updatedAt?: Date;
+    evidence?: Corti.FactsEvidence[];
 }

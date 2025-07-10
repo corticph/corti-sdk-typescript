@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface FactsBatchUpdateResponseFactsItem {
+export interface FactsBatchUpdateItem {
     /** The unique identifier of the updated fact. */
     id: Corti.Uuid;
     /** The updated text content of the fact. */

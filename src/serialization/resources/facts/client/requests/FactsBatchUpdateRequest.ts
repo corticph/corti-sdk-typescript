@@ -5,17 +5,17 @@
 import * as serializers from "../../../../index.js";
 import * as Corti from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
-import { FactsBatchUpdateRequestFactsItem } from "../../types/FactsBatchUpdateRequestFactsItem.js";
+import { FactsBatchUpdateInput } from "../../../../types/FactsBatchUpdateInput.js";
 
 export const FactsBatchUpdateRequest: core.serialization.Schema<
     serializers.FactsBatchUpdateRequest.Raw,
     Corti.FactsBatchUpdateRequest
 > = core.serialization.object({
-    facts: core.serialization.list(FactsBatchUpdateRequestFactsItem),
+    facts: core.serialization.list(FactsBatchUpdateInput),
 });
 
 export declare namespace FactsBatchUpdateRequest {
     export interface Raw {
-        facts: FactsBatchUpdateRequestFactsItem.Raw[];
+        facts: FactsBatchUpdateInput.Raw[];
     }
 }
