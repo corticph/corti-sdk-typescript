@@ -130,7 +130,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.list("id")
+     *     await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public list(
         id: Corti.Uuid,
@@ -224,7 +224,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.create("id", {
+     *     await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
      *         facts: [{
      *                 text: "text",
      *                 group: "other"
@@ -331,9 +331,9 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.batchUpdate("id", {
+     *     await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
      *         facts: [{
-     *                 factId: "factId"
+     *                 factId: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
      *             }]
      *     })
      */
@@ -438,7 +438,7 @@ export class Facts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.update("id", "factId", {
+     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
      *         text: "text",
      *         source: "core"
      *     })

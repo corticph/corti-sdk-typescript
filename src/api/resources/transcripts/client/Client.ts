@@ -56,7 +56,7 @@ export class Transcripts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.transcripts.list("id")
+     *     await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public list(
         id: Corti.Uuid,
@@ -182,8 +182,8 @@ export class Transcripts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.transcripts.create("id", {
-     *         recordingId: "recordingId",
+     *     await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *         recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
      *         primaryLanguage: "en",
      *         modelName: "base"
      *     })
@@ -311,7 +311,7 @@ export class Transcripts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.transcripts.get("id", "transcriptId")
+     *     await client.transcripts.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public get(
         id: Corti.Uuid,
@@ -430,7 +430,7 @@ export class Transcripts {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.transcripts.delete("id", "transcriptId")
+     *     await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public delete(
         id: Corti.Uuid,

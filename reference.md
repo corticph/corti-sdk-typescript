@@ -30,13 +30,17 @@ Lists all existing interactions. Results can be filtered by encounter status and
 <dd>
 
 ```typescript
-const response = await client.interactions.list();
+const response = await client.interactions.list({
+    patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+});
 for await (const item of response) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-const page = await client.interactions.list();
+const page = await client.interactions.list({
+    patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+});
 while (page.hasNextPage()) {
     page = page.getNextPage();
 }
@@ -171,7 +175,7 @@ Retrieves a previously recorded interaction by its unique identifier (interactio
 <dd>
 
 ```typescript
-await client.interactions.get("id");
+await client.interactions.get("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -234,7 +238,7 @@ Deletes an existing interaction.
 <dd>
 
 ```typescript
-await client.interactions.delete("id");
+await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -297,7 +301,7 @@ Modifies an existing interaction by updating specific fields without overwriting
 <dd>
 
 ```typescript
-await client.interactions.update("id");
+await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -370,7 +374,7 @@ Retrieve a list of recordings for a given interaction.
 <dd>
 
 ```typescript
-await client.recordings.list("id");
+await client.recordings.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -506,7 +510,7 @@ Retrieves a list of transcripts for a given interaction.
 <dd>
 
 ```typescript
-await client.transcripts.list("id");
+await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -577,8 +581,8 @@ Creates a new transcript for an interaction.
 <dd>
 
 ```typescript
-await client.transcripts.create("id", {
-    recordingId: "recordingId",
+await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+    recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     primaryLanguage: "en",
     modelName: "base",
 });
@@ -652,7 +656,7 @@ Retrieves the transcript for a specific interaction.
 <dd>
 
 ```typescript
-await client.transcripts.get("id", "transcriptId");
+await client.transcripts.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -723,7 +727,7 @@ Deletes a specific transcript associated with an interaction.
 <dd>
 
 ```typescript
-await client.transcripts.delete("id", "transcriptId");
+await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -836,7 +840,7 @@ Retrieves a list of facts for a given interaction.
 <dd>
 
 ```typescript
-await client.facts.list("id");
+await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -899,7 +903,7 @@ Adds new facts to an interaction.
 <dd>
 
 ```typescript
-await client.facts.create("id", {
+await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     facts: [
         {
             text: "text",
@@ -977,10 +981,10 @@ Updates multiple facts associated with an interaction. If the interaction `statu
 <dd>
 
 ```typescript
-await client.facts.batchUpdate("id", {
+await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     facts: [
         {
-            factId: "factId",
+            factId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
         },
     ],
 });
@@ -1054,7 +1058,7 @@ Updates an existing fact within a specific interaction. If the interaction `stat
 <dd>
 
 ```typescript
-await client.facts.update("id", "factId", {
+await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     text: "text",
     source: "core",
 });
@@ -1138,7 +1142,7 @@ List Documents
 <dd>
 
 ```typescript
-await client.documents.list("id");
+await client.documents.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -1201,7 +1205,7 @@ Generate Document.
 <dd>
 
 ```typescript
-await client.documents.create("id", {
+await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     context: [
         {
             type: "facts",
@@ -1286,7 +1290,7 @@ Get Document.
 <dd>
 
 ```typescript
-await client.documents.get("id", "documentId");
+await client.documents.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -1350,7 +1354,7 @@ await client.documents.get("id", "documentId");
 <dd>
 
 ```typescript
-await client.documents.delete("id", "documentId");
+await client.documents.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -1406,7 +1410,7 @@ await client.documents.delete("id", "documentId");
 <dd>
 
 ```typescript
-await client.documents.update("id", "documentId");
+await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>

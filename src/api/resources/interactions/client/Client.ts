@@ -52,7 +52,9 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.list()
+     *     await client.interactions.list({
+     *         patient: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+     *     })
      */
     public async list(
         request: Corti.InteractionsListRequest = {},
@@ -332,7 +334,7 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.get("id")
+     *     await client.interactions.get("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public get(
         id: Corti.Uuid,
@@ -437,7 +439,7 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.delete("id")
+     *     await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public delete(id: Corti.Uuid, requestOptions?: Interactions.RequestOptions): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
@@ -531,7 +533,7 @@ export class Interactions {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.interactions.update("id")
+     *     await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public update(
         id: Corti.Uuid,

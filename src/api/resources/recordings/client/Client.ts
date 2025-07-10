@@ -56,7 +56,7 @@ export class Recordings {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.recordings.list("id")
+     *     await client.recordings.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public list(
         id: Corti.Uuid,
