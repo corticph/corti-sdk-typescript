@@ -433,7 +433,7 @@ Delete a specific recording for a given interaction.
 <dd>
 
 ```typescript
-await client.recordings.delete("id", "recordingId");
+await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -449,7 +449,7 @@ await client.recordings.delete("id", "recordingId");
 <dl>
 <dd>
 
-**id:** `string` — The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -457,7 +457,7 @@ await client.recordings.delete("id", "recordingId");
 <dl>
 <dd>
 
-**recordingId:** `string` — The unique identifier of the recording to be deleted. Must be a valid UUID.
+**recordingId:** `Corti.Uuid` — The unique identifier of the recording to be deleted. Must be a valid UUID.
 
 </dd>
 </dl>

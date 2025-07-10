@@ -387,8 +387,8 @@ export class Recordings {
     /**
      *  Delete a specific recording for a given interaction.
      *
-     * @param {string} id - The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
-     * @param {string} recordingId - The unique identifier of the recording to be deleted. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
+     * @param {Corti.Uuid} recordingId - The unique identifier of the recording to be deleted. Must be a valid UUID.
      * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}
@@ -397,26 +397,26 @@ export class Recordings {
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.recordings.delete("id", "recordingId")
+     *     await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public delete(
-        id: string,
-        recordingId: string,
+        id: Corti.Uuid,
+        recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
     ): core.HttpResponsePromise<void> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, recordingId, requestOptions));
     }
 
     private async __delete(
-        id: string,
-        recordingId: string,
+        id: Corti.Uuid,
+        recordingId: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(id)}/recordings/${encodeURIComponent(recordingId)}`,
+                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/recordings/${encodeURIComponent(serializers.Uuid.jsonOrThrow(recordingId, { omitUndefined: true }))}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
