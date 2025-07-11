@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export type DocumentContextData =
+export type DocumentsContextData =
     /**
      * Facts */
     | Corti.FactContext[]

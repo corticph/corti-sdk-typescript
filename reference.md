@@ -1222,7 +1222,6 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
             ],
         },
     ],
-    templateKey: "templateKey",
     outputLanguage: "outputLanguage",
 });
 ```
@@ -1248,7 +1247,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestDocumentCreate`
+**request:** `Corti.DocumentsCreateRequest`
 
 </dd>
 </dl>

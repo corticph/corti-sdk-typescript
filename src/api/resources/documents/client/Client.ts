@@ -157,7 +157,7 @@ export class Documents {
      *  Generate Document.
      *
      * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.RequestDocumentCreate} request
+     * @param {Corti.DocumentsCreateRequest} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -174,13 +174,12 @@ export class Documents {
      *                         source: "core"
      *                     }]
      *             }],
-     *         templateKey: "templateKey",
      *         outputLanguage: "outputLanguage"
      *     })
      */
     public create(
         id: Corti.Uuid,
-        request: Corti.RequestDocumentCreate,
+        request: Corti.DocumentsCreateRequest,
         requestOptions?: Documents.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
         return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
@@ -188,7 +187,7 @@ export class Documents {
 
     private async __create(
         id: Corti.Uuid,
-        request: Corti.RequestDocumentCreate,
+        request: Corti.DocumentsCreateRequest,
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
         const _response = await core.fetcher({
@@ -208,7 +207,7 @@ export class Documents {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestDocumentCreate.jsonOrThrow(request, {
+            body: serializers.DocumentsCreateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

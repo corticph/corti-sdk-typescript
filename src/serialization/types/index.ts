@@ -1,5 +1,6 @@
-export * from "./DocumentContextData.js";
-export * from "./DocumentTemplate.js";
+export * from "./DocumentsContext.js";
+export * from "./DocumentsContextData.js";
+export * from "./DocumentsTemplate.js";
 export * from "./Encounter.js";
 export * from "./EncounterPeriod.js";
 export * from "./ErrorResponse.js";
@@ -42,7 +43,7 @@ export * from "./TemplatesSectionSorted.js";
 export * from "./Transcript.js";
 export * from "./Uuid.js";
 export * from "./UsageInfo.js";
-export * from "./V2DocumentContextTypeEnum.js";
+export * from "./DocumentsContextTypeEnum.js";
 export * from "./EncounterStatus.js";
 export * from "./EncounterType.js";
 export * from "./GenderEnum.js";
