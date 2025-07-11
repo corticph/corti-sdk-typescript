@@ -1210,6 +1210,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
             ],
         },
     ],
+    templateId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     outputLanguage: "outputLanguage",
 });
 ```
