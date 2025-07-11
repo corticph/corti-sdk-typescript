@@ -47,7 +47,7 @@ export class Recordings {
     /**
      *  Retrieve a list of recordings for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which recordings should be retrieved. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -387,8 +387,8 @@ export class Recordings {
     /**
      *  Delete a specific recording for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
-     * @param {Corti.Uuid} recordingId - The unique identifier of the recording to be deleted. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
+     * @param {Corti.Uuid} recordingId - The unique identifier of the recording. Must be a valid UUID.
      * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}

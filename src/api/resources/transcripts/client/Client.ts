@@ -45,7 +45,7 @@ export class Transcripts {
     /**
      *  Retrieves a list of transcripts for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which transcripts should be retrieved. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.TranscriptsListRequest} request
      * @param {Transcripts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -171,7 +171,7 @@ export class Transcripts {
     /**
      *  Creates a new transcript for an interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which the transcript is created. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.TranscriptsCreateRequest} request
      * @param {Transcripts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -300,8 +300,8 @@ export class Transcripts {
     /**
      *  Retrieves the transcript for a specific interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction containing the transcript. Must be a valid UUID.
-     * @param {Corti.Uuid} transcriptId - The unique identifier of the transcript to retrieve. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
+     * @param {Corti.Uuid} transcriptId - The unique identifier of the transcript. Must be a valid UUID.
      * @param {Transcripts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -419,8 +419,8 @@ export class Transcripts {
     /**
      *  Deletes a specific transcript associated with an interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to which the transcript belongs. Must be a valid UUID.
-     * @param {Corti.Uuid} transcriptId - The unique identifier of the transcript to delete. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
+     * @param {Corti.Uuid} transcriptId - The unique identifier of the transcript. Must be a valid UUID.
      * @param {Transcripts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}

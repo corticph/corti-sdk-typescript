@@ -10,7 +10,7 @@ import * as Corti from "../../../../index.js";
  */
 export interface InteractionsListRequest {
     /**
-     * Field used to sort interactions. Allowed values: [createdAt, endedAt, updatedAt, lastUpdated]. Default is createdAt.
+     * Field used to sort interactions. Default is createdAt.
      */
     sort?: Corti.InteractionsListRequestSort | null;
     /**

@@ -45,7 +45,7 @@ export class Documents {
     /**
      *  List Documents
      *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -156,7 +156,7 @@ export class Documents {
     /**
      *  Generate Document.
      *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.RequestDocumentCreate} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -286,7 +286,7 @@ export class Documents {
     /**
      *  Get Document.
      *
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
      * @param {Corti.DocumentsGetRequest} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
@@ -410,7 +410,7 @@ export class Documents {
     }
 
     /**
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -524,7 +524,7 @@ export class Documents {
     }
 
     /**
-     * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
      * @param {Corti.RequestDocumentUpdate} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.

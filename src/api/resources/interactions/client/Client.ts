@@ -322,7 +322,7 @@ export class Interactions {
     /**
      *  Retrieves a previously recorded interaction by its unique identifier (interaction ID).
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to retrieve. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Interactions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}
@@ -427,7 +427,7 @@ export class Interactions {
     /**
      *  Deletes an existing interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to delete. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Interactions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}
@@ -520,7 +520,7 @@ export class Interactions {
     /**
      *  Modifies an existing interaction by updating specific fields without overwriting the entire record.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to update. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.InteractionsUpdateRequest} request
      * @param {Interactions.RequestOptions} requestOptions - Request-specific configuration.
      *
