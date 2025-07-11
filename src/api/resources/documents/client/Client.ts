@@ -59,14 +59,14 @@ export class Documents {
     public list(
         id: Corti.Uuid,
         requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentList> {
+    ): core.HttpResponsePromise<Corti.DocumentsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
     private async __list(
         id: Corti.Uuid,
         requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentList>> {
+    ): Promise<core.WithRawResponse<Corti.DocumentsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -88,7 +88,7 @@ export class Documents {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentList.parseOrThrow(_response.body, {
+                data: serializers.DocumentsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

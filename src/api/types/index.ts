@@ -11,7 +11,7 @@ export * from "./EncounterUpdate.js";
 export * from "./PatientUpdate.js";
 export * from "./TemplatesSectionListResponse.js";
 export * from "./TemplatesListResponse.js";
-export * from "./ResponseDocumentList.js";
+export * from "./DocumentsListResponse.js";
 export * from "./DocumentsGetResponse.js";
 export * from "./ResponseFactGroupsFilteredDataItemTranslationsItem.js";
 export * from "./ResponseFactGroupsFilteredDataItem.js";

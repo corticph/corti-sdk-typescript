@@ -4,6 +4,6 @@
 
 import * as Corti from "../index.js";
 
-export interface ResponseDocumentList {
-    data?: Corti.DocumentsGetResponse[];
+export interface DocumentsListResponse {
+    data: Corti.DocumentsGetResponse[];
 }

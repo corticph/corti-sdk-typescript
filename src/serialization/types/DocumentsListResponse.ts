@@ -7,15 +7,15 @@ import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { DocumentsGetResponse } from "./DocumentsGetResponse.js";
 
-export const ResponseDocumentList: core.serialization.ObjectSchema<
-    serializers.ResponseDocumentList.Raw,
-    Corti.ResponseDocumentList
+export const DocumentsListResponse: core.serialization.ObjectSchema<
+    serializers.DocumentsListResponse.Raw,
+    Corti.DocumentsListResponse
 > = core.serialization.object({
-    data: core.serialization.list(DocumentsGetResponse).optional(),
+    data: core.serialization.list(DocumentsGetResponse),
 });
 
-export declare namespace ResponseDocumentList {
+export declare namespace DocumentsListResponse {
     export interface Raw {
-        data?: DocumentsGetResponse.Raw[] | null;
+        data: DocumentsGetResponse.Raw[];
     }
 }
