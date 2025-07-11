@@ -1,5 +1,6 @@
 export * from "./DocumentsContext.js";
 export * from "./DocumentsContextData.js";
+export * from "./DocumentsSection.js";
 export * from "./DocumentsTemplate.js";
 export * from "./Encounter.js";
 export * from "./EncounterPeriod.js";
@@ -11,8 +12,7 @@ export * from "./PatientUpdate.js";
 export * from "./TemplatesSectionListResponse.js";
 export * from "./TemplatesListResponse.js";
 export * from "./ResponseDocumentList.js";
-export * from "./ResponseDocumentReadSectionsItem.js";
-export * from "./ResponseDocumentRead.js";
+export * from "./DocumentsGetResponse.js";
 export * from "./ResponseFactGroupsFilteredDataItemTranslationsItem.js";
 export * from "./ResponseFactGroupsFilteredDataItem.js";
 export * from "./ResponseFactGroupsFiltered.js";

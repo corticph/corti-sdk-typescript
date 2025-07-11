@@ -5,5 +5,5 @@
 import * as Corti from "../index.js";
 
 export interface ResponseDocumentList {
-    data?: Corti.ResponseDocumentRead[];
+    data?: Corti.DocumentsGetResponse[];
 }

@@ -181,7 +181,7 @@ export class Documents {
         id: Corti.Uuid,
         request: Corti.DocumentsCreateRequest,
         requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
+    ): core.HttpResponsePromise<Corti.DocumentsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
     }
 
@@ -189,7 +189,7 @@ export class Documents {
         id: Corti.Uuid,
         request: Corti.DocumentsCreateRequest,
         requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
+    ): Promise<core.WithRawResponse<Corti.DocumentsGetResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -217,7 +217,7 @@ export class Documents {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
+                data: serializers.DocumentsGetResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -303,7 +303,7 @@ export class Documents {
         documentId: Corti.Uuid,
         request: Corti.DocumentsGetRequest = {},
         requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
+    ): core.HttpResponsePromise<Corti.DocumentsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, documentId, request, requestOptions));
     }
 
@@ -312,7 +312,7 @@ export class Documents {
         documentId: Corti.Uuid,
         request: Corti.DocumentsGetRequest = {},
         requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
+    ): Promise<core.WithRawResponse<Corti.DocumentsGetResponse>> {
         const { context } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (context !== undefined) {
@@ -341,7 +341,7 @@ export class Documents {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
+                data: serializers.DocumentsGetResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -541,7 +541,7 @@ export class Documents {
         documentId: Corti.Uuid,
         request: Corti.RequestDocumentUpdate = {},
         requestOptions?: Documents.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseDocumentRead> {
+    ): core.HttpResponsePromise<Corti.DocumentsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, documentId, request, requestOptions));
     }
 
@@ -550,7 +550,7 @@ export class Documents {
         documentId: Corti.Uuid,
         request: Corti.RequestDocumentUpdate = {},
         requestOptions?: Documents.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseDocumentRead>> {
+    ): Promise<core.WithRawResponse<Corti.DocumentsGetResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -578,7 +578,7 @@ export class Documents {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseDocumentRead.parseOrThrow(_response.body, {
+                data: serializers.DocumentsGetResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
