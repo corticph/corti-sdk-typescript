@@ -777,7 +777,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 
 ## facts
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factgroupsList</a>() -> Corti.ResponseFactGroupsFiltered</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factGroupsList</a>() -> Corti.FactsFactGroupsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -790,7 +790,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 <dd>
 
 ```typescript
-await client.facts.factgroupsList();
+await client.facts.factGroupsList();
 ```
 
 </dd>
@@ -817,7 +817,7 @@ await client.facts.factgroupsList();
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.ResponseFactsList</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.FactsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -880,7 +880,7 @@ await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseFactsCreate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">create</a>(id, { ...params }) -> Corti.FactsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -939,7 +939,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactsCreate`
+**request:** `Corti.FactsCreateRequest`
 
 </dd>
 </dl>
@@ -958,7 +958,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.ResponseFactsUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.FactsBatchUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1016,7 +1016,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactsUpdate`
+**request:** `Corti.FactsBatchUpdateRequest`
 
 </dd>
 </dl>
@@ -1035,7 +1035,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.ResponseFactUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.FactsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1063,10 +1063,7 @@ Updates an existing fact within a specific interaction. If the interaction `stat
 <dd>
 
 ```typescript
-await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-    text: "text",
-    source: "core",
-});
+await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -1098,7 +1095,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactUpdate`
+**request:** `Corti.FactsUpdateRequest`
 
 </dd>
 </dl>
