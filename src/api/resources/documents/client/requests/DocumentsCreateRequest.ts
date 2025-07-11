@@ -20,11 +20,11 @@ import * as Corti from "../../../../index.js";
 export interface DocumentsCreateRequest {
     /** An array of context objects. */
     context: Corti.DocumentsContext[];
-    /** The UUID of the template to use. Required if templateKey is not provided. */
+    /** The UUID of the template to use. Required if templateKey or templateis not provided. */
     templateId?: Corti.Uuid;
-    /** The key of the template that informs on what kind of document is to be generated. Required if templateId is not provided. */
+    /** The key of the template that informs on what kind of document is to be generated. Required if templateId or template is not provided. */
     templateKey?: string;
-    /** Template details if the template should be generated during the request. */
+    /** Template details if the template should be generated during the request. Required if templateId or templateKey is not provided. */
     template?: Corti.DocumentsTemplate;
     /** An optional name for the document. */
     name?: string;

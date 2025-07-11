@@ -1,3 +1,3 @@
-export { RequestFactsCreate } from "./RequestFactsCreate.js";
-export { RequestFactsUpdate } from "./RequestFactsUpdate.js";
-export { RequestFactUpdate } from "./RequestFactUpdate.js";
+export { FactsCreateRequest } from "./FactsCreateRequest.js";
+export { FactsBatchUpdateRequest } from "./FactsBatchUpdateRequest.js";
+export { FactsUpdateRequest } from "./FactsUpdateRequest.js";

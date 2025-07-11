@@ -2,7 +2,7 @@
 
 ## interactions
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.ResponseInteraction></code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">list</a>({ ...params }) -> core.Page<Corti.InteractionsGetResponse></code></summary>
 <dl>
 <dd>
 
@@ -74,7 +74,7 @@ while (page.hasNextPage()) {
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">create</a>({ ...params }) -> Corti.ResponseInteractionCreate</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">create</a>({ ...params }) -> Corti.InteractionsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -124,7 +124,7 @@ await client.interactions.create({
 <dl>
 <dd>
 
-**request:** `Corti.RequestInteractionCreate`
+**request:** `Corti.InteractionsCreateRequest`
 
 </dd>
 </dl>
@@ -143,7 +143,7 @@ await client.interactions.create({
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">get</a>(id) -> Corti.ResponseInteraction</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">get</a>(id) -> Corti.InteractionsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -187,7 +187,7 @@ await client.interactions.get("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to retrieve. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -250,7 +250,7 @@ await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to delete. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -269,7 +269,7 @@ await client.interactions.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">update</a>(id, { ...params }) -> Corti.ResponseInteraction</code></summary>
+<details><summary><code>client.interactions.<a href="/src/api/resources/interactions/client/Client.ts">update</a>(id, { ...params }) -> Corti.InteractionsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -313,7 +313,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to update. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -321,7 +321,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**request:** `Corti.RequestInteractionUpdate`
+**request:** `Corti.InteractionsUpdateRequest`
 
 </dd>
 </dl>
@@ -342,7 +342,7 @@ await client.interactions.update("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 
 ## recordings
 
-<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.ResponseRecordingList</code></summary>
+<details><summary><code>client.recordings.<a href="/src/api/resources/recordings/client/Client.ts">list</a>(id) -> Corti.RecordingsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -386,7 +386,7 @@ await client.recordings.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which recordings should be retrieved. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -449,7 +449,7 @@ await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -457,7 +457,7 @@ await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b
 <dl>
 <dd>
 
-**recordingId:** `Corti.Uuid` — The unique identifier of the recording to be deleted. Must be a valid UUID.
+**recordingId:** `Corti.Uuid` — The unique identifier of the recording. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -478,7 +478,7 @@ await client.recordings.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b
 
 ## transcripts
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> core.Page<Corti.ResponseTranscriptListAllTranscriptsItem></code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">list</a>(id, { ...params }) -> Corti.TranscriptsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -506,16 +506,7 @@ Retrieves a list of transcripts for a given interaction.
 <dd>
 
 ```typescript
-const response = await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
-for await (const item of response) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-const page = await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
-while (page.hasNextPage()) {
-    page = page.getNextPage();
-}
+await client.transcripts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -531,7 +522,7 @@ while (page.hasNextPage()) {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which transcripts should be retrieved. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -558,7 +549,7 @@ while (page.hasNextPage()) {
 </dl>
 </details>
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseTranscriptCreate</code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">create</a>(id, { ...params }) -> Corti.TranscriptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -589,7 +580,7 @@ Creates a new transcript for an interaction.
 await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
     recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     primaryLanguage: "en",
-    modelName: "premier",
+    modelName: "base",
 });
 ```
 
@@ -606,7 +597,7 @@ await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which the transcript is created. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -614,7 +605,7 @@ await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.TranscriptCreate`
+**request:** `Corti.TranscriptsCreateRequest`
 
 </dd>
 </dl>
@@ -633,7 +624,7 @@ await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">get</a>(id, transcriptId) -> Corti.ResponseTranscriptCreate</code></summary>
+<details><summary><code>client.transcripts.<a href="/src/api/resources/transcripts/client/Client.ts">get</a>(id, transcriptId) -> Corti.TranscriptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -677,7 +668,7 @@ await client.transcripts.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-5
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction containing the transcript. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -685,7 +676,7 @@ await client.transcripts.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-5
 <dl>
 <dd>
 
-**transcriptId:** `Corti.Uuid` — The unique identifier of the transcript to retrieve. Must be a valid UUID.
+**transcriptId:** `Corti.Uuid` — The unique identifier of the transcript. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -748,7 +739,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to which the transcript belongs. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -756,7 +747,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 <dl>
 <dd>
 
-**transcriptId:** `Corti.Uuid` — The unique identifier of the transcript to delete. Must be a valid UUID.
+**transcriptId:** `Corti.Uuid` — The unique identifier of the transcript. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -777,7 +768,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 
 ## facts
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factgroupsList</a>() -> Corti.ResponseFactGroupsFiltered</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factGroupsList</a>() -> Corti.FactsFactGroupsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -790,7 +781,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 <dd>
 
 ```typescript
-await client.facts.factgroupsList();
+await client.facts.factGroupsList();
 ```
 
 </dd>
@@ -817,7 +808,7 @@ await client.facts.factgroupsList();
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.ResponseFactsList</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.FactsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -861,7 +852,7 @@ await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -880,7 +871,7 @@ await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseFactsCreate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">create</a>(id, { ...params }) -> Corti.FactsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -931,7 +922,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -939,7 +930,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactsCreate`
+**request:** `Corti.FactsCreateRequest`
 
 </dd>
 </dl>
@@ -958,7 +949,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.ResponseFactsUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.FactsBatchUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1008,7 +999,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1016,7 +1007,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactsUpdate`
+**request:** `Corti.FactsBatchUpdateRequest`
 
 </dd>
 </dl>
@@ -1035,7 +1026,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.ResponseFactUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.FactsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1063,10 +1054,7 @@ Updates an existing fact within a specific interaction. If the interaction `stat
 <dd>
 
 ```typescript
-await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-    text: "text",
-    source: "core",
-});
+await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 ```
 
 </dd>
@@ -1082,7 +1070,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1098,7 +1086,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**request:** `Corti.RequestFactUpdate`
+**request:** `Corti.FactsUpdateRequest`
 
 </dd>
 </dl>
@@ -1163,7 +1151,7 @@ await client.documents.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The interaction ID representing the context for the request. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1239,7 +1227,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The interaction ID representing the context for the request. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1310,7 +1298,7 @@ await client.documents.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58c
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The interaction ID representing the context for the request. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1366,7 +1354,7 @@ await client.documents.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The interaction ID representing the context for the request. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1422,7 +1410,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The interaction ID representing the context for the request. Must be a valid UUID.
+**id:** `Corti.Uuid` — The unique identifier of the interaction. Must be a valid UUID.
 
 </dd>
 </dl>

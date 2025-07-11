@@ -47,7 +47,7 @@ export class Recordings {
     /**
      *  Retrieve a list of recordings for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which recordings should be retrieved. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -61,14 +61,14 @@ export class Recordings {
     public list(
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseRecordingList> {
+    ): core.HttpResponsePromise<Corti.RecordingsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
     private async __list(
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseRecordingList>> {
+    ): Promise<core.WithRawResponse<Corti.RecordingsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -90,7 +90,7 @@ export class Recordings {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseRecordingList.parseOrThrow(_response.body, {
+                data: serializers.RecordingsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -171,7 +171,7 @@ export class Recordings {
         bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseRecordingCreate> {
+    ): core.HttpResponsePromise<Corti.RecordingsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__upload(bytes, id, requestOptions));
     }
 
@@ -179,7 +179,7 @@ export class Recordings {
         bytes: File | fs.ReadStream | Blob,
         id: Corti.Uuid,
         requestOptions?: Recordings.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseRecordingCreate>> {
+    ): Promise<core.WithRawResponse<Corti.RecordingsCreateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -205,7 +205,7 @@ export class Recordings {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseRecordingCreate.parseOrThrow(_response.body, {
+                data: serializers.RecordingsCreateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -387,8 +387,8 @@ export class Recordings {
     /**
      *  Delete a specific recording for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which the recording should be deleted from. Must be a valid UUID.
-     * @param {Corti.Uuid} recordingId - The unique identifier of the recording to be deleted. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
+     * @param {Corti.Uuid} recordingId - The unique identifier of the recording. Must be a valid UUID.
      * @param {Recordings.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.ForbiddenError}

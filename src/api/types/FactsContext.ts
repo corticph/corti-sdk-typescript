@@ -10,5 +10,5 @@ export interface FactsContext {
     /** The group to which the fact belongs. */
     group?: string;
     /** The source of the fact. 'USER' refers to facts provided by the user, while 'SYSTEM' refers to system-generated facts (e.g., EHR). */
-    source: Corti.V2SourceEnum;
+    source: Corti.CommonSourceEnum;
 }

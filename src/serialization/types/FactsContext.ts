@@ -5,19 +5,19 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { V2SourceEnum } from "./V2SourceEnum.js";
+import { CommonSourceEnum } from "./CommonSourceEnum.js";
 
 export const FactsContext: core.serialization.ObjectSchema<serializers.FactsContext.Raw, Corti.FactsContext> =
     core.serialization.object({
         text: core.serialization.string(),
         group: core.serialization.string().optional(),
-        source: V2SourceEnum,
+        source: CommonSourceEnum,
     });
 
 export declare namespace FactsContext {
     export interface Raw {
         text: string;
         group?: string | null;
-        source: V2SourceEnum.Raw;
+        source: CommonSourceEnum.Raw;
     }
 }
