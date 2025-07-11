@@ -48,17 +48,17 @@ export class Facts {
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.facts.factgroupsList()
+     *     await client.facts.factGroupsList()
      */
-    public factgroupsList(
+    public factGroupsList(
         requestOptions?: Facts.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseFactGroupsFiltered> {
-        return core.HttpResponsePromise.fromPromise(this.__factgroupsList(requestOptions));
+    ): core.HttpResponsePromise<Corti.FactsFactGroupsListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__factGroupsList(requestOptions));
     }
 
-    private async __factgroupsList(
+    private async __factGroupsList(
         requestOptions?: Facts.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseFactGroupsFiltered>> {
+    ): Promise<core.WithRawResponse<Corti.FactsFactGroupsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -80,7 +80,7 @@ export class Facts {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseFactGroupsFiltered.parseOrThrow(_response.body, {
+                data: serializers.FactsFactGroupsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -135,14 +135,14 @@ export class Facts {
     public list(
         id: Corti.Uuid,
         requestOptions?: Facts.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseFactsList> {
+    ): core.HttpResponsePromise<Corti.FactsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
     private async __list(
         id: Corti.Uuid,
         requestOptions?: Facts.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseFactsList>> {
+    ): Promise<core.WithRawResponse<Corti.FactsListResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -164,7 +164,7 @@ export class Facts {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseFactsList.parseOrThrow(_response.body, {
+                data: serializers.FactsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -218,7 +218,7 @@ export class Facts {
      *  Adds new facts to an interaction.
      *
      * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
-     * @param {Corti.RequestFactsCreate} request
+     * @param {Corti.FactsCreateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
@@ -233,17 +233,17 @@ export class Facts {
      */
     public create(
         id: Corti.Uuid,
-        request: Corti.RequestFactsCreate,
+        request: Corti.FactsCreateRequest,
         requestOptions?: Facts.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseFactsCreate> {
+    ): core.HttpResponsePromise<Corti.FactsCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
     }
 
     private async __create(
         id: Corti.Uuid,
-        request: Corti.RequestFactsCreate,
+        request: Corti.FactsCreateRequest,
         requestOptions?: Facts.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseFactsCreate>> {
+    ): Promise<core.WithRawResponse<Corti.FactsCreateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -261,7 +261,7 @@ export class Facts {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestFactsCreate.jsonOrThrow(request, {
+            body: serializers.FactsCreateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -271,7 +271,7 @@ export class Facts {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseFactsCreate.parseOrThrow(_response.body, {
+                data: serializers.FactsCreateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -325,7 +325,7 @@ export class Facts {
      *  Updates multiple facts associated with an interaction. If the interaction `status = "in progress"`, the updated facts will be sent to the client over WebSocket.
      *
      * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
-     * @param {Corti.RequestFactsUpdate} request
+     * @param {Corti.FactsBatchUpdateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
@@ -339,17 +339,17 @@ export class Facts {
      */
     public batchUpdate(
         id: Corti.Uuid,
-        request: Corti.RequestFactsUpdate,
+        request: Corti.FactsBatchUpdateRequest,
         requestOptions?: Facts.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseFactsUpdate> {
+    ): core.HttpResponsePromise<Corti.FactsBatchUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__batchUpdate(id, request, requestOptions));
     }
 
     private async __batchUpdate(
         id: Corti.Uuid,
-        request: Corti.RequestFactsUpdate,
+        request: Corti.FactsBatchUpdateRequest,
         requestOptions?: Facts.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseFactsUpdate>> {
+    ): Promise<core.WithRawResponse<Corti.FactsBatchUpdateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -367,7 +367,7 @@ export class Facts {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestFactsUpdate.jsonOrThrow(request, {
+            body: serializers.FactsBatchUpdateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -377,7 +377,7 @@ export class Facts {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseFactsUpdate.parseOrThrow(_response.body, {
+                data: serializers.FactsBatchUpdateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -432,32 +432,29 @@ export class Facts {
      *
      * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.Uuid} factId - The unique identifier of the fact to update. Must be a valid UUID.
-     * @param {Corti.RequestFactUpdate} request
+     * @param {Corti.FactsUpdateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-     *         text: "text",
-     *         source: "core"
-     *     })
+     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479")
      */
     public update(
         id: Corti.Uuid,
         factId: Corti.Uuid,
-        request: Corti.RequestFactUpdate,
+        request: Corti.FactsUpdateRequest = {},
         requestOptions?: Facts.RequestOptions,
-    ): core.HttpResponsePromise<Corti.ResponseFactUpdate> {
+    ): core.HttpResponsePromise<Corti.FactsUpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, factId, request, requestOptions));
     }
 
     private async __update(
         id: Corti.Uuid,
         factId: Corti.Uuid,
-        request: Corti.RequestFactUpdate,
+        request: Corti.FactsUpdateRequest = {},
         requestOptions?: Facts.RequestOptions,
-    ): Promise<core.WithRawResponse<Corti.ResponseFactUpdate>> {
+    ): Promise<core.WithRawResponse<Corti.FactsUpdateResponse>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -475,7 +472,7 @@ export class Facts {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestFactUpdate.jsonOrThrow(request, {
+            body: serializers.FactsUpdateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -485,7 +482,7 @@ export class Facts {
         });
         if (_response.ok) {
             return {
-                data: serializers.ResponseFactUpdate.parseOrThrow(_response.body, {
+                data: serializers.FactsUpdateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
