@@ -1,1 +1,1 @@
-export { TranscriptCreate } from "./TranscriptCreate.js";
+export { TranscriptsCreateRequest } from "./TranscriptsCreateRequest.js";

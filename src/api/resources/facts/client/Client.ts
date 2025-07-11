@@ -124,7 +124,7 @@ export class Facts {
     /**
      *  Retrieves a list of facts for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
@@ -217,7 +217,7 @@ export class Facts {
     /**
      *  Adds new facts to an interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.FactsCreateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -324,7 +324,7 @@ export class Facts {
     /**
      *  Updates multiple facts associated with an interaction. If the interaction `status = "in progress"`, the updated facts will be sent to the client over WebSocket.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.FactsBatchUpdateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -430,7 +430,7 @@ export class Facts {
     /**
      *  Updates an existing fact within a specific interaction. If the interaction `status = "in progress"`, the updated fact will be sent to the client via WebSocket. To discard a fact, simply set `discarded = true`.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
+     * @param {Corti.Uuid} id - The unique identifier of the interaction. Must be a valid UUID.
      * @param {Corti.Uuid} factId - The unique identifier of the fact to update. Must be a valid UUID.
      * @param {Corti.FactsUpdateRequest} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
