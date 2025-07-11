@@ -11,11 +11,11 @@ export const TemplatesSectionListResponse: core.serialization.ObjectSchema<
     serializers.TemplatesSectionListResponse.Raw,
     Corti.TemplatesSectionListResponse
 > = core.serialization.object({
-    data: core.serialization.list(TemplatesSection),
+    data: TemplatesSection,
 });
 
 export declare namespace TemplatesSectionListResponse {
     export interface Raw {
-        data: TemplatesSection.Raw[];
+        data: TemplatesSection.Raw;
     }
 }

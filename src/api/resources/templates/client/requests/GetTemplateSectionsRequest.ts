@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface TemplatesSectionListRequest {
+export interface GetTemplateSectionsRequest {
     /**
      * Filter template sections by organization.
      */

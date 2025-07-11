@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface TemplatesItem {
+export interface TemplatesListResponseDataItem {
     /** The timestamp when the template was updated. */
     dateUpdated?: Date;
     /** Name of the template */

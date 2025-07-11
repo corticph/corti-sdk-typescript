@@ -775,9 +775,9 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 </dl>
 </details>
 
-## facts
+## Facts
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">factgroupsList</a>() -> Corti.ResponseFactGroupsFiltered</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">listFactGroups</a>() -> Corti.ResponseFactGroupsFiltered</code></summary>
 <dl>
 <dd>
 
@@ -790,7 +790,7 @@ await client.transcripts.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10
 <dd>
 
 ```typescript
-await client.facts.factgroupsList();
+await client.facts.listFactGroups();
 ```
 
 </dd>
@@ -817,7 +817,7 @@ await client.facts.factgroupsList();
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">list</a>(id) -> Corti.ResponseFactsList</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">listFacts</a>(id) -> Corti.ResponseFactsList</code></summary>
 <dl>
 <dd>
 
@@ -845,7 +845,7 @@ Retrieves a list of facts for a given interaction.
 <dd>
 
 ```typescript
-await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
+await client.facts.listFacts("id");
 ```
 
 </dd>
@@ -861,7 +861,7 @@ await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
+**id:** `string` — The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -880,7 +880,7 @@ await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseFactsCreate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">addFacts</a>(id, { ...params }) -> Corti.ResponseFactsCreate</code></summary>
 <dl>
 <dd>
 
@@ -908,7 +908,7 @@ Adds new facts to an interaction.
 <dd>
 
 ```typescript
-await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+await client.facts.addFacts("id", {
     facts: [
         {
             text: "text",
@@ -931,7 +931,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
+**id:** `string` — The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -958,7 +958,7 @@ await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">batchUpdate</a>(id, { ...params }) -> Corti.ResponseFactsUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">updateFacts</a>(id, { ...params }) -> Corti.ResponseFactsUpdate</code></summary>
 <dl>
 <dd>
 
@@ -986,7 +986,7 @@ Updates multiple facts associated with an interaction. If the interaction `statu
 <dd>
 
 ```typescript
-await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+await client.facts.updateFacts("id", {
     facts: [
         {
             factId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
@@ -1008,7 +1008,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
+**id:** `string` — The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1035,7 +1035,7 @@ await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">update</a>(id, factId, { ...params }) -> Corti.ResponseFactUpdate</code></summary>
+<details><summary><code>client.facts.<a href="/src/api/resources/facts/client/Client.ts">updateFact</a>(id, factId, { ...params }) -> Corti.ResponseFactUpdate</code></summary>
 <dl>
 <dd>
 
@@ -1063,7 +1063,7 @@ Updates an existing fact within a specific interaction. If the interaction `stat
 <dd>
 
 ```typescript
-await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+await client.facts.updateFact("id", "factId", {
     text: "text",
     source: "core",
 });
@@ -1082,7 +1082,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**id:** `Corti.Uuid` — The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
+**id:** `string` — The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1090,7 +1090,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 <dl>
 <dd>
 
-**factId:** `Corti.Uuid` — The unique identifier of the fact to update. Must be a valid UUID.
+**factId:** `string` — The unique identifier of the fact to update. Must be a valid UUID.
 
 </dd>
 </dl>
@@ -1468,7 +1468,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 
 ## Templates
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">sectionList</a>({ ...params }) -> Corti.TemplatesSectionListResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listTemplateSections</a>({ ...params }) -> Corti.TemplatesSectionListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1496,7 +1496,7 @@ Retrieves a list of template sections with optional filters for organization and
 <dd>
 
 ```typescript
-await client.templates.sectionList();
+await client.templates.listTemplateSections();
 ```
 
 </dd>
@@ -1512,7 +1512,7 @@ await client.templates.sectionList();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesSectionListRequest`
+**request:** `Corti.GetTemplateSectionsRequest`
 
 </dd>
 </dl>
@@ -1531,7 +1531,7 @@ await client.templates.sectionList();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">list</a>({ ...params }) -> Corti.TemplatesListResponse</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">listTemplates</a>({ ...params }) -> Corti.TemplatesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1559,7 +1559,7 @@ Retrieves a list of templates with optional filters for organization, language, 
 <dd>
 
 ```typescript
-await client.templates.list();
+await client.templates.listTemplates();
 ```
 
 </dd>
@@ -1575,7 +1575,7 @@ await client.templates.list();
 <dl>
 <dd>
 
-**request:** `Corti.TemplatesListRequest`
+**request:** `Corti.GetTemplatesRequest`
 
 </dd>
 </dl>
@@ -1594,7 +1594,7 @@ await client.templates.list();
 </dl>
 </details>
 
-<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">get</a>(key) -> Corti.TemplatesItem</code></summary>
+<details><summary><code>client.templates.<a href="/src/api/resources/templates/client/Client.ts">getTemplate</a>(key) -> Corti.TemplatesItem</code></summary>
 <dl>
 <dd>
 
@@ -1622,7 +1622,7 @@ Retrieves template by key.
 <dd>
 
 ```typescript
-await client.templates.get("key");
+await client.templates.getTemplate("key");
 ```
 
 </dd>

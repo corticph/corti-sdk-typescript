@@ -48,15 +48,15 @@ export class Facts {
      * @throws {@link Corti.InternalServerError}
      *
      * @example
-     *     await client.facts.factgroupsList()
+     *     await client.facts.listFactGroups()
      */
-    public factgroupsList(
+    public listFactGroups(
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactGroupsFiltered> {
-        return core.HttpResponsePromise.fromPromise(this.__factgroupsList(requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listFactGroups(requestOptions));
     }
 
-    private async __factgroupsList(
+    private async __listFactGroups(
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactGroupsFiltered>> {
         const _response = await core.fetcher({
@@ -124,30 +124,30 @@ export class Facts {
     /**
      *  Retrieves a list of facts for a given interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
+     * @param {string} id - The unique identifier of the interaction for which facts should be retrieved. Must be a valid UUID.
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.list("f47ac10b-58cc-4372-a567-0e02b2c3d479")
+     *     await client.facts.listFacts("id")
      */
-    public list(
-        id: Corti.Uuid,
+    public listFacts(
+        id: string,
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactsList> {
-        return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listFacts(id, requestOptions));
     }
 
-    private async __list(
-        id: Corti.Uuid,
+    private async __listFacts(
+        id: string,
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsList>> {
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/facts/`,
+                `interactions/${encodeURIComponent(id)}/facts/`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -217,30 +217,30 @@ export class Facts {
     /**
      *  Adds new facts to an interaction.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
+     * @param {string} id - The unique identifier of the interaction to which the facts belong. Must be a valid UUID.
      * @param {Corti.RequestFactsCreate} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.addFacts("id", {
      *         facts: [{
      *                 text: "text",
      *                 group: "other"
      *             }]
      *     })
      */
-    public create(
-        id: Corti.Uuid,
+    public addFacts(
+        id: string,
         request: Corti.RequestFactsCreate,
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactsCreate> {
-        return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__addFacts(id, request, requestOptions));
     }
 
-    private async __create(
-        id: Corti.Uuid,
+    private async __addFacts(
+        id: string,
         request: Corti.RequestFactsCreate,
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsCreate>> {
@@ -248,7 +248,7 @@ export class Facts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/facts/`,
+                `interactions/${encodeURIComponent(id)}/facts/`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -324,29 +324,29 @@ export class Facts {
     /**
      *  Updates multiple facts associated with an interaction. If the interaction `status = "in progress"`, the updated facts will be sent to the client over WebSocket.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
+     * @param {string} id - The unique identifier of the interaction for which facts are being updated. Must be a valid UUID.
      * @param {Corti.RequestFactsUpdate} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.batchUpdate("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.updateFacts("id", {
      *         facts: [{
      *                 factId: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
      *             }]
      *     })
      */
-    public batchUpdate(
-        id: Corti.Uuid,
+    public updateFacts(
+        id: string,
         request: Corti.RequestFactsUpdate,
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactsUpdate> {
-        return core.HttpResponsePromise.fromPromise(this.__batchUpdate(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateFacts(id, request, requestOptions));
     }
 
-    private async __batchUpdate(
-        id: Corti.Uuid,
+    private async __updateFacts(
+        id: string,
         request: Corti.RequestFactsUpdate,
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactsUpdate>> {
@@ -354,7 +354,7 @@ export class Facts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/facts/`,
+                `interactions/${encodeURIComponent(id)}/facts/`,
             ),
             method: "PATCH",
             headers: mergeHeaders(
@@ -430,31 +430,31 @@ export class Facts {
     /**
      *  Updates an existing fact within a specific interaction. If the interaction `status = "in progress"`, the updated fact will be sent to the client via WebSocket. To discard a fact, simply set `discarded = true`.
      *
-     * @param {Corti.Uuid} id - The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
-     * @param {Corti.Uuid} factId - The unique identifier of the fact to update. Must be a valid UUID.
+     * @param {string} id - The unique identifier of the interaction to which the fact belongs. Must be a valid UUID.
+     * @param {string} factId - The unique identifier of the fact to update. Must be a valid UUID.
      * @param {Corti.RequestFactUpdate} request
      * @param {Facts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.GatewayTimeoutError}
      *
      * @example
-     *     await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc-4372-a567-0e02b2c3d479", {
+     *     await client.facts.updateFact("id", "factId", {
      *         text: "text",
      *         source: "core"
      *     })
      */
-    public update(
-        id: Corti.Uuid,
-        factId: Corti.Uuid,
+    public updateFact(
+        id: string,
+        factId: string,
         request: Corti.RequestFactUpdate,
         requestOptions?: Facts.RequestOptions,
     ): core.HttpResponsePromise<Corti.ResponseFactUpdate> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, factId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__updateFact(id, factId, request, requestOptions));
     }
 
-    private async __update(
-        id: Corti.Uuid,
-        factId: Corti.Uuid,
+    private async __updateFact(
+        id: string,
+        factId: string,
         request: Corti.RequestFactUpdate,
         requestOptions?: Facts.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.ResponseFactUpdate>> {
@@ -462,7 +462,7 @@ export class Facts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)).base,
-                `interactions/${encodeURIComponent(serializers.Uuid.jsonOrThrow(id, { omitUndefined: true }))}/facts/${encodeURIComponent(serializers.Uuid.jsonOrThrow(factId, { omitUndefined: true }))}`,
+                `interactions/${encodeURIComponent(id)}/facts/${encodeURIComponent(factId)}`,
             ),
             method: "PATCH",
             headers: mergeHeaders(
