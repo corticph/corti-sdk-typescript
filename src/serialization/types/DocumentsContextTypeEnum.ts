@@ -6,11 +6,11 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const V2DocumentContextTypeEnum: core.serialization.Schema<
-    serializers.V2DocumentContextTypeEnum.Raw,
-    Corti.V2DocumentContextTypeEnum
+export const DocumentsContextTypeEnum: core.serialization.Schema<
+    serializers.DocumentsContextTypeEnum.Raw,
+    Corti.DocumentsContextTypeEnum
 > = core.serialization.enum_(["facts", "transcript", "string"]);
 
-export declare namespace V2DocumentContextTypeEnum {
+export declare namespace DocumentsContextTypeEnum {
     export type Raw = "facts" | "transcript" | "string";
 }

@@ -3,5 +3,5 @@
  */
 
 export interface UsageInfo {
-    creditsConsumed?: number;
+    creditsConsumed: number;
 }

@@ -14,19 +14,21 @@ import * as Corti from "../../../../index.js";
  *                         source: "core"
  *                     }]
  *             }],
- *         templateKey: "templateKey",
  *         outputLanguage: "outputLanguage"
  *     }
  */
-export interface RequestDocumentCreate {
+export interface DocumentsCreateRequest {
     /** An array of context objects. */
-    context: Corti.RequestDocumentCreateContextItem[];
-    /** The key of the template that informs on what kind of document is to be generated. */
-    templateKey: string;
+    context: Corti.DocumentsContext[];
+    /** The UUID of the template to use. Required if templateKey is not provided. */
+    templateId?: Corti.Uuid;
+    /** The key of the template that informs on what kind of document is to be generated. Required if templateId is not provided. */
+    templateKey?: string;
     /** Template details if the template should be generated during the request. */
-    template?: Corti.DocumentTemplate;
+    template?: Corti.DocumentsTemplate;
     /** An optional name for the document. */
     name?: string;
+    /** The model or documentation mode to use for summarization. */
     modelName?: string;
     /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
     outputLanguage: string;

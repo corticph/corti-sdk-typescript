@@ -8,8 +8,8 @@ import * as Corti from "../../../../index.js";
  * @example
  *     {}
  */
-export interface RequestDocumentUpdate {
+export interface DocumentsUpdateRequest {
     /** An optional name for the document. */
     name?: string;
-    sections?: Corti.RequestDocumentUpdateSectionsItem[];
+    sections?: Corti.DocumentsSectionInput[];
 }

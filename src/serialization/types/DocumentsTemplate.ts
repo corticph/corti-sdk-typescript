@@ -7,9 +7,9 @@ import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { Uuid } from "./Uuid.js";
 
-export const DocumentTemplate: core.serialization.ObjectSchema<
-    serializers.DocumentTemplate.Raw,
-    Corti.DocumentTemplate
+export const DocumentsTemplate: core.serialization.ObjectSchema<
+    serializers.DocumentsTemplate.Raw,
+    Corti.DocumentsTemplate
 > = core.serialization.object({
     sectionIds: core.serialization.list(Uuid).optional(),
     sectionKeys: core.serialization.list(core.serialization.string()).optional(),
@@ -17,7 +17,7 @@ export const DocumentTemplate: core.serialization.ObjectSchema<
     additionalInstructions: core.serialization.string().optional(),
 });
 
-export declare namespace DocumentTemplate {
+export declare namespace DocumentsTemplate {
     export interface Raw {
         sectionIds?: Uuid.Raw[] | null;
         sectionKeys?: string[] | null;

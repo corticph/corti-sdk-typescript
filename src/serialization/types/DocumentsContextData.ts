@@ -8,15 +8,15 @@ import * as core from "../../core/index.js";
 import { FactContext } from "./FactContext.js";
 import { Transcript } from "./Transcript.js";
 
-export const DocumentContextData: core.serialization.Schema<
-    serializers.DocumentContextData.Raw,
-    Corti.DocumentContextData
+export const DocumentsContextData: core.serialization.Schema<
+    serializers.DocumentsContextData.Raw,
+    Corti.DocumentsContextData
 > = core.serialization.undiscriminatedUnion([
     core.serialization.list(FactContext),
     Transcript,
     core.serialization.string(),
 ]);
 
-export declare namespace DocumentContextData {
+export declare namespace DocumentsContextData {
     export type Raw = FactContext.Raw[] | Transcript.Raw | string;
 }
