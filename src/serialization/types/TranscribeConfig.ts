@@ -5,23 +5,23 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { TranscribeConfigurationMessageConfigurationPrimaryLanguage } from "./TranscribeConfigurationMessageConfigurationPrimaryLanguage.js";
+import { TranscribeSupportedLanguage } from "./TranscribeSupportedLanguage.js";
 import { TranscribeCommand } from "./TranscribeCommand.js";
 
-export const TranscribeConfigurationMessageConfiguration: core.serialization.ObjectSchema<
-    serializers.TranscribeConfigurationMessageConfiguration.Raw,
-    Corti.TranscribeConfigurationMessageConfiguration
+export const TranscribeConfig: core.serialization.ObjectSchema<
+    serializers.TranscribeConfig.Raw,
+    Corti.TranscribeConfig
 > = core.serialization.object({
-    primaryLanguage: TranscribeConfigurationMessageConfigurationPrimaryLanguage,
+    primaryLanguage: TranscribeSupportedLanguage,
     interimResults: core.serialization.boolean().optional(),
     spokenPunctuation: core.serialization.boolean().optional(),
     automaticPunctuation: core.serialization.boolean().optional(),
     commands: core.serialization.list(TranscribeCommand).optional(),
 });
 
-export declare namespace TranscribeConfigurationMessageConfiguration {
+export declare namespace TranscribeConfig {
     export interface Raw {
-        primaryLanguage: TranscribeConfigurationMessageConfigurationPrimaryLanguage.Raw;
+        primaryLanguage: TranscribeSupportedLanguage.Raw;
         interimResults?: boolean | null;
         spokenPunctuation?: boolean | null;
         automaticPunctuation?: boolean | null;

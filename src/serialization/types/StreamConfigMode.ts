@@ -6,19 +6,21 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { StreamConfigModeType } from "./StreamConfigModeType.js";
-import { StreamConfigModeOutputLocale } from "./StreamConfigModeOutputLocale.js";
+import { StreamSupportedLanguage } from "./StreamSupportedLanguage.js";
 
 export const StreamConfigMode: core.serialization.ObjectSchema<
     serializers.StreamConfigMode.Raw,
     Corti.StreamConfigMode
 > = core.serialization.object({
     type: StreamConfigModeType,
-    outputLocale: StreamConfigModeOutputLocale,
+    outputLocale: StreamSupportedLanguage.optional(),
+    templateId: core.serialization.string().optional(),
 });
 
 export declare namespace StreamConfigMode {
     export interface Raw {
         type: StreamConfigModeType.Raw;
-        outputLocale: StreamConfigModeOutputLocale.Raw;
+        outputLocale?: StreamSupportedLanguage.Raw | null;
+        templateId?: string | null;
     }
 }

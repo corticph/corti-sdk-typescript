@@ -6,7 +6,7 @@ import * as Corti from "../index.js";
 
 export interface TemplatesItem {
     /** The timestamp when the template was updated. */
-    dateUpdated?: Date;
+    dateUpdated?: Date | null;
     /** Name of the template */
     name: string;
     /** Description of the template */

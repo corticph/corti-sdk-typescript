@@ -6,11 +6,11 @@ import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const StreamParticipantRole: core.serialization.Schema<
-    serializers.StreamParticipantRole.Raw,
-    Corti.StreamParticipantRole
+export const StreamConfigParticipantRole: core.serialization.Schema<
+    serializers.StreamConfigParticipantRole.Raw,
+    Corti.StreamConfigParticipantRole
 > = core.serialization.enum_(["doctor", "patient", "multiple"]);
 
-export declare namespace StreamParticipantRole {
+export declare namespace StreamConfigParticipantRole {
     export type Raw = "doctor" | "patient" | "multiple";
 }

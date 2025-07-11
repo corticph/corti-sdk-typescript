@@ -5,24 +5,24 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { StreamConfigTranscriptionPrimaryLanguage } from "./StreamConfigTranscriptionPrimaryLanguage.js";
-import { StreamParticipant } from "./StreamParticipant.js";
+import { StreamSupportedLanguage } from "./StreamSupportedLanguage.js";
+import { StreamConfigParticipant } from "./StreamConfigParticipant.js";
 
 export const StreamConfigTranscription: core.serialization.ObjectSchema<
     serializers.StreamConfigTranscription.Raw,
     Corti.StreamConfigTranscription
 > = core.serialization.object({
-    primaryLanguage: StreamConfigTranscriptionPrimaryLanguage,
+    primaryLanguage: StreamSupportedLanguage,
     isDiarization: core.serialization.boolean().optional(),
     isMultichannel: core.serialization.boolean().optional(),
-    participants: core.serialization.list(StreamParticipant),
+    participants: core.serialization.list(StreamConfigParticipant),
 });
 
 export declare namespace StreamConfigTranscription {
     export interface Raw {
-        primaryLanguage: StreamConfigTranscriptionPrimaryLanguage.Raw;
+        primaryLanguage: StreamSupportedLanguage.Raw;
         isDiarization?: boolean | null;
         isMultichannel?: boolean | null;
-        participants: StreamParticipant.Raw[];
+        participants: StreamConfigParticipant.Raw[];
     }
 }

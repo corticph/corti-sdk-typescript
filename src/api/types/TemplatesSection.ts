@@ -6,11 +6,11 @@ import * as Corti from "../index.js";
 
 export interface TemplatesSection {
     /** The timestamp when the section was updated. */
-    dateUpdated?: Date;
+    dateUpdated?: Date | null;
     /** Name of the section */
     name: string;
     /** Alternate names for the section */
-    alternateNames?: string[];
+    alternateNames?: string[] | null;
     /** Unique key for the section */
     key: string;
     /** Description of the section */

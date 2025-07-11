@@ -8,15 +8,13 @@ import * as core from "../../core/index.js";
 import { StreamConfigTranscription } from "./StreamConfigTranscription.js";
 import { StreamConfigMode } from "./StreamConfigMode.js";
 
-export const StreamConfigData: core.serialization.ObjectSchema<
-    serializers.StreamConfigData.Raw,
-    Corti.StreamConfigData
-> = core.serialization.object({
-    transcription: StreamConfigTranscription,
-    mode: StreamConfigMode,
-});
+export const StreamConfig: core.serialization.ObjectSchema<serializers.StreamConfig.Raw, Corti.StreamConfig> =
+    core.serialization.object({
+        transcription: StreamConfigTranscription,
+        mode: StreamConfigMode,
+    });
 
-export declare namespace StreamConfigData {
+export declare namespace StreamConfig {
     export interface Raw {
         transcription: StreamConfigTranscription.Raw;
         mode: StreamConfigMode.Raw;
