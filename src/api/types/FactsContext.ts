@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface FactContext {
+export interface FactsContext {
     /** The text of the fact. */
     text: string;
     /** The group to which the fact belongs. */

@@ -5,7 +5,7 @@ export * from "./DocumentsTemplate.js";
 export * from "./Encounter.js";
 export * from "./EncounterPeriod.js";
 export * from "./ErrorResponse.js";
-export * from "./FactContext.js";
+export * from "./FactsContext.js";
 export * from "./Patient.js";
 export * from "./DocumentsSectionInput.js";
 export * from "./EncounterUpdate.js";

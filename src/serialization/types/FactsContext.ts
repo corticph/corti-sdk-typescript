@@ -7,14 +7,14 @@ import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { V2SourceEnum } from "./V2SourceEnum.js";
 
-export const FactContext: core.serialization.ObjectSchema<serializers.FactContext.Raw, Corti.FactContext> =
+export const FactsContext: core.serialization.ObjectSchema<serializers.FactsContext.Raw, Corti.FactsContext> =
     core.serialization.object({
         text: core.serialization.string(),
         group: core.serialization.string().optional(),
         source: V2SourceEnum,
     });
 
-export declare namespace FactContext {
+export declare namespace FactsContext {
     export interface Raw {
         text: string;
         group?: string | null;

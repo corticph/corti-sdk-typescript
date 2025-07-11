@@ -7,7 +7,7 @@ import * as Corti from "../index.js";
 export type DocumentsContextData =
     /**
      * Facts */
-    | Corti.FactContext[]
+    | Corti.FactsContext[]
     /**
      * Transcript */
     | Corti.Transcript
