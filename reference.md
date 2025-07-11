@@ -1266,7 +1266,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">get</a>(id, documentId, { ...params }) -> Corti.DocumentsGetResponse</code></summary>
+<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">get</a>(id, documentId) -> Corti.DocumentsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1319,14 +1319,6 @@ await client.documents.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58c
 <dd>
 
 **documentId:** `Corti.Uuid` — The document ID representing the context for the request. Must be a valid UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Corti.DocumentsGetRequest`
 
 </dd>
 </dl>

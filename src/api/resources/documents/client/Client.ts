@@ -287,7 +287,6 @@ export class Documents {
      *
      * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
      * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.DocumentsGetRequest} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -301,24 +300,16 @@ export class Documents {
     public get(
         id: Corti.Uuid,
         documentId: Corti.Uuid,
-        request: Corti.DocumentsGetRequest = {},
         requestOptions?: Documents.RequestOptions,
     ): core.HttpResponsePromise<Corti.DocumentsGetResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, documentId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(id, documentId, requestOptions));
     }
 
     private async __get(
         id: Corti.Uuid,
         documentId: Corti.Uuid,
-        request: Corti.DocumentsGetRequest = {},
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.DocumentsGetResponse>> {
-        const { context } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (context !== undefined) {
-            _queryParams["context"] = context?.toString() ?? null;
-        }
-
         const _response = await core.fetcher({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -334,7 +325,6 @@ export class Documents {
                 }),
                 requestOptions?.headers,
             ),
-            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
