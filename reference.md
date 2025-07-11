@@ -1446,7 +1446,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 <dl>
 <dd>
 
-**request:** `Corti.RequestDocumentUpdate`
+**request:** `Corti.DocumentsUpdateRequest`
 
 </dd>
 </dl>

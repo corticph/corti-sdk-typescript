@@ -525,7 +525,7 @@ export class Documents {
     /**
      * @param {Corti.Uuid} id - The interaction ID representing the context for the request. Must be a valid UUID.
      * @param {Corti.Uuid} documentId - The document ID representing the context for the request. Must be a valid UUID.
-     * @param {Corti.RequestDocumentUpdate} request
+     * @param {Corti.DocumentsUpdateRequest} request
      * @param {Documents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Corti.BadRequestError}
@@ -539,7 +539,7 @@ export class Documents {
     public update(
         id: Corti.Uuid,
         documentId: Corti.Uuid,
-        request: Corti.RequestDocumentUpdate = {},
+        request: Corti.DocumentsUpdateRequest = {},
         requestOptions?: Documents.RequestOptions,
     ): core.HttpResponsePromise<Corti.DocumentsGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, documentId, request, requestOptions));
@@ -548,7 +548,7 @@ export class Documents {
     private async __update(
         id: Corti.Uuid,
         documentId: Corti.Uuid,
-        request: Corti.RequestDocumentUpdate = {},
+        request: Corti.DocumentsUpdateRequest = {},
         requestOptions?: Documents.RequestOptions,
     ): Promise<core.WithRawResponse<Corti.DocumentsGetResponse>> {
         const _response = await core.fetcher({
@@ -568,7 +568,7 @@ export class Documents {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.RequestDocumentUpdate.jsonOrThrow(request, {
+            body: serializers.DocumentsUpdateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

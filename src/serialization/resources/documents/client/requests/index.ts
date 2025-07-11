@@ -1,2 +1,2 @@
 export { DocumentsCreateRequest } from "./DocumentsCreateRequest.js";
-export { RequestDocumentUpdate } from "./RequestDocumentUpdate.js";
+export { DocumentsUpdateRequest } from "./DocumentsUpdateRequest.js";

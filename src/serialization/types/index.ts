@@ -7,6 +7,7 @@ export * from "./EncounterPeriod.js";
 export * from "./ErrorResponse.js";
 export * from "./FactContext.js";
 export * from "./Patient.js";
+export * from "./DocumentsSectionInput.js";
 export * from "./EncounterUpdate.js";
 export * from "./PatientUpdate.js";
 export * from "./TemplatesSectionListResponse.js";
