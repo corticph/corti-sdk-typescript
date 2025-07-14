@@ -26,11 +26,12 @@ export class Stream extends FernStream {
         args: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'>,
         configuration?: api.StreamConfig
     ): Promise<StreamSocket> {
-        const ws = await super.connect({
+        const fernWs = await super.connect({
             ...args,
             token: await this._getAuthorizationHeader() || '',
             tenantName: await core.Supplier.get(this._options.tenantName),
-        }) as StreamSocket;
+        });
+        const ws = new StreamSocket({ socket: fernWs.socket });
 
         if (!configuration) {
             return ws;
