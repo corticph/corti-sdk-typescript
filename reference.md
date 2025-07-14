@@ -1107,7 +1107,7 @@ await client.facts.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58cc
 
 ## documents
 
-<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">list</a>(id) -> Corti.ResponseDocumentList</code></summary>
+<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">list</a>(id) -> Corti.DocumentsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1170,7 +1170,7 @@ await client.documents.list("f47ac10b-58cc-4372-a567-0e02b2c3d479");
 </dl>
 </details>
 
-<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">create</a>(id, { ...params }) -> Corti.ResponseDocumentRead</code></summary>
+<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">create</a>(id, { ...params }) -> Corti.DocumentsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1236,7 +1236,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 <dl>
 <dd>
 
-**request:** `Corti.RequestDocumentCreate`
+**request:** `Corti.DocumentsCreateRequest`
 
 </dd>
 </dl>
@@ -1255,7 +1255,7 @@ await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
 </dl>
 </details>
 
-<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">get</a>(id, documentId, { ...params }) -> Corti.ResponseDocumentRead</code></summary>
+<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">get</a>(id, documentId) -> Corti.DocumentsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1308,14 +1308,6 @@ await client.documents.get("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-58c
 <dd>
 
 **documentId:** `Corti.Uuid` — The document ID representing the context for the request. Must be a valid UUID.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Corti.DocumentsGetRequest`
 
 </dd>
 </dl>
@@ -1390,7 +1382,7 @@ await client.documents.delete("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 </dl>
 </details>
 
-<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">update</a>(id, documentId, { ...params }) -> Corti.ResponseDocumentRead</code></summary>
+<details><summary><code>client.documents.<a href="/src/api/resources/documents/client/Client.ts">update</a>(id, documentId, { ...params }) -> Corti.DocumentsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1435,7 +1427,7 @@ await client.documents.update("f47ac10b-58cc-4372-a567-0e02b2c3d479", "f47ac10b-
 <dl>
 <dd>
 
-**request:** `Corti.RequestDocumentUpdate`
+**request:** `Corti.DocumentsUpdateRequest`
 
 </dd>
 </dl>

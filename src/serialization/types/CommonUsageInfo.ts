@@ -8,11 +8,11 @@ import * as core from "../../core/index.js";
 
 export const CommonUsageInfo: core.serialization.ObjectSchema<serializers.CommonUsageInfo.Raw, Corti.CommonUsageInfo> =
     core.serialization.object({
-        creditsConsumed: core.serialization.number().optional(),
+        creditsConsumed: core.serialization.number(),
     });
 
 export declare namespace CommonUsageInfo {
     export interface Raw {
-        creditsConsumed?: number | null;
+        creditsConsumed: number;
     }
 }
