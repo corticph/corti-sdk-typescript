@@ -10,26 +10,23 @@ import { TemplatesTranslation } from "./TemplatesTranslation.js";
 
 export const TemplatesItem: core.serialization.ObjectSchema<serializers.TemplatesItem.Raw, Corti.TemplatesItem> =
     core.serialization.object({
-        dateUpdated: core.serialization.property("date_updated", core.serialization.date().optionalNullable()),
+        dateUpdated: core.serialization.property("date_updated", core.serialization.date().optional()),
         name: core.serialization.string(),
         description: core.serialization.string(),
         key: core.serialization.string(),
         status: core.serialization.string(),
-        templateSections: core.serialization.property(
-            "template_sections",
-            core.serialization.list(TemplatesSectionSorted),
-        ),
-        translations: core.serialization.list(TemplatesTranslation),
+        templateSections: core.serialization.property("template_sections", TemplatesSectionSorted),
+        translations: TemplatesTranslation,
     });
 
 export declare namespace TemplatesItem {
     export interface Raw {
-        date_updated?: (string | null) | null;
+        date_updated?: string | null;
         name: string;
         description: string;
         key: string;
         status: string;
-        template_sections: TemplatesSectionSorted.Raw[];
-        translations: TemplatesTranslation.Raw[];
+        template_sections: TemplatesSectionSorted.Raw;
+        translations: TemplatesTranslation.Raw;
     }
 }
