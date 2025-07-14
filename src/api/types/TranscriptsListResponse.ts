@@ -5,5 +5,5 @@
 import * as Corti from "../index.js";
 
 export interface TranscriptsListResponse {
-    transcripts: Corti.TranscriptsListItem[];
+    transcripts?: Corti.TranscriptsListItem[] | null;
 }
