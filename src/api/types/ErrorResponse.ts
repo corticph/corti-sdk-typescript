@@ -3,10 +3,10 @@
  */
 
 export interface ErrorResponse {
-    requestid: string;
+    requestid?: string;
     type: string;
     status?: number;
-    title: string;
+    title?: string;
     details?: string;
     instance?: string;
 }
