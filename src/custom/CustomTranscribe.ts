@@ -26,11 +26,12 @@ export class Transcribe extends FernTranscribe {
         args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenantName'> = {},
         configuration?: api.TranscribeConfig
     ): Promise<TranscribeSocket> {
-        const ws = await super.connect({
+        const fernWs = await super.connect({
             ...args,
             token: await this._getAuthorizationHeader() || '',
             tenantName: await core.Supplier.get(this._options.tenantName),
-        }) as TranscribeSocket;
+        });
+        const ws = new TranscribeSocket({ socket: fernWs.socket });
 
         if (!configuration) {
             return ws;

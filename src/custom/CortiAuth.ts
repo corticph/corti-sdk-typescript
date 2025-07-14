@@ -63,7 +63,7 @@ export class Auth extends FernAuth {
             (await core.Supplier.get(this._options.baseUrl)) ??
             (await core.Supplier.get(this._options.environment)).login,
             await core.Supplier.get(this._options.tenantName),
-            "protocol/openid-connect/token",
+            "protocol/openid-connect/auth",
         ));
 
         authUrl.searchParams.set('response_type', 'code');
