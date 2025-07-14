@@ -5,18 +5,18 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { FactContext } from "./FactContext.js";
+import { FactsContext } from "./FactsContext.js";
 import { CommonTranscript } from "./CommonTranscript.js";
 
-export const DocumentContextData: core.serialization.Schema<
-    serializers.DocumentContextData.Raw,
-    Corti.DocumentContextData
+export const DocumentsContextData: core.serialization.Schema<
+    serializers.DocumentsContextData.Raw,
+    Corti.DocumentsContextData
 > = core.serialization.undiscriminatedUnion([
-    core.serialization.list(FactContext),
+    core.serialization.list(FactsContext),
     CommonTranscript,
     core.serialization.string(),
 ]);
 
-export declare namespace DocumentContextData {
-    export type Raw = FactContext.Raw[] | CommonTranscript.Raw | string;
+export declare namespace DocumentsContextData {
+    export type Raw = FactsContext.Raw[] | CommonTranscript.Raw | string;
 }

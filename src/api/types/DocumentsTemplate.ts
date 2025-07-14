@@ -4,7 +4,7 @@
 
 import * as Corti from "../index.js";
 
-export interface DocumentTemplate {
+export interface DocumentsTemplate {
     /** An array of section IDs. */
     sectionIds?: Corti.Uuid[];
     /** An array of section keys. */
