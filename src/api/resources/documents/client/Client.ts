@@ -174,7 +174,7 @@ export class Documents {
      *                         source: "core"
      *                     }]
      *             }],
-     *         templateId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+     *         templateKey: "templateKey",
      *         outputLanguage: "outputLanguage"
      *     })
      */

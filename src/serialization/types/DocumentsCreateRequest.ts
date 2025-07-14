@@ -5,22 +5,22 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { DocumentsCreateRequestWithTemplateId } from "./DocumentsCreateRequestWithTemplateId.js";
 import { DocumentsCreateRequestWithTemplateKey } from "./DocumentsCreateRequestWithTemplateKey.js";
+import { DocumentsCreateRequestWithTemplateId } from "./DocumentsCreateRequestWithTemplateId.js";
 import { DocumentsCreateRequestWithTemplate } from "./DocumentsCreateRequestWithTemplate.js";
 
 export const DocumentsCreateRequest: core.serialization.Schema<
     serializers.DocumentsCreateRequest.Raw,
     Corti.DocumentsCreateRequest
 > = core.serialization.undiscriminatedUnion([
-    DocumentsCreateRequestWithTemplateId,
     DocumentsCreateRequestWithTemplateKey,
+    DocumentsCreateRequestWithTemplateId,
     DocumentsCreateRequestWithTemplate,
 ]);
 
 export declare namespace DocumentsCreateRequest {
     export type Raw =
-        | DocumentsCreateRequestWithTemplateId.Raw
         | DocumentsCreateRequestWithTemplateKey.Raw
+        | DocumentsCreateRequestWithTemplateId.Raw
         | DocumentsCreateRequestWithTemplate.Raw;
 }

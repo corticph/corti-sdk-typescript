@@ -5,6 +5,6 @@
 import * as Corti from "../index.js";
 
 export type DocumentsCreateRequest =
-    | Corti.DocumentsCreateRequestWithTemplateId
     | Corti.DocumentsCreateRequestWithTemplateKey
+    | Corti.DocumentsCreateRequestWithTemplateId
     | Corti.DocumentsCreateRequestWithTemplate;
