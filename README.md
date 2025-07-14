@@ -80,20 +80,34 @@ const request: Corti.InteractionsListRequest = {
 
 ## Exception Handling
 
-When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
-will be thrown.
+Depending on the type of error, the SDK will throw one of the following:
+
+- **CortiError**: Thrown when the API returns a non-success status code (4xx or 5xx response). This is the base error for API-related issues.
+- **ParseError**: Thrown when parsing input data fails schema validation. This typically occurs when the data you provide does not match the expected schema.
+- **JsonError**: Thrown when serializing data to JSON fails schema validation. This typically occurs when converting parsed data to JSON for transmission or storage fails validation.
+
+Example usage:
 
 ```typescript
-import { CortiError } from "@corti/sdk";
+import { CortiError, ParseError, JsonError } from "@corti/sdk";
 
 try {
     await client.interactions.create(...);
 } catch (err) {
     if (err instanceof CortiError) {
+        // Handle API errors
         console.log(err.statusCode);
         console.log(err.message);
         console.log(err.body);
         console.log(err.rawResponse);
+    }
+    if (err instanceof ParseError) {
+        // Handle schema validation errors during parsing
+        console.error("Parse validation error details:", err.errors);
+    }
+    if (err instanceof JsonError) {
+        // Handle schema validation errors during serialization
+        console.error("JSON validation error details:", err.errors);
     }
 }
 ```
