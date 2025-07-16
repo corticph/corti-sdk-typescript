@@ -23,8 +23,9 @@ export class Stream extends FernStream {
      * Patch: use custom connect method to support passing _options parameters
      */
     public async connect(
-        args: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'>,
-        configuration?: api.StreamConfig
+        { configuration, ...args }: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'> & {
+            configuration?: api.StreamConfig;
+        }
     ): Promise<StreamSocket> {
         const fernWs = await super.connect({
             ...args,

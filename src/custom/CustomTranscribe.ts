@@ -23,8 +23,9 @@ export class Transcribe extends FernTranscribe {
      * Patch: use custom connect method to support passing _options parameters
      */
     public async connect(
-        args: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenantName'> = {},
-        configuration?: api.TranscribeConfig
+        { configuration, ...args }: Omit<FernTranscribe.ConnectArgs, 'token' | 'tenantName'> & {
+            configuration?: api.TranscribeConfig;
+        } = {}
     ): Promise<TranscribeSocket> {
         const fernWs = await super.connect({
             ...args,
