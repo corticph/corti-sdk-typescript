@@ -72,6 +72,16 @@ export class Transcribe extends FernTranscribe {
                 return;
             }
 
+            if (parsedResponse.ok && parsedResponse.value.type === 'error') {
+                ws.socket.dispatchEvent(new ErrorEvent({
+                    name: 'error',
+                    message: JSON.stringify(parsedResponse.value.error),
+                }, ''));
+
+                ws.close();
+                return;
+            }
+
             if (parsedResponse.ok && parsedResponse.value.type === 'ended') {
                 ws.close();
                 return;
