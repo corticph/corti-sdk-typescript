@@ -11,11 +11,11 @@ export const FactsListResponse: core.serialization.ObjectSchema<
     serializers.FactsListResponse.Raw,
     Corti.FactsListResponse
 > = core.serialization.object({
-    facts: core.serialization.list(FactsListItem),
+    facts: FactsListItem,
 });
 
 export declare namespace FactsListResponse {
     export interface Raw {
-        facts: FactsListItem.Raw[];
+        facts: FactsListItem.Raw;
     }
 }
