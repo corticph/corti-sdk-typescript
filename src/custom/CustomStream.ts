@@ -23,8 +23,9 @@ export class Stream extends FernStream {
      * Patch: use custom connect method to support passing _options parameters
      */
     public async connect(
-        args: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'>,
-        configuration?: api.StreamConfig
+        { configuration, ...args }: Omit<FernStream.ConnectArgs, 'token' | 'tenantName'> & {
+            configuration?: api.StreamConfig;
+        }
     ): Promise<StreamSocket> {
         const fernWs = await super.connect({
             ...args,
@@ -68,6 +69,16 @@ export class Stream extends FernStream {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: parsedResponse.value.type,
                     message: `Configuration error "${parsedResponse.value.type}" : ${parsedResponse.value.reason || 'No reason provided'}`,
+                }, ''));
+
+                ws.close();
+                return;
+            }
+
+            if (parsedResponse.ok && parsedResponse.value.type === 'error') {
+                ws.socket.dispatchEvent(new ErrorEvent({
+                    name: 'error',
+                    message: JSON.stringify(parsedResponse.value.error),
                 }, ''));
 
                 ws.close();
