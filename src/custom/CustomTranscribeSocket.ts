@@ -26,4 +26,13 @@ export class TranscribeSocket extends FernTranscribeSocket {
             throw new Error("Socket is not open.");
         }
     }
+
+    /**
+     * Patch: added ability to remove event handlers
+     */
+    public off<T extends keyof FernTranscribeSocket.EventHandlers>(event: T, callback: FernTranscribeSocket.EventHandlers[T]) {
+        if (callback === this.eventHandlers[event]) {
+            delete this.eventHandlers[event];
+        }
+    }
 }

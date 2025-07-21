@@ -26,4 +26,13 @@ export class StreamSocket extends FernStreamSocket {
             throw new Error("Socket is not open.");
         }
     }
+
+    /**
+     * Patch: added ability to remove event handlers
+     */
+    public off<T extends keyof FernStreamSocket.EventHandlers>(event: T, callback: FernStreamSocket.EventHandlers[T]) {
+        if (callback === this.eventHandlers[event]) {
+            delete this.eventHandlers[event];
+        }
+    }
 }
