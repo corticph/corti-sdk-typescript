@@ -5,7 +5,7 @@ import { StreamSocket as FernStreamSocket } from '../api/resources/stream/client
 import * as core from "../core/index.js";
 
 export class StreamSocket extends FernStreamSocket {
-    public sendAudio(message: ArrayBuffer | string): void {
+    public sendAudio(message:  ArrayBufferLike | Blob | ArrayBufferView | string): void {
         if (typeof message === 'string') {
             return super.sendAudio(message);
         }

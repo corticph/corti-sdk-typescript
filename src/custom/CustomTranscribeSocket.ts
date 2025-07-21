@@ -5,7 +5,7 @@ import { TranscribeSocket as FernTranscribeSocket } from '../api/resources/trans
 import * as core from "../core/index.js";
 
 export class TranscribeSocket extends FernTranscribeSocket {
-    public sendAudio(message: ArrayBuffer | string): void {
+    public sendAudio(message:  ArrayBufferLike | Blob | ArrayBufferView | string): void {
         if (typeof message === 'string') {
             return super.sendAudio(message);
         }
