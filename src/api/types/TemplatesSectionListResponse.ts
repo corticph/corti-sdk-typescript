@@ -6,5 +6,5 @@ import * as Corti from "../index.js";
 
 export interface TemplatesSectionListResponse {
     /** List of filtered template sections */
-    data: Corti.TemplatesSection[];
+    data: Corti.TemplatesSection;
 }
