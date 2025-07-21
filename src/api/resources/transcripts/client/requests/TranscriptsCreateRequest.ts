@@ -8,7 +8,7 @@ import * as Corti from "../../../../index.js";
  * @example
  *     {
  *         recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
- *         primaryLanguage: "primaryLanguage",
+ *         primaryLanguage: "en",
  *         modelName: "base"
  *     }
  */
