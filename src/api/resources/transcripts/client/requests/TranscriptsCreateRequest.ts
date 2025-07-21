@@ -8,7 +8,7 @@ import * as Corti from "../../../../index.js";
  * @example
  *     {
  *         recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
- *         primaryLanguage: "en",
+ *         primaryLanguage: "primaryLanguage",
  *         modelName: "base"
  *     }
  */
@@ -16,7 +16,7 @@ export interface TranscriptsCreateRequest {
     /** The unique identifier for the recording. */
     recordingId: Corti.Uuid;
     /** The primary spoken language of the recording. Check https://docs.corti.ai/about/languages for more. */
-    primaryLanguage: Corti.TranscriptsCreateRequestPrimaryLanguage;
+    primaryLanguage: string;
     /** Indicates whether spoken dictation commands should be converted to punctuation (e.g., 'comma' → ','). */
     isDictation?: boolean;
     /** If true, each audio channel is transcribed separately. */
