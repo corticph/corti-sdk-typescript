@@ -16,7 +16,7 @@ export interface TranscriptsCreateRequest {
     /** The unique identifier for the recording. */
     recordingId: Corti.Uuid;
     /** The primary spoken language of the recording. Check https://docs.corti.ai/about/languages for more. */
-    primaryLanguage: Corti.TranscriptsCreateRequestPrimaryLanguage;
+    primaryLanguage: string;
     /** Indicates whether spoken dictation commands should be converted to punctuation (e.g., 'comma' → ','). */
     isDictation?: boolean;
     /** If true, each audio channel is transcribed separately. */

@@ -6,7 +6,6 @@ import * as serializers from "../../../../index.js";
 import * as Corti from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import { Uuid } from "../../../../types/Uuid.js";
-import { TranscriptsCreateRequestPrimaryLanguage } from "../../types/TranscriptsCreateRequestPrimaryLanguage.js";
 import { TranscriptsParticipant } from "../../../../types/TranscriptsParticipant.js";
 import { TranscriptsCreateRequestModelName } from "../../types/TranscriptsCreateRequestModelName.js";
 
@@ -15,7 +14,7 @@ export const TranscriptsCreateRequest: core.serialization.Schema<
     Corti.TranscriptsCreateRequest
 > = core.serialization.object({
     recordingId: Uuid,
-    primaryLanguage: TranscriptsCreateRequestPrimaryLanguage,
+    primaryLanguage: core.serialization.string(),
     isDictation: core.serialization.boolean().optional(),
     isMultichannel: core.serialization.boolean().optional(),
     diarize: core.serialization.boolean().optional(),
@@ -26,7 +25,7 @@ export const TranscriptsCreateRequest: core.serialization.Schema<
 export declare namespace TranscriptsCreateRequest {
     export interface Raw {
         recordingId: Uuid.Raw;
-        primaryLanguage: TranscriptsCreateRequestPrimaryLanguage.Raw;
+        primaryLanguage: string;
         isDictation?: boolean | null;
         isMultichannel?: boolean | null;
         diarize?: boolean | null;

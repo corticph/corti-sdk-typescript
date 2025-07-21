@@ -5,7 +5,7 @@ import { StreamSocket as FernStreamSocket } from '../api/resources/stream/client
 import * as core from "../core/index.js";
 
 export class StreamSocket extends FernStreamSocket {
-    public sendAudio(message: ArrayBuffer | string): void {
+    public sendAudio(message:  ArrayBufferLike | Blob | ArrayBufferView | string): void {
         if (typeof message === 'string') {
             return super.sendAudio(message);
         }
@@ -24,6 +24,15 @@ export class StreamSocket extends FernStreamSocket {
 
         if (this.socket.readyState !== core.ReconnectingWebSocket.OPEN) {
             throw new Error("Socket is not open.");
+        }
+    }
+
+    /**
+     * Patch: added ability to remove event handlers
+     */
+    public off<T extends keyof FernStreamSocket.EventHandlers>(event: T, callback?: FernStreamSocket.EventHandlers[T]) {
+        if (!callback || callback === this.eventHandlers[event]) {
+            delete this.eventHandlers[event];
         }
     }
 }

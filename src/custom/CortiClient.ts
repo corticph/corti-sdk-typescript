@@ -55,7 +55,10 @@ export declare namespace CortiClient {
     }
 
     export interface Options {
-        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls>;
+        /**
+         * Patch: allow to pass a custom string-based environment
+         * */
+        environment: core.Supplier<environments.CortiEnvironment | environments.CortiEnvironmentUrls> | string;
         /** Override the Tenant-Name header */
         tenantName: core.Supplier<string>;
         /** Additional headers to include in requests. */
@@ -142,6 +145,13 @@ export class CortiClient {
             clientId: "clientId" in _options.auth ? _options.auth.clientId : undefined,
             clientSecret: "clientSecret" in _options.auth ? _options.auth.clientSecret : undefined,
             token: "accessToken" in _options.auth ? _options.auth.accessToken : undefined,
+            environment: typeof _options.environment === "string"
+                ? {
+                    base: `https://api.${_options.environment}.corti.app/v2`,
+                    wss: `wss://api.${_options.environment}.corti.app`,
+                    login: `https://auth.${_options.environment}.corti.app/realms`,
+                }
+                : _options.environment,
         };
 
         /**
