@@ -30,8 +30,8 @@ export class StreamSocket extends FernStreamSocket {
     /**
      * Patch: added ability to remove event handlers
      */
-    public off<T extends keyof FernStreamSocket.EventHandlers>(event: T, callback: FernStreamSocket.EventHandlers[T]) {
-        if (callback === this.eventHandlers[event]) {
+    public off<T extends keyof FernStreamSocket.EventHandlers>(event: T, callback?: FernStreamSocket.EventHandlers[T]) {
+        if (!callback || callback === this.eventHandlers[event]) {
             delete this.eventHandlers[event];
         }
     }

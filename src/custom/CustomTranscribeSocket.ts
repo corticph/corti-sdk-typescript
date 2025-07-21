@@ -30,8 +30,8 @@ export class TranscribeSocket extends FernTranscribeSocket {
     /**
      * Patch: added ability to remove event handlers
      */
-    public off<T extends keyof FernTranscribeSocket.EventHandlers>(event: T, callback: FernTranscribeSocket.EventHandlers[T]) {
-        if (callback === this.eventHandlers[event]) {
+    public off<T extends keyof FernTranscribeSocket.EventHandlers>(event: T, callback?: FernTranscribeSocket.EventHandlers[T]) {
+        if (!callback || callback === this.eventHandlers[event]) {
             delete this.eventHandlers[event];
         }
     }
