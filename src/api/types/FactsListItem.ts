@@ -21,5 +21,5 @@ export interface FactsListItem {
     createdAt?: Date;
     /** The timestamp when the fact was last updated. */
     updatedAt?: Date;
-    evidence?: Corti.FactsEvidence[];
+    evidence?: Corti.FactsEvidence;
 }
