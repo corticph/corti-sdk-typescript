@@ -5,34 +5,4 @@
 /**
  * Supported language codes
  */
-export type StreamSupportedLanguage =
-    | "en"
-    | "en-us"
-    | "en-gb"
-    | "da"
-    | "se"
-    | "no"
-    | "de"
-    | "nl"
-    | "es"
-    | "it"
-    | "fr"
-    | "pt"
-    | "de-ch"
-    | "sv";
-export const StreamSupportedLanguage = {
-    En: "en",
-    EnUs: "en-us",
-    EnGb: "en-gb",
-    Da: "da",
-    Se: "se",
-    No: "no",
-    De: "de",
-    Nl: "nl",
-    Es: "es",
-    It: "it",
-    Fr: "fr",
-    Pt: "pt",
-    DeCh: "de-ch",
-    Sv: "sv",
-} as const;
+export type StreamSupportedLanguage = string;

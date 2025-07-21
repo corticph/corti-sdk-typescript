@@ -9,37 +9,8 @@ import * as core from "../../core/index.js";
 export const StreamSupportedLanguage: core.serialization.Schema<
     serializers.StreamSupportedLanguage.Raw,
     Corti.StreamSupportedLanguage
-> = core.serialization.enum_([
-    "en",
-    "en-us",
-    "en-gb",
-    "da",
-    "se",
-    "no",
-    "de",
-    "nl",
-    "es",
-    "it",
-    "fr",
-    "pt",
-    "de-ch",
-    "sv",
-]);
+> = core.serialization.string();
 
 export declare namespace StreamSupportedLanguage {
-    export type Raw =
-        | "en"
-        | "en-us"
-        | "en-gb"
-        | "da"
-        | "se"
-        | "no"
-        | "de"
-        | "nl"
-        | "es"
-        | "it"
-        | "fr"
-        | "pt"
-        | "de-ch"
-        | "sv";
+    export type Raw = string;
 }

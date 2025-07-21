@@ -9,37 +9,8 @@ import * as core from "../../core/index.js";
 export const TranscribeSupportedLanguage: core.serialization.Schema<
     serializers.TranscribeSupportedLanguage.Raw,
     Corti.TranscribeSupportedLanguage
-> = core.serialization.enum_([
-    "en",
-    "en-us",
-    "en-gb",
-    "da",
-    "se",
-    "no",
-    "de",
-    "nl",
-    "es",
-    "it",
-    "fr",
-    "pt",
-    "de-ch",
-    "sv",
-]);
+> = core.serialization.string();
 
 export declare namespace TranscribeSupportedLanguage {
-    export type Raw =
-        | "en"
-        | "en-us"
-        | "en-gb"
-        | "da"
-        | "se"
-        | "no"
-        | "de"
-        | "nl"
-        | "es"
-        | "it"
-        | "fr"
-        | "pt"
-        | "de-ch"
-        | "sv";
+    export type Raw = string;
 }
