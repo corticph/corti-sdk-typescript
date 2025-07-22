@@ -19,7 +19,7 @@ export const FactsListItem: core.serialization.ObjectSchema<serializers.FactsLis
         source: CommonSourceEnum.optional(),
         createdAt: core.serialization.date().optional(),
         updatedAt: core.serialization.date().optional(),
-        evidence: core.serialization.list(FactsEvidence).optional(),
+        evidence: FactsEvidence.optional(),
     });
 
 export declare namespace FactsListItem {
@@ -32,6 +32,6 @@ export declare namespace FactsListItem {
         source?: CommonSourceEnum.Raw | null;
         createdAt?: string | null;
         updatedAt?: string | null;
-        evidence?: FactsEvidence.Raw[] | null;
+        evidence?: FactsEvidence.Raw | null;
     }
 }
