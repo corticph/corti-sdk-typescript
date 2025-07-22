@@ -78,7 +78,7 @@ export class Stream extends FernStream {
             if (parsedResponse.ok && parsedResponse.value.type === 'error') {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: 'error',
-                    message: JSON.stringify(parsedResponse.value.error),
+                    message: JSON.stringify(parsedResponse.value),
                 }, ''));
 
                 ws.close();
