@@ -68,7 +68,7 @@ export class Stream extends FernStream {
             )) {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: parsedResponse.value.type,
-                    message: `Configuration error "${parsedResponse.value.type}" : ${parsedResponse.value.reason || 'No reason provided'}`,
+                    message: JSON.stringify(parsedResponse.value),
                 }, ''));
 
                 ws.close();
@@ -85,11 +85,11 @@ export class Stream extends FernStream {
                 return;
             }
 
-            if (parsedResponse.ok && parsedResponse.value.type === 'ENDED') {
+            if (parsedResponse.ok && parsedResponse.value.type === "ENDED") {
                 ws.close();
                 return;
             }
-        })
+        });
 
         return ws;
     }
