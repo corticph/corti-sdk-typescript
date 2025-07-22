@@ -66,7 +66,7 @@ export class Transcribe extends FernTranscribe {
             )) {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: parsedResponse.value.type,
-                    message: `Configuration error "${parsedResponse.value.type}" : ${parsedResponse.value.reason || 'No reason provided'}`,
+                    message: JSON.stringify(parsedResponse.value),
                 }, ''));
 
                 ws.close();
@@ -76,7 +76,7 @@ export class Transcribe extends FernTranscribe {
             if (parsedResponse.ok && parsedResponse.value.type === 'error') {
                 ws.socket.dispatchEvent(new ErrorEvent({
                     name: 'error',
-                    message: JSON.stringify(parsedResponse.value.error),
+                    message: JSON.stringify(parsedResponse.value),
                 }, ''));
 
                 ws.close();
