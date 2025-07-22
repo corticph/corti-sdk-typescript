@@ -85,7 +85,7 @@ export class Stream extends FernStream {
                 return;
             }
 
-            if (parsedResponse.ok && parsedResponse.value.type === "ENDED") {
+            if (parsedResponse.ok && parsedResponse.value.type === 'ENDED') {
                 ws.close();
                 return;
             }
