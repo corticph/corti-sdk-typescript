@@ -1,1 +1,1 @@
-export * from "./TranscriptsCreateRequestModelName.js";
+export * from "./RequestTranscriptCreateParticipantsItem.js";

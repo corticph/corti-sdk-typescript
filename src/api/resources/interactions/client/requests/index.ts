@@ -1,3 +1,3 @@
-export { type InteractionsListRequest } from "./InteractionsListRequest.js";
-export { type InteractionsCreateRequest } from "./InteractionsCreateRequest.js";
-export { type InteractionsUpdateRequest } from "./InteractionsUpdateRequest.js";
+export { type GetInteractionsRequest } from "./GetInteractionsRequest.js";
+export { type RequestInteractionCreate } from "./RequestInteractionCreate.js";
+export { type RequestInteractionUpdate } from "./RequestInteractionUpdate.js";
