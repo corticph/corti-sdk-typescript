@@ -11,20 +11,20 @@ export const CommonTranscript: core.serialization.ObjectSchema<
     Corti.CommonTranscript
 > = core.serialization.object({
     channel: core.serialization.number(),
-    end: core.serialization.number(),
     participant: core.serialization.number(),
     speakerId: core.serialization.number(),
-    start: core.serialization.number(),
     text: core.serialization.string(),
+    start: core.serialization.number(),
+    end: core.serialization.number(),
 });
 
 export declare namespace CommonTranscript {
     export interface Raw {
         channel: number;
-        end: number;
         participant: number;
         speakerId: number;
-        start: number;
         text: string;
+        start: number;
+        end: number;
     }
 }

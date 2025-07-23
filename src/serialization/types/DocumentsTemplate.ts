@@ -11,17 +11,17 @@ export const DocumentsTemplate: core.serialization.ObjectSchema<
     serializers.DocumentsTemplate.Raw,
     Corti.DocumentsTemplate
 > = core.serialization.object({
-    additionalInstructions: core.serialization.string().optional(),
-    documentName: core.serialization.string().optional(),
     sectionIds: core.serialization.list(Uuid).optional(),
     sectionKeys: core.serialization.list(core.serialization.string()).optional(),
+    documentName: core.serialization.string().optional(),
+    additionalInstructions: core.serialization.string().optional(),
 });
 
 export declare namespace DocumentsTemplate {
     export interface Raw {
-        additionalInstructions?: string | null;
-        documentName?: string | null;
         sectionIds?: Uuid.Raw[] | null;
         sectionKeys?: string[] | null;
+        documentName?: string | null;
+        additionalInstructions?: string | null;
     }
 }

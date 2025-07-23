@@ -11,15 +11,15 @@ export const FactsCreateInput: core.serialization.ObjectSchema<
     serializers.FactsCreateInput.Raw,
     Corti.FactsCreateInput
 > = core.serialization.object({
+    text: core.serialization.string(),
     group: core.serialization.string(),
     source: CommonSourceEnum.optional(),
-    text: core.serialization.string(),
 });
 
 export declare namespace FactsCreateInput {
     export interface Raw {
+        text: string;
         group: string;
         source?: CommonSourceEnum.Raw | null;
-        text: string;
     }
 }

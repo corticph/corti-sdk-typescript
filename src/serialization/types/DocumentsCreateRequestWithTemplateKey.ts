@@ -12,18 +12,18 @@ export const DocumentsCreateRequestWithTemplateKey: core.serialization.ObjectSch
     Corti.DocumentsCreateRequestWithTemplateKey
 > = core.serialization.object({
     context: core.serialization.list(DocumentsContext),
-    modelName: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-    outputLanguage: core.serialization.string(),
     templateKey: core.serialization.string(),
+    name: core.serialization.string().optional(),
+    modelName: core.serialization.string().optional(),
+    outputLanguage: core.serialization.string(),
 });
 
 export declare namespace DocumentsCreateRequestWithTemplateKey {
     export interface Raw {
         context: DocumentsContext.Raw[];
-        modelName?: string | null;
-        name?: string | null;
-        outputLanguage: string;
         templateKey: string;
+        name?: string | null;
+        modelName?: string | null;
+        outputLanguage: string;
     }
 }

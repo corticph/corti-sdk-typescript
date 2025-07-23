@@ -9,12 +9,12 @@ import * as Corti from "../../../../index.js";
  *     {}
  */
 export interface FactsUpdateRequest {
-    /** The updated group key for the fact. */
-    group?: string;
-    /** Indicates whether the fact should be marked as discarded. */
-    isDiscarded?: boolean;
-    /** The updated origin of the fact. */
-    source?: Corti.CommonSourceEnum;
     /** The updated text of the fact. */
     text?: string;
+    /** The updated group key for the fact. */
+    group?: string;
+    /** The updated origin of the fact. */
+    source?: Corti.CommonSourceEnum;
+    /** Indicates whether the fact should be marked as discarded. */
+    isDiscarded?: boolean;
 }

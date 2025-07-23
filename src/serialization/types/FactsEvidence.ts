@@ -8,15 +8,15 @@ import * as core from "../../core/index.js";
 
 export const FactsEvidence: core.serialization.ObjectSchema<serializers.FactsEvidence.Raw, Corti.FactsEvidence> =
     core.serialization.object({
-        quote: core.serialization.string().optional(),
-        reference: core.serialization.string().optional(),
         type: core.serialization.string().optional(),
+        reference: core.serialization.string().optional(),
+        quote: core.serialization.string().optional(),
     });
 
 export declare namespace FactsEvidence {
     export interface Raw {
-        quote?: string | null;
-        reference?: string | null;
         type?: string | null;
+        reference?: string | null;
+        quote?: string | null;
     }
 }

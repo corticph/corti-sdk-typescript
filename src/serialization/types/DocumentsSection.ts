@@ -10,21 +10,21 @@ export const DocumentsSection: core.serialization.ObjectSchema<
     serializers.DocumentsSection.Raw,
     Corti.DocumentsSection
 > = core.serialization.object({
-    createdAt: core.serialization.date(),
     key: core.serialization.string(),
     name: core.serialization.string(),
-    sort: core.serialization.number(),
     text: core.serialization.string(),
+    sort: core.serialization.number(),
+    createdAt: core.serialization.date(),
     updatedAt: core.serialization.date(),
 });
 
 export declare namespace DocumentsSection {
     export interface Raw {
-        createdAt: string;
         key: string;
         name: string;
-        sort: number;
         text: string;
+        sort: number;
+        createdAt: string;
         updatedAt: string;
     }
 }

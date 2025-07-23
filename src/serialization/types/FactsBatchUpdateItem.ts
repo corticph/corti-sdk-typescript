@@ -12,25 +12,25 @@ export const FactsBatchUpdateItem: core.serialization.ObjectSchema<
     serializers.FactsBatchUpdateItem.Raw,
     Corti.FactsBatchUpdateItem
 > = core.serialization.object({
-    createdAt: core.serialization.date(),
+    id: Uuid,
+    text: core.serialization.string(),
     group: core.serialization.string(),
     groupId: Uuid,
-    id: Uuid,
-    isDiscarded: core.serialization.boolean(),
     source: CommonSourceEnum,
-    text: core.serialization.string(),
+    isDiscarded: core.serialization.boolean(),
+    createdAt: core.serialization.date(),
     updatedAt: core.serialization.date(),
 });
 
 export declare namespace FactsBatchUpdateItem {
     export interface Raw {
-        createdAt: string;
+        id: Uuid.Raw;
+        text: string;
         group: string;
         groupId: Uuid.Raw;
-        id: Uuid.Raw;
-        isDiscarded: boolean;
         source: CommonSourceEnum.Raw;
-        text: string;
+        isDiscarded: boolean;
+        createdAt: string;
         updatedAt: string;
     }
 }

@@ -8,8 +8,8 @@ import * as Corti from "../../../../index.js";
  * @example
  *     {
  *         facts: [{
- *                 group: "other",
- *                 text: "text"
+ *                 text: "text",
+ *                 group: "other"
  *             }]
  *     }
  */

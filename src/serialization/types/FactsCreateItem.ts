@@ -10,23 +10,23 @@ import { CommonSourceEnum } from "./CommonSourceEnum.js";
 
 export const FactsCreateItem: core.serialization.ObjectSchema<serializers.FactsCreateItem.Raw, Corti.FactsCreateItem> =
     core.serialization.object({
+        id: Uuid.optional(),
+        text: core.serialization.string().optional(),
         group: core.serialization.string().optional(),
         groupId: Uuid.optional(),
-        id: Uuid.optional(),
-        isDiscarded: core.serialization.boolean().optional(),
         source: CommonSourceEnum.optional(),
-        text: core.serialization.string().optional(),
+        isDiscarded: core.serialization.boolean().optional(),
         updatedAt: core.serialization.date().optional(),
     });
 
 export declare namespace FactsCreateItem {
     export interface Raw {
+        id?: Uuid.Raw | null;
+        text?: string | null;
         group?: string | null;
         groupId?: Uuid.Raw | null;
-        id?: Uuid.Raw | null;
-        isDiscarded?: boolean | null;
         source?: CommonSourceEnum.Raw | null;
-        text?: string | null;
+        isDiscarded?: boolean | null;
         updatedAt?: string | null;
     }
 }

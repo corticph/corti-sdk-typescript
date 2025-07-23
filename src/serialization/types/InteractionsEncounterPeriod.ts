@@ -10,13 +10,13 @@ export const InteractionsEncounterPeriod: core.serialization.ObjectSchema<
     serializers.InteractionsEncounterPeriod.Raw,
     Corti.InteractionsEncounterPeriod
 > = core.serialization.object({
-    endedAt: core.serialization.date().optionalNullable(),
     startedAt: core.serialization.date(),
+    endedAt: core.serialization.date().optionalNullable(),
 });
 
 export declare namespace InteractionsEncounterPeriod {
     export interface Raw {
-        endedAt?: (string | null) | null;
         startedAt: string;
+        endedAt?: (string | null) | null;
     }
 }

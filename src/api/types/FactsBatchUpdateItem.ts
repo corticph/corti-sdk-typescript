@@ -5,20 +5,20 @@
 import * as Corti from "../index.js";
 
 export interface FactsBatchUpdateItem {
-    /** The original timestamp when the fact was created. */
-    createdAt: Date;
+    /** The unique identifier of the updated fact. */
+    id: Corti.Uuid;
+    /** The updated text content of the fact. */
+    text: string;
     /** The updated group key to which the fact belongs. */
     group: string;
     /** The unique identifier of the associated group. */
     groupId: Corti.Uuid;
-    /** The unique identifier of the updated fact. */
-    id: Corti.Uuid;
-    /** Indicates whether the fact is marked as discarded. */
-    isDiscarded: boolean;
     /** The updated origin of the fact. */
     source: Corti.CommonSourceEnum;
-    /** The updated text content of the fact. */
-    text: string;
+    /** Indicates whether the fact is marked as discarded. */
+    isDiscarded: boolean;
+    /** The original timestamp when the fact was created. */
+    createdAt: Date;
     /** The timestamp when the fact was last updated. */
     updatedAt: Date;
 }

@@ -5,27 +5,27 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { InteractionsEncounterPeriod } from "./InteractionsEncounterPeriod.js";
 import { InteractionsEncounterStatusEnum } from "./InteractionsEncounterStatusEnum.js";
 import { InteractionsEncounterTypeEnum } from "./InteractionsEncounterTypeEnum.js";
+import { InteractionsEncounterPeriod } from "./InteractionsEncounterPeriod.js";
 
 export const InteractionsEncounterUpdateRequest: core.serialization.ObjectSchema<
     serializers.InteractionsEncounterUpdateRequest.Raw,
     Corti.InteractionsEncounterUpdateRequest
 > = core.serialization.object({
     identifier: core.serialization.string().optional(),
-    period: InteractionsEncounterPeriod.optional(),
     status: InteractionsEncounterStatusEnum.optional(),
-    title: core.serialization.string().optionalNullable(),
     type: InteractionsEncounterTypeEnum.optional(),
+    period: InteractionsEncounterPeriod.optional(),
+    title: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace InteractionsEncounterUpdateRequest {
     export interface Raw {
         identifier?: string | null;
-        period?: InteractionsEncounterPeriod.Raw | null;
         status?: InteractionsEncounterStatusEnum.Raw | null;
-        title?: (string | null) | null;
         type?: InteractionsEncounterTypeEnum.Raw | null;
+        period?: InteractionsEncounterPeriod.Raw | null;
+        title?: (string | null) | null;
     }
 }

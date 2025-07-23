@@ -5,6 +5,6 @@
 export interface DocumentsSectionInput {
     key: string;
     name?: string;
-    sort?: number;
     text?: string;
+    sort?: number;
 }

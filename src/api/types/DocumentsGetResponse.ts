@@ -5,20 +5,20 @@
 import * as Corti from "../index.js";
 
 export interface DocumentsGetResponse {
-    /** The original timestamp when the document was created. */
-    createdAt: Date;
     /** Unique ID of the generated document */
     id: Corti.Uuid;
-    isStream: boolean;
     /** Name of the generated document */
     name: string;
-    /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
-    outputLanguage: string;
-    /** Individual document sections */
-    sections: Corti.DocumentsSection[];
     /** Reference for the used template */
     templateRef: string;
+    isStream: boolean;
+    /** Individual document sections */
+    sections: Corti.DocumentsSection[];
+    /** The original timestamp when the document was created. */
+    createdAt: Date;
     /** The timestamp when the document was last updated. */
     updatedAt: Date;
+    /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
+    outputLanguage: string;
     usageInfo: Corti.CommonUsageInfo;
 }

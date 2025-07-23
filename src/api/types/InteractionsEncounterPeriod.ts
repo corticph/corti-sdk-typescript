@@ -3,8 +3,8 @@
  */
 
 export interface InteractionsEncounterPeriod {
-    /** The end date/time of the encounter. (UTC) */
-    endedAt?: Date | null;
     /** The start date/time of the encounter. (UTC) */
     startedAt: Date;
+    /** The end date/time of the encounter. (UTC) */
+    endedAt?: Date | null;
 }

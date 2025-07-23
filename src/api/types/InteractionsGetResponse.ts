@@ -5,22 +5,22 @@
 import * as Corti from "../index.js";
 
 export interface InteractionsGetResponse {
-    /** A unique identifier for the medical professional responsible for this interaction. If nulled, automatically set to a uuid. */
-    assignedUserId: Corti.Uuid;
-    /** The timestamp when the interaction was started (UTC). */
-    createdAt: Date;
-    /** Information about the encounter, including type, status, and timing. */
-    encounter: Corti.InteractionsEncounterResponse;
-    /** The timestamp when the interaction concluded (UTC). */
-    endedAt?: Date | null;
     /** Unique identifier for the interaction. */
     id: Corti.Uuid;
-    /** The timestamp indicating the last recorded update for this interaction. */
-    lastUpdated: Date;
+    /** A unique identifier for the medical professional responsible for this interaction. If nulled, automatically set to a uuid. */
+    assignedUserId: Corti.Uuid;
+    /** Information about the encounter, including type, status, and timing. */
+    encounter: Corti.InteractionsEncounterResponse;
     /** Details about the patient involved in the interaction, if applicable. */
     patient: Corti.InteractionsPatient;
+    /** The timestamp when the interaction concluded (UTC). */
+    endedAt?: Date | null;
+    /** The timestamp when the interaction was started (UTC). */
+    createdAt: Date;
     /** The timestamp when the interaction was last modified (UTC). */
     updatedAt: Date;
     /** WebSocket URL for streaming real-time interactions. Append a token in the format: /interactions/{interactionID}/streams?token=Bearer token-value-here */
     websocketUrl: string;
+    /** The timestamp indicating the last recorded update for this interaction. */
+    lastUpdated: Date;
 }

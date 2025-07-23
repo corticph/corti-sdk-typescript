@@ -11,17 +11,17 @@ export const FactsUpdateRequest: core.serialization.Schema<
     serializers.FactsUpdateRequest.Raw,
     Corti.FactsUpdateRequest
 > = core.serialization.object({
-    group: core.serialization.string().optional(),
-    isDiscarded: core.serialization.boolean().optional(),
-    source: CommonSourceEnum.optional(),
     text: core.serialization.string().optional(),
+    group: core.serialization.string().optional(),
+    source: CommonSourceEnum.optional(),
+    isDiscarded: core.serialization.boolean().optional(),
 });
 
 export declare namespace FactsUpdateRequest {
     export interface Raw {
-        group?: string | null;
-        isDiscarded?: boolean | null;
-        source?: CommonSourceEnum.Raw | null;
         text?: string | null;
+        group?: string | null;
+        source?: CommonSourceEnum.Raw | null;
+        isDiscarded?: boolean | null;
     }
 }

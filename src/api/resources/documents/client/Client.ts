@@ -168,14 +168,14 @@ export class Documents {
      * @example
      *     await client.documents.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
      *         context: [{
+     *                 type: "facts",
      *                 data: [{
-     *                         source: "core",
-     *                         text: "text"
-     *                     }],
-     *                 type: "facts"
+     *                         text: "text",
+     *                         source: "core"
+     *                     }]
      *             }],
-     *         outputLanguage: "outputLanguage",
-     *         templateKey: "templateKey"
+     *         templateKey: "templateKey",
+     *         outputLanguage: "outputLanguage"
      *     })
      */
     public create(

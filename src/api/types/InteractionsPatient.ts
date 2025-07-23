@@ -5,14 +5,14 @@
 import * as Corti from "../index.js";
 
 export interface InteractionsPatient {
-    /** FHIR reference to patient birth date. */
-    birthDate?: Date | null;
-    /** FHIR reference to patient gender. */
-    gender?: Corti.InteractionsGenderEnum;
     /** FHIR reference to patient identifier. */
     identifier: string;
     /** FHIR reference to Text representation of the full name. */
     name?: string | null;
+    /** FHIR reference to patient gender. */
+    gender?: Corti.InteractionsGenderEnum;
+    /** FHIR reference to patient birth date. */
+    birthDate?: Date | null;
     /** FHIR reference to patient extension Individual Pronouns. */
     pronouns?: string | null;
 }

@@ -7,6 +7,6 @@ import * as Corti from "../index.js";
 export interface TranscriptsListItem {
     /** The unique identifier of the transcript. */
     id: Corti.Uuid;
-    transcript?: Corti.TranscriptsData;
     transcriptSample: string;
+    transcript?: Corti.TranscriptsData;
 }
