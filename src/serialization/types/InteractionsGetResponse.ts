@@ -13,27 +13,27 @@ export const InteractionsGetResponse: core.serialization.ObjectSchema<
     serializers.InteractionsGetResponse.Raw,
     Corti.InteractionsGetResponse
 > = core.serialization.object({
-    id: Uuid,
     assignedUserId: Uuid,
-    encounter: InteractionsEncounterResponse,
-    patient: InteractionsPatient,
-    endedAt: core.serialization.date().optionalNullable(),
     createdAt: core.serialization.date(),
+    encounter: InteractionsEncounterResponse,
+    endedAt: core.serialization.date().optionalNullable(),
+    id: Uuid,
+    lastUpdated: core.serialization.date(),
+    patient: InteractionsPatient,
     updatedAt: core.serialization.date(),
     websocketUrl: core.serialization.string(),
-    lastUpdated: core.serialization.date(),
 });
 
 export declare namespace InteractionsGetResponse {
     export interface Raw {
-        id: Uuid.Raw;
         assignedUserId: Uuid.Raw;
-        encounter: InteractionsEncounterResponse.Raw;
-        patient: InteractionsPatient.Raw;
-        endedAt?: (string | null) | null;
         createdAt: string;
+        encounter: InteractionsEncounterResponse.Raw;
+        endedAt?: (string | null) | null;
+        id: Uuid.Raw;
+        lastUpdated: string;
+        patient: InteractionsPatient.Raw;
         updatedAt: string;
         websocketUrl: string;
-        lastUpdated: string;
     }
 }

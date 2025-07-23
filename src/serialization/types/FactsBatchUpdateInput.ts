@@ -12,16 +12,16 @@ export const FactsBatchUpdateInput: core.serialization.ObjectSchema<
     Corti.FactsBatchUpdateInput
 > = core.serialization.object({
     factId: Uuid,
+    group: core.serialization.string().optional(),
     isDiscarded: core.serialization.boolean().optional(),
     text: core.serialization.string().optional(),
-    group: core.serialization.string().optional(),
 });
 
 export declare namespace FactsBatchUpdateInput {
     export interface Raw {
         factId: Uuid.Raw;
+        group?: string | null;
         isDiscarded?: boolean | null;
         text?: string | null;
-        group?: string | null;
     }
 }

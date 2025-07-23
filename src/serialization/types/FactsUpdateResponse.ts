@@ -12,25 +12,25 @@ export const FactsUpdateResponse: core.serialization.ObjectSchema<
     serializers.FactsUpdateResponse.Raw,
     Corti.FactsUpdateResponse
 > = core.serialization.object({
-    id: Uuid,
-    text: core.serialization.string(),
+    createdAt: core.serialization.date(),
     group: core.serialization.string(),
     groupId: Uuid,
-    source: CommonSourceEnum,
+    id: Uuid,
     isDiscarded: core.serialization.boolean(),
-    createdAt: core.serialization.date(),
+    source: CommonSourceEnum,
+    text: core.serialization.string(),
     updatedAt: core.serialization.date(),
 });
 
 export declare namespace FactsUpdateResponse {
     export interface Raw {
-        id: Uuid.Raw;
-        text: string;
+        createdAt: string;
         group: string;
         groupId: Uuid.Raw;
-        source: CommonSourceEnum.Raw;
+        id: Uuid.Raw;
         isDiscarded: boolean;
-        createdAt: string;
+        source: CommonSourceEnum.Raw;
+        text: string;
         updatedAt: string;
     }
 }

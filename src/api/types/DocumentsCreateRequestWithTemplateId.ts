@@ -7,12 +7,12 @@ import * as Corti from "../index.js";
 export interface DocumentsCreateRequestWithTemplateId {
     /** An array of context objects. */
     context: Corti.DocumentsContext[];
-    /** The UUID of the template to use. */
-    templateId: Corti.Uuid;
-    /** An optional name for the document. */
-    name?: string;
     /** The model or documentation mode to use for summarization. */
     modelName?: string;
+    /** An optional name for the document. */
+    name?: string;
     /** The language in which the document will be generated. Check https://docs.corti.ai/about/languages for more. */
     outputLanguage: string;
+    /** The UUID of the template to use. */
+    templateId: Corti.Uuid;
 }

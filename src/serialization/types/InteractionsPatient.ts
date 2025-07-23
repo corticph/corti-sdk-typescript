@@ -11,19 +11,19 @@ export const InteractionsPatient: core.serialization.ObjectSchema<
     serializers.InteractionsPatient.Raw,
     Corti.InteractionsPatient
 > = core.serialization.object({
+    birthDate: core.serialization.date().optionalNullable(),
+    gender: InteractionsGenderEnum.optional(),
     identifier: core.serialization.string(),
     name: core.serialization.string().optionalNullable(),
-    gender: InteractionsGenderEnum.optional(),
-    birthDate: core.serialization.date().optionalNullable(),
     pronouns: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace InteractionsPatient {
     export interface Raw {
+        birthDate?: (string | null) | null;
+        gender?: InteractionsGenderEnum.Raw | null;
         identifier: string;
         name?: (string | null) | null;
-        gender?: InteractionsGenderEnum.Raw | null;
-        birthDate?: (string | null) | null;
         pronouns?: (string | null) | null;
     }
 }

@@ -3,10 +3,10 @@
  */
 
 export interface FactsEvidence {
-    /** The category of evidence. */
-    type?: string;
-    /** A reference that supports the fact. */
-    reference?: string;
     /** A direct excerpt or phrase extracted from the reference source that justifies the fact. */
     quote?: string;
+    /** A reference that supports the fact. */
+    reference?: string;
+    /** The category of evidence. */
+    type?: string;
 }

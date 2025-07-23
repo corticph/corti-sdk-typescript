@@ -3,16 +3,16 @@
  */
 
 export interface DocumentsSection {
+    /** The original timestamp when the document section was created. */
+    createdAt: Date;
     /** Document section key */
     key: string;
     /** Name or heading of the document section within the generated document */
     name: string;
-    /** Contents of the document section within the generated document */
-    text: string;
     /** Order of the document section within the generated document */
     sort: number;
-    /** The original timestamp when the document section was created. */
-    createdAt: Date;
+    /** Contents of the document section within the generated document */
+    text: string;
     /** The timestamp when the document section was last updated. */
     updatedAt: Date;
 }

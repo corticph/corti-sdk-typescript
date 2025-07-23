@@ -12,15 +12,15 @@ export const DocumentsSectionInput: core.serialization.ObjectSchema<
 > = core.serialization.object({
     key: core.serialization.string(),
     name: core.serialization.string().optional(),
-    text: core.serialization.string().optional(),
     sort: core.serialization.number().optional(),
+    text: core.serialization.string().optional(),
 });
 
 export declare namespace DocumentsSectionInput {
     export interface Raw {
         key: string;
         name?: string | null;
-        text?: string | null;
         sort?: number | null;
+        text?: string | null;
     }
 }

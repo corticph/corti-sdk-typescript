@@ -5,8 +5,8 @@
 import * as Corti from "../index.js";
 
 export interface DocumentsContext {
-    /** The type of context data. */
-    type: Corti.DocumentsContextTypeEnum;
     /** The actual data, which can be an array of facts, a transcript, or a string. */
     data: Corti.DocumentsContextData;
+    /** The type of context data. */
+    type: Corti.DocumentsContextTypeEnum;
 }

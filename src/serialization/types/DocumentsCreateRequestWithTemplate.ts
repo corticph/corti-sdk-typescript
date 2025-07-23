@@ -13,18 +13,18 @@ export const DocumentsCreateRequestWithTemplate: core.serialization.ObjectSchema
     Corti.DocumentsCreateRequestWithTemplate
 > = core.serialization.object({
     context: core.serialization.list(DocumentsContext),
-    template: DocumentsTemplate,
-    name: core.serialization.string().optional(),
     modelName: core.serialization.string().optional(),
+    name: core.serialization.string().optional(),
     outputLanguage: core.serialization.string(),
+    template: DocumentsTemplate,
 });
 
 export declare namespace DocumentsCreateRequestWithTemplate {
     export interface Raw {
         context: DocumentsContext.Raw[];
-        template: DocumentsTemplate.Raw;
-        name?: string | null;
         modelName?: string | null;
+        name?: string | null;
         outputLanguage: string;
+        template: DocumentsTemplate.Raw;
     }
 }

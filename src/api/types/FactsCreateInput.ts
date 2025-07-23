@@ -5,10 +5,10 @@
 import * as Corti from "../index.js";
 
 export interface FactsCreateInput {
-    /** The text content of the fact. */
-    text: string;
     /** The key identifying the group to which the fact belongs. */
     group: string;
     /** The origin of the fact, such as 'USER' or 'SYSTEM'. */
     source?: Corti.CommonSourceEnum;
+    /** The text content of the fact. */
+    text: string;
 }

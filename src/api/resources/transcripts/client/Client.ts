@@ -183,9 +183,9 @@ export class Transcripts {
      *
      * @example
      *     await client.transcripts.create("f47ac10b-58cc-4372-a567-0e02b2c3d479", {
-     *         recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+     *         modelName: "base",
      *         primaryLanguage: "en",
-     *         modelName: "base"
+     *         recordingId: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
      *     })
      */
     public create(

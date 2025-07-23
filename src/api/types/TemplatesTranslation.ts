@@ -3,10 +3,10 @@
  */
 
 export interface TemplatesTranslation {
+    /** Localized description */
+    description?: string;
     /** Language identifier */
     languagesId: string;
     /** Localized name */
     name?: string;
-    /** Localized description */
-    description?: string;
 }

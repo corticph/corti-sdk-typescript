@@ -10,15 +10,15 @@ export const TemplatesTranslation: core.serialization.ObjectSchema<
     serializers.TemplatesTranslation.Raw,
     Corti.TemplatesTranslation
 > = core.serialization.object({
+    description: core.serialization.string().optional(),
     languagesId: core.serialization.property("languages_id", core.serialization.string()),
     name: core.serialization.string().optional(),
-    description: core.serialization.string().optional(),
 });
 
 export declare namespace TemplatesTranslation {
     export interface Raw {
+        description?: string | null;
         languages_id: string;
         name?: string | null;
-        description?: string | null;
     }
 }

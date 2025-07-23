@@ -5,31 +5,31 @@
 import * as serializers from "../../../../index.js";
 import * as Corti from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
-import { Uuid } from "../../../../types/Uuid.js";
-import { TranscriptsParticipant } from "../../../../types/TranscriptsParticipant.js";
 import { TranscriptsCreateRequestModelName } from "../../types/TranscriptsCreateRequestModelName.js";
+import { TranscriptsParticipant } from "../../../../types/TranscriptsParticipant.js";
+import { Uuid } from "../../../../types/Uuid.js";
 
 export const TranscriptsCreateRequest: core.serialization.Schema<
     serializers.TranscriptsCreateRequest.Raw,
     Corti.TranscriptsCreateRequest
 > = core.serialization.object({
-    recordingId: Uuid,
-    primaryLanguage: core.serialization.string(),
+    diarize: core.serialization.boolean().optional(),
     isDictation: core.serialization.boolean().optional(),
     isMultichannel: core.serialization.boolean().optional(),
-    diarize: core.serialization.boolean().optional(),
-    participants: core.serialization.list(TranscriptsParticipant).optional(),
     modelName: TranscriptsCreateRequestModelName,
+    participants: core.serialization.list(TranscriptsParticipant).optional(),
+    primaryLanguage: core.serialization.string(),
+    recordingId: Uuid,
 });
 
 export declare namespace TranscriptsCreateRequest {
     export interface Raw {
-        recordingId: Uuid.Raw;
-        primaryLanguage: string;
+        diarize?: boolean | null;
         isDictation?: boolean | null;
         isMultichannel?: boolean | null;
-        diarize?: boolean | null;
-        participants?: TranscriptsParticipant.Raw[] | null;
         modelName: TranscriptsCreateRequestModelName.Raw;
+        participants?: TranscriptsParticipant.Raw[] | null;
+        primaryLanguage: string;
+        recordingId: Uuid.Raw;
     }
 }

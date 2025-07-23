@@ -5,20 +5,20 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { DocumentsContextTypeEnum } from "./DocumentsContextTypeEnum.js";
 import { DocumentsContextData } from "./DocumentsContextData.js";
+import { DocumentsContextTypeEnum } from "./DocumentsContextTypeEnum.js";
 
 export const DocumentsContext: core.serialization.ObjectSchema<
     serializers.DocumentsContext.Raw,
     Corti.DocumentsContext
 > = core.serialization.object({
-    type: DocumentsContextTypeEnum,
     data: DocumentsContextData,
+    type: DocumentsContextTypeEnum,
 });
 
 export declare namespace DocumentsContext {
     export interface Raw {
-        type: DocumentsContextTypeEnum.Raw;
         data: DocumentsContextData.Raw;
+        type: DocumentsContextTypeEnum.Raw;
     }
 }

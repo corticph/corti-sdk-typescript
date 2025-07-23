@@ -7,10 +7,10 @@ import * as Corti from "../index.js";
 export interface FactsBatchUpdateInput {
     /** The unique identifier of the fact to be updated. */
     factId: Corti.Uuid;
+    /** The updated group key for the fact. */
+    group?: string;
     /** Indicates whether the fact should be discarded. */
     isDiscarded?: boolean;
     /** The updated text content of the fact. */
     text?: string;
-    /** The updated group key for the fact. */
-    group?: string;
 }

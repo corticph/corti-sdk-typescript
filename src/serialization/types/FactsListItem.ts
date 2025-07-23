@@ -5,33 +5,33 @@
 import * as serializers from "../index.js";
 import * as Corti from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { FactsEvidence } from "./FactsEvidence.js";
 import { Uuid } from "./Uuid.js";
 import { CommonSourceEnum } from "./CommonSourceEnum.js";
-import { FactsEvidence } from "./FactsEvidence.js";
 
 export const FactsListItem: core.serialization.ObjectSchema<serializers.FactsListItem.Raw, Corti.FactsListItem> =
     core.serialization.object({
-        id: Uuid.optional(),
-        text: core.serialization.string().optional(),
+        createdAt: core.serialization.date().optional(),
+        evidence: core.serialization.list(FactsEvidence).optional(),
         group: core.serialization.string().optional(),
         groupId: Uuid.optional(),
+        id: Uuid.optional(),
         isDiscarded: core.serialization.boolean().optional(),
         source: CommonSourceEnum.optional(),
-        createdAt: core.serialization.date().optional(),
+        text: core.serialization.string().optional(),
         updatedAt: core.serialization.date().optional(),
-        evidence: core.serialization.list(FactsEvidence).optional(),
     });
 
 export declare namespace FactsListItem {
     export interface Raw {
-        id?: Uuid.Raw | null;
-        text?: string | null;
+        createdAt?: string | null;
+        evidence?: FactsEvidence.Raw[] | null;
         group?: string | null;
         groupId?: Uuid.Raw | null;
+        id?: Uuid.Raw | null;
         isDiscarded?: boolean | null;
         source?: CommonSourceEnum.Raw | null;
-        createdAt?: string | null;
+        text?: string | null;
         updatedAt?: string | null;
-        evidence?: FactsEvidence.Raw[] | null;
     }
 }

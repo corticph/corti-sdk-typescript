@@ -5,18 +5,18 @@
 import * as Corti from "../index.js";
 
 export interface FactsCreateItem {
-    /** The unique identifier of the newly created fact. */
-    id?: Corti.Uuid;
-    /** The textual content of the created fact. */
-    text?: string;
     /** The group key categorizing the fact. */
     group?: string;
     /** The unique identifier of the group to which the fact belongs. */
     groupId?: Corti.Uuid;
-    /** The origin of the fact, such as 'USER' or 'SYSTEM'. */
-    source?: Corti.CommonSourceEnum;
+    /** The unique identifier of the newly created fact. */
+    id?: Corti.Uuid;
     /** Indicates whether the fact has been marked as discarded. */
     isDiscarded?: boolean;
+    /** The origin of the fact, such as 'USER' or 'SYSTEM'. */
+    source?: Corti.CommonSourceEnum;
+    /** The textual content of the created fact. */
+    text?: string;
     /** The timestamp when the fact was last updated. */
     updatedAt?: Date;
 }

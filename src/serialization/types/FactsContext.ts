@@ -9,15 +9,15 @@ import { CommonSourceEnum } from "./CommonSourceEnum.js";
 
 export const FactsContext: core.serialization.ObjectSchema<serializers.FactsContext.Raw, Corti.FactsContext> =
     core.serialization.object({
-        text: core.serialization.string(),
         group: core.serialization.string().optional(),
         source: CommonSourceEnum,
+        text: core.serialization.string(),
     });
 
 export declare namespace FactsContext {
     export interface Raw {
-        text: string;
         group?: string | null;
         source: CommonSourceEnum.Raw;
+        text: string;
     }
 }

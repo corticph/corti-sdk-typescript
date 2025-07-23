@@ -5,18 +5,18 @@
 import * as Corti from "../index.js";
 
 export interface TemplatesSection {
-    /** The timestamp when the section was updated. */
-    dateUpdated?: Date | null;
-    /** Name of the section */
-    name: string;
     /** Alternate names for the section */
     alternateNames?: string[] | null;
-    /** Unique key for the section */
-    key: string;
-    /** Description of the section */
-    description: string;
+    /** The timestamp when the section was updated. */
+    dateUpdated?: Date | null;
     /** Default writing style for the section */
     defaultWritingStyle: Corti.TemplatesWritingStyle;
+    /** Description of the section */
+    description: string;
+    /** Unique key for the section */
+    key: string;
+    /** Name of the section */
+    name: string;
     /** Type of section */
     sectionType: string;
     /** Available translations for the section */

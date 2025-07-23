@@ -6,11 +6,11 @@ import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { Auth } from "./api/resources/auth/client/Client.js";
 import { mergeHeaders } from "./core/headers.js";
+import { Facts } from "./api/resources/facts/client/Client.js";
 import { Interactions } from "./api/resources/interactions/client/Client.js";
+import { Documents } from "./api/resources/documents/client/Client.js";
 import { Recordings } from "./api/resources/recordings/client/Client.js";
 import { Transcripts } from "./api/resources/transcripts/client/Client.js";
-import { Facts } from "./api/resources/facts/client/Client.js";
-import { Documents } from "./api/resources/documents/client/Client.js";
 import { Templates } from "./api/resources/templates/client/Client.js";
 import { Stream } from "./api/resources/stream/client/Client.js";
 import { Transcribe } from "./api/resources/transcribe/client/Client.js";
@@ -45,11 +45,11 @@ export declare namespace CortiClient {
 export class CortiClient {
     protected readonly _options: CortiClient.Options;
     private readonly _oauthTokenProvider: core.OAuthTokenProvider;
+    protected _facts: Facts | undefined;
     protected _interactions: Interactions | undefined;
+    protected _documents: Documents | undefined;
     protected _recordings: Recordings | undefined;
     protected _transcripts: Transcripts | undefined;
-    protected _facts: Facts | undefined;
-    protected _documents: Documents | undefined;
     protected _templates: Templates | undefined;
     protected _auth: Auth | undefined;
     protected _stream: Stream | undefined;
@@ -63,8 +63,8 @@ export class CortiClient {
                     "Tenant-Name": _options?.tenantName,
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "@corti/sdk",
-                    "X-Fern-SDK-Version": "0.1.2-alpha",
-                    "User-Agent": "@corti/sdk/0.1.2-alpha",
+                    "X-Fern-SDK-Version": "0.1.3-alpha",
+                    "User-Agent": "@corti/sdk/0.1.3-alpha",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -82,8 +82,22 @@ export class CortiClient {
         });
     }
 
+    public get facts(): Facts {
+        return (this._facts ??= new Facts({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
     public get interactions(): Interactions {
         return (this._interactions ??= new Interactions({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
+    }
+
+    public get documents(): Documents {
+        return (this._documents ??= new Documents({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));
@@ -98,20 +112,6 @@ export class CortiClient {
 
     public get transcripts(): Transcripts {
         return (this._transcripts ??= new Transcripts({
-            ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
-        }));
-    }
-
-    public get facts(): Facts {
-        return (this._facts ??= new Facts({
-            ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
-        }));
-    }
-
-    public get documents(): Documents {
-        return (this._documents ??= new Documents({
             ...this._options,
             token: async () => await this._oauthTokenProvider.getToken(),
         }));

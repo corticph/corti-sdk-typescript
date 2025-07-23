@@ -12,27 +12,27 @@ export const TemplatesSection: core.serialization.ObjectSchema<
     serializers.TemplatesSection.Raw,
     Corti.TemplatesSection
 > = core.serialization.object({
-    dateUpdated: core.serialization.property("date_updated", core.serialization.date().optionalNullable()),
-    name: core.serialization.string(),
     alternateNames: core.serialization.property(
         "alternate_names",
         core.serialization.list(core.serialization.string()).optionalNullable(),
     ),
-    key: core.serialization.string(),
-    description: core.serialization.string(),
+    dateUpdated: core.serialization.property("date_updated", core.serialization.date().optionalNullable()),
     defaultWritingStyle: core.serialization.property("default_writing_style", TemplatesWritingStyle),
+    description: core.serialization.string(),
+    key: core.serialization.string(),
+    name: core.serialization.string(),
     sectionType: core.serialization.property("section_type", core.serialization.string()),
     translations: core.serialization.list(TemplatesSectionTranslation),
 });
 
 export declare namespace TemplatesSection {
     export interface Raw {
-        date_updated?: (string | null) | null;
-        name: string;
         alternate_names?: (string[] | null) | null;
-        key: string;
-        description: string;
+        date_updated?: (string | null) | null;
         default_writing_style: TemplatesWritingStyle.Raw;
+        description: string;
+        key: string;
+        name: string;
         section_type: string;
         translations: TemplatesSectionTranslation.Raw[];
     }

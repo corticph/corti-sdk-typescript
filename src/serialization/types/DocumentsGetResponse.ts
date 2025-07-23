@@ -13,27 +13,27 @@ export const DocumentsGetResponse: core.serialization.ObjectSchema<
     serializers.DocumentsGetResponse.Raw,
     Corti.DocumentsGetResponse
 > = core.serialization.object({
-    id: Uuid,
-    name: core.serialization.string(),
-    templateRef: core.serialization.string(),
-    isStream: core.serialization.boolean(),
-    sections: core.serialization.list(DocumentsSection),
     createdAt: core.serialization.date(),
-    updatedAt: core.serialization.date(),
+    id: Uuid,
+    isStream: core.serialization.boolean(),
+    name: core.serialization.string(),
     outputLanguage: core.serialization.string(),
+    sections: core.serialization.list(DocumentsSection),
+    templateRef: core.serialization.string(),
+    updatedAt: core.serialization.date(),
     usageInfo: CommonUsageInfo,
 });
 
 export declare namespace DocumentsGetResponse {
     export interface Raw {
-        id: Uuid.Raw;
-        name: string;
-        templateRef: string;
-        isStream: boolean;
-        sections: DocumentsSection.Raw[];
         createdAt: string;
-        updatedAt: string;
+        id: Uuid.Raw;
+        isStream: boolean;
+        name: string;
         outputLanguage: string;
+        sections: DocumentsSection.Raw[];
+        templateRef: string;
+        updatedAt: string;
         usageInfo: CommonUsageInfo.Raw;
     }
 }

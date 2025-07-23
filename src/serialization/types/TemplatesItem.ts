@@ -11,9 +11,9 @@ import { TemplatesTranslation } from "./TemplatesTranslation.js";
 export const TemplatesItem: core.serialization.ObjectSchema<serializers.TemplatesItem.Raw, Corti.TemplatesItem> =
     core.serialization.object({
         dateUpdated: core.serialization.property("date_updated", core.serialization.date().optionalNullable()),
-        name: core.serialization.string(),
         description: core.serialization.string(),
         key: core.serialization.string(),
+        name: core.serialization.string(),
         status: core.serialization.string(),
         templateSections: core.serialization.property(
             "template_sections",
@@ -25,9 +25,9 @@ export const TemplatesItem: core.serialization.ObjectSchema<serializers.Template
 export declare namespace TemplatesItem {
     export interface Raw {
         date_updated?: (string | null) | null;
-        name: string;
         description: string;
         key: string;
+        name: string;
         status: string;
         template_sections: TemplatesSectionSorted.Raw[];
         translations: TemplatesTranslation.Raw[];
