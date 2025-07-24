@@ -5,8 +5,8 @@
 export interface TemplatesTranslation {
     /** Language identifier */
     languagesId: string;
-    /** Localized name */
-    name?: string | null;
-    /** Localized description */
-    description?: string | null;
+    /** Localized name of the template */
+    name?: string;
+    /** Localized description of the template */
+    description?: string;
 }
