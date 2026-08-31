@@ -7,6 +7,7 @@ import { TranscribeAudioEventsConfig } from "./TranscribeAudioEventsConfig.js";
 import { TranscribeCommand } from "./TranscribeCommand.js";
 import { TranscribeConfigKeyterms } from "./TranscribeConfigKeyterms.js";
 import { TranscribeConfigReplacementsItem } from "./TranscribeConfigReplacementsItem.js";
+import { TranscribeConfigTranscriptProcessing } from "./TranscribeConfigTranscriptProcessing.js";
 import { TranscribeFormatting } from "./TranscribeFormatting.js";
 import { TranscribeSupportedLanguage } from "./TranscribeSupportedLanguage.js";
 
@@ -15,6 +16,7 @@ export const TranscribeConfig: core.serialization.ObjectSchema<
     Corti.TranscribeConfig
 > = core.serialization.object({
     primaryLanguage: TranscribeSupportedLanguage,
+    transcriptProcessing: TranscribeConfigTranscriptProcessing.optional(),
     interimResults: core.serialization.boolean().optional(),
     spokenPunctuation: core.serialization.boolean().optional(),
     automaticPunctuation: core.serialization.boolean().optional(),
@@ -29,6 +31,7 @@ export const TranscribeConfig: core.serialization.ObjectSchema<
 export declare namespace TranscribeConfig {
     export interface Raw {
         primaryLanguage: TranscribeSupportedLanguage.Raw;
+        transcriptProcessing?: TranscribeConfigTranscriptProcessing.Raw | null;
         interimResults?: boolean | null;
         spokenPunctuation?: boolean | null;
         automaticPunctuation?: boolean | null;

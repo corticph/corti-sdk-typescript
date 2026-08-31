@@ -14,10 +14,13 @@ export interface TranscriptsCreateRequest {
     recordingId: Corti.Uuid;
     /** The primary spoken language of the recording. Check https://docs.corti.ai/stt/languages for more. */
     primaryLanguage: string;
+    /** Controls how recognized transcript text is processed before it is returned. `standard` (default) applies Corti's standard transcript processing and configured transcript features. `raw` returns the core speech recognition result without transcript transformations or enhancements, which can reduce latency and processing cost but may reduce transcript accuracy. When `raw` is defined, features that transform transcript text (such as formatting or replacements) are not available; features that describe the recognition result (such as timestamps, word-level output, diarization, and audio events) remain supported where applicable. The `text` and `rawTranscriptText` fields contain the same core recognition result. */
+    transcriptProcessing?: Corti.TranscriptsCreateRequestTranscriptProcessing;
     /** When true, converts spoken punctuation such as 'period' or 'slash' into symbols (e.g., '.', '/'). When enabled, automatic punctuation is turned off. Takes precedence over `automaticPunctuation` when both are enabled. */
     spokenPunctuation?: boolean;
     /** When true, automatically punctuates and capitalizes the transcript. Defaults to true. Overridden by `spokenPunctuation` when both are enabled. */
     automaticPunctuation?: boolean;
+    formatting?: Corti.TranscriptsFormatting;
     /** **Deprecated** — replaced by `spokenPunctuation` and `automaticPunctuation`. Ignored when either of those fields is provided. When `true` and neither new field is provided, it is treated as `spokenPunctuation: true` (automatic punctuation off). No removal date is currently planned. */
     isDictation?: boolean;
     /** If true, each audio channel is transcribed separately. */
