@@ -11,6 +11,6 @@ export interface StreamConfigTranscription {
     isDiarization?: boolean;
     /** Enable multi-channel audio processing. When false, all participants are collapsed to channel 0 and the audio is downmixed to mono. */
     isMultichannel?: boolean;
-    /** List of participants, each assigning a free-form role to a channel. The number of audio channels is resolved from the audio stream, not from the declared participants. When isMultichannel is false, all participants are collapsed to channel 0. */
+    /** List of participants, each assigning a free-form role to a channel. For raw PCM, the channel count must be defined; otherwise, the number of audio channels is resolved from the audio itself, not from the declared participants. Leave empty when diarize: true. See [audio formatting](https://docs.corti.ai/stt/audio) for full details. When isMultichannel is false, all participants are collapsed to channel 0. */
     participants: Corti.StreamConfigParticipant[];
 }
