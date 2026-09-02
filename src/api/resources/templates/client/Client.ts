@@ -23,6 +23,8 @@ export class TemplatesClient {
     }
 
     /**
+     * @deprecated
+     *
      * Retrieves a list of template sections with optional filters for organization and language.
      *
      * @param {Corti.TemplatesSectionListRequest} request
@@ -113,6 +115,8 @@ export class TemplatesClient {
     }
 
     /**
+     * @deprecated
+     *
      * Retrieves a list of templates with optional filters for organization, language, and status.
      *
      * @param {Corti.TemplatesListRequest} request
@@ -204,6 +208,8 @@ export class TemplatesClient {
     }
 
     /**
+     * @deprecated
+     *
      * Retrieves template by key.
      *
      * @param {string} key - The key of the template
