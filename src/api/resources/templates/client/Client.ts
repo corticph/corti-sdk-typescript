@@ -27,6 +27,10 @@ export class TemplatesClient {
      *
      * Retrieves a list of template sections with optional filters for organization and language.
      *
+     * <Note>
+     * This endpoint is deprecated in favour of the corresponding GUIDED endpoint. See the [deprecation notice](/release-notes/changelog-upcoming#2026-08-21) for more details and migration guidance.
+     * </Note>
+     *
      * @param {Corti.TemplatesSectionListRequest} request
      * @param {TemplatesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -118,6 +122,10 @@ export class TemplatesClient {
      * @deprecated
      *
      * Retrieves a list of templates with optional filters for organization, language, and status.
+     *
+     * <Note>
+     * This endpoint is deprecated in favour of the corresponding GUIDED endpoint. See the [deprecation notice](/release-notes/changelog-upcoming#2026-08-21) for more details and migration guidance.
+     * </Note>
      *
      * @param {Corti.TemplatesListRequest} request
      * @param {TemplatesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -211,6 +219,10 @@ export class TemplatesClient {
      * @deprecated
      *
      * Retrieves template by key.
+     *
+     * <Note>
+     * This endpoint is deprecated in favour of the corresponding GUIDED endpoint. See the [deprecation notice](/release-notes/changelog-upcoming#2026-08-21) for more details and migration guidance.
+     * </Note>
      *
      * @param {string} key - The key of the template
      * @param {TemplatesClient.RequestOptions} requestOptions - Request-specific configuration.
