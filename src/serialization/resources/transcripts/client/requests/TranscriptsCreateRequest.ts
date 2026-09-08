@@ -8,6 +8,7 @@ import { TranscriptsParticipant } from "../../../../types/TranscriptsParticipant
 import { Uuid } from "../../../../types/Uuid.js";
 import { TranscriptsCreateRequestKeyterms } from "../../types/TranscriptsCreateRequestKeyterms.js";
 import { TranscriptsCreateRequestReplacementsItem } from "../../types/TranscriptsCreateRequestReplacementsItem.js";
+import { TranscriptsCreateRequestWordLevel } from "../../types/TranscriptsCreateRequestWordLevel.js";
 
 export const TranscriptsCreateRequest: core.serialization.Schema<
     serializers.TranscriptsCreateRequest.Raw,
@@ -25,6 +26,7 @@ export const TranscriptsCreateRequest: core.serialization.Schema<
     async: core.serialization.boolean().optional(),
     replacements: core.serialization.list(TranscriptsCreateRequestReplacementsItem).optional(),
     keyterms: TranscriptsCreateRequestKeyterms.optional(),
+    wordLevel: TranscriptsCreateRequestWordLevel.optional(),
 });
 
 export declare namespace TranscriptsCreateRequest {
@@ -41,5 +43,6 @@ export declare namespace TranscriptsCreateRequest {
         async?: boolean | null;
         replacements?: TranscriptsCreateRequestReplacementsItem.Raw[] | null;
         keyterms?: TranscriptsCreateRequestKeyterms.Raw | null;
+        wordLevel?: TranscriptsCreateRequestWordLevel.Raw | null;
     }
 }

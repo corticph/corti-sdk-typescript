@@ -25,7 +25,7 @@ export interface TranscriptsCreateRequest {
     isMultichannel?: boolean;
     /** If true, separates speakers within an audio channel returning incrementing ids for transcript segments. */
     diarize?: boolean;
-    /** An array of participants, each specifying a role and an assigned audio channel in the recording. Leave empty when shouldDiarize: true */
+    /** An array of participants, each specifying a free-form role and an assigned audio channel in the recording. For raw PCM, the channel count must be defined; otherwise, the number of audio channels is resolved from the audio itself, not from the declared participants. Leave empty when diarize: true. See [audio formatting](https://docs.corti.ai/stt/audio) for full details. */
     participants?: Corti.TranscriptsParticipant[];
     /** If true, the request will return immediately with a 202 status and the transcript will be processed asynchronously. Poll [Get Transcript Status](/api-reference/transcripts/get-transcript-status) to check transcript processing status - `processing`, `completed`, `failed`. */
     async?: boolean;
@@ -33,4 +33,6 @@ export interface TranscriptsCreateRequest {
     replacements?: Corti.TranscriptsCreateRequestReplacementsItem[];
     /** Define words, terms, and phrases to be recognized by Corti speech-to-text. Especially useful for proper nouns (e.g., surnames), but also supportive of words not being recognized consistently. */
     keyterms?: Corti.TranscriptsCreateRequestKeyterms;
+    /** When enabled, the transcript is stored and returned at word level instead of phrase/utterance level. Fixed for the lifetime of the transcript once created. */
+    wordLevel?: Corti.TranscriptsCreateRequestWordLevel;
 }
