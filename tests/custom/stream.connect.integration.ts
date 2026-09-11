@@ -893,7 +893,7 @@ describe("cortiClient.stream.connect", () => {
             expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
 
-        it("should reject configuration with invalid participant role", async () => {
+        it("should reject configuration with an empty or whitespace-only participant role", async () => {
             expect.assertions(2);
 
             const interactionId = await createTestInteraction(cortiClient);
@@ -907,7 +907,7 @@ describe("cortiClient.stream.connect", () => {
                         participants: [
                             {
                                 channel: 0,
-                                role: "invalid_role" as any,
+                                role: "   ",
                             },
                         ],
                     },

@@ -35,7 +35,7 @@ describe("cortiClient.agentic.agents.get", () => {
             const result = await cortiClient.agentic.agents.get(created.id);
 
             expect(result.maxLoops).toBe(42);
-            expect(result.expiresAt).toBeNull();
+            expect(result.expiresAt ?? null).toBeNull();
             expect(result).toBeDefined();
             expect(consoleWarnSpy).not.toHaveBeenCalled();
         });

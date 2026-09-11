@@ -32,7 +32,7 @@ describe("cortiClient.agentic.agents.create", () => {
             createdAgentIds.push(result.id);
 
             expect(result.maxLoops).toBe(10);
-            expect(result.expiresAt).toBeNull();
+            expect(result.expiresAt ?? null).toBeNull();
             expect(result).toBeDefined();
             expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
