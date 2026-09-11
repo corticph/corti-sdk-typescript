@@ -592,6 +592,74 @@ describe("cortiClient.stream.connect", () => {
             expect(streamSocket.socket.readyState).toBe(1); // OPEN
             expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
+
+        it("should connect with a free-form custom participant role", async () => {
+            expect.assertions(2);
+
+            const interactionId = await createTestInteraction(cortiClient);
+
+            const streamSocket = await cortiClient.stream.connect({
+                id: interactionId,
+                awaitConfiguration: false,
+                configuration: {
+                    transcription: {
+                        primaryLanguage: "en",
+                        participants: [
+                            {
+                                channel: 0,
+                                role: "Attending Physician",
+                            },
+                        ],
+                    },
+                    mode: {
+                        type: "facts",
+                        outputLocale: "en-US",
+                    },
+                },
+            });
+            activeSockets.push(streamSocket);
+
+            await waitForWebSocketMessage(streamSocket, "CONFIG_ACCEPTED", { rejectOnWrongMessage: true });
+
+            expect(streamSocket.socket.readyState).toBe(1); // OPEN
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("should connect with formatting configuration", () => {
+        it("should connect with formatting options without errors or warnings", async () => {
+            expect.assertions(2);
+
+            const interactionId = await createTestInteraction(cortiClient);
+
+            const streamSocket = await cortiClient.stream.connect({
+                id: interactionId,
+                awaitConfiguration: false,
+                configuration: {
+                    formatting: {
+                        dates: "iso",
+                        times: "h24",
+                        numbers: "numerals",
+                        measurements: "abbreviated",
+                        numericRanges: "numerals",
+                        ordinals: "numerals",
+                    },
+                    transcription: {
+                        primaryLanguage: "en",
+                    },
+                    mode: {
+                        type: "facts",
+                        outputLocale: "en-US",
+                    },
+                },
+            });
+            activeSockets.push(streamSocket);
+
+            await waitForWebSocketMessage(streamSocket, "CONFIG_ACCEPTED", { rejectOnWrongMessage: true });
+
+            expect(streamSocket.socket.readyState).toBe(1); // OPEN
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
     });
 
     describe("should connect with different mode types", () => {

@@ -45,7 +45,7 @@ describe("cortiClient.codes.predict", () => {
                 system: ["icd10cm-outpatient"],
                 context: [{ type: "text", text: faker.lorem.sentence() }],
                 filter: {
-                    include: ["E11"],
+                    include: [{ property: "code", op: "is-a", value: "E11" }],
                 },
             });
 
@@ -60,7 +60,7 @@ describe("cortiClient.codes.predict", () => {
                 system: ["icd10cm-outpatient"],
                 context: [{ type: "text", text: faker.lorem.sentence() }],
                 filter: {
-                    exclude: ["Z00"],
+                    exclude: [{ property: "code", op: "=", value: "Z00" }],
                 },
             });
 
@@ -68,14 +68,20 @@ describe("cortiClient.codes.predict", () => {
             expect(consoleWarnSpy).not.toHaveBeenCalled();
         });
 
-        it("should predict codes with filter.expand without errors or warnings", async () => {
+        it("should predict codes with all filter.op enum values without errors or warnings", async () => {
             expect.assertions(2);
 
             const result = await cortiClient.codes.predict({
                 system: ["icd10cm-outpatient"],
                 context: [{ type: "text", text: faker.lorem.sentence() }],
                 filter: {
-                    expand: true,
+                    include: [
+                        { property: "code", op: "=", value: "E11" },
+                        { property: "code", op: "is-a", value: "E11" },
+                        { property: "code", op: "descendent-of", value: "E11" },
+                        { property: "code", op: "exists", value: true },
+                        { property: "code", op: "in", value: ["E11", "E11.9"] },
+                    ],
                 },
             });
 
@@ -90,14 +96,30 @@ describe("cortiClient.codes.predict", () => {
                 system: ["icd10cm-outpatient"],
                 context: [{ type: "text", text: faker.lorem.sentence() }],
                 filter: {
-                    include: ["E11"],
-                    exclude: ["E11.9"],
-                    expand: true,
+                    include: [{ property: "code", op: "is-a", value: "E11" }],
+                    exclude: [{ property: "code", op: "=", value: "E11.9" }],
                 },
             });
 
             expect(result).toBeDefined();
             expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("should throw error when invalid parameters are provided", () => {
+        it("should throw error when filter.include is passed the old string-array shape", async () => {
+            expect.assertions(1);
+
+            await expect(
+                cortiClient.codes.predict({
+                    system: ["icd10cm-outpatient"],
+                    context: [{ type: "text", text: faker.lorem.sentence() }],
+                    filter: {
+                        // @ts-expect-error include no longer accepts plain strings, only CodesFilterCondition objects
+                        include: ["E11"],
+                    },
+                }),
+            ).rejects.toThrow();
         });
     });
 
