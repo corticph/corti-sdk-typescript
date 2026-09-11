@@ -35,7 +35,7 @@ describe("cortiClient.transcripts.create", () => {
         });
     });
 
-    describe("should create transcript with all participant role enum values", () => {
+    describe("should create transcript with participant role values", () => {
         it('should create transcript with participant role "doctor"', async () => {
             expect.assertions(2);
 
@@ -118,6 +118,70 @@ describe("cortiClient.transcripts.create", () => {
                         role: "patient",
                     },
                 ],
+            });
+
+            expect(result).toBeDefined();
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+
+        // FIXME: server returns 500 "unable to generate transcript" for any non-legacy role value (doctor/patient/multiple
+        // still work). Re-enable once the transcript-generation pipeline supports free-form roles per the spec.
+        it.skip("should create transcript with a free-form custom participant role", async () => {
+            expect.assertions(2);
+
+            const interactionId = await createTestInteraction(cortiClient);
+            const recordingId = await createTestRecording(cortiClient, interactionId);
+
+            const result = await cortiClient.transcripts.create(interactionId, {
+                recordingId,
+                primaryLanguage: "en",
+                participants: [
+                    {
+                        channel: 0,
+                        role: "Attending Physician",
+                    },
+                ],
+            });
+
+            expect(result).toBeDefined();
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("should create transcript with formatting and wordLevel", () => {
+        it("should create transcript with formatting options without errors or warnings", async () => {
+            expect.assertions(2);
+
+            const interactionId = await createTestInteraction(cortiClient);
+            const recordingId = await createTestRecording(cortiClient, interactionId);
+
+            const result = await cortiClient.transcripts.create(interactionId, {
+                recordingId,
+                primaryLanguage: "en",
+                formatting: {
+                    dates: "iso",
+                    times: "h24",
+                    numbers: "numerals",
+                    measurements: "abbreviated",
+                    numericRanges: "numerals",
+                    ordinals: "numerals",
+                },
+            });
+
+            expect(result).toBeDefined();
+            expect(consoleWarnSpy).not.toHaveBeenCalled();
+        });
+
+        it("should create transcript with wordLevel enabled without errors or warnings", async () => {
+            expect.assertions(2);
+
+            const interactionId = await createTestInteraction(cortiClient);
+            const recordingId = await createTestRecording(cortiClient, interactionId);
+
+            const result = await cortiClient.transcripts.create(interactionId, {
+                recordingId,
+                primaryLanguage: "en",
+                wordLevel: { enabled: true },
             });
 
             expect(result).toBeDefined();
@@ -407,7 +471,9 @@ describe("cortiClient.transcripts.create", () => {
             ).rejects.toThrow("Status code: 400");
         });
 
-        it("should throw error when participant role is invalid", async () => {
+        // FIXME: server returns 500 "unable to generate transcript" instead of 400 for a whitespace-only role.
+        // Re-enable once the transcript-generation pipeline validates free-form roles per the spec.
+        it.skip("should throw error when participant role is empty or whitespace-only", async () => {
             expect.assertions(1);
 
             const interactionId = await createTestInteraction(cortiClient);
@@ -420,11 +486,33 @@ describe("cortiClient.transcripts.create", () => {
                     participants: [
                         {
                             channel: 0,
-                            role: "invalid-role" as any,
+                            role: "   ",
                         },
                     ],
                 }),
-            ).rejects.toThrow('Expected enum. Received "invalid-role"');
+            ).rejects.toThrow("Status code: 400");
+        });
+
+        // FIXME: server returns 500 "unable to generate transcript" instead of 400 for a >100-character role.
+        // Re-enable once the transcript-generation pipeline validates free-form roles per the spec.
+        it.skip("should throw error when participant role exceeds 100 characters", async () => {
+            expect.assertions(1);
+
+            const interactionId = await createTestInteraction(cortiClient);
+            const recordingId = await createTestRecording(cortiClient, interactionId);
+
+            await expect(
+                cortiClient.transcripts.create(interactionId, {
+                    recordingId,
+                    primaryLanguage: "en",
+                    participants: [
+                        {
+                            channel: 0,
+                            role: "a".repeat(101),
+                        },
+                    ],
+                }),
+            ).rejects.toThrow("Status code: 400");
         });
 
         it("should throw error when keyterm term exceeds 50 characters", async () => {
